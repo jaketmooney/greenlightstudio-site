@@ -1,4 +1,13 @@
-@import 'tailwindcss';
+/* Confine Tailwind's automatic content detection to src/ (this file lives at
+   src/styles/, so '../' resolves to src/). Without this, Tailwind's default
+   scan walks up from this stylesheet and picks up every non-gitignored file,
+   including docs/ (plan files with Tailwind-lookalike code examples for later
+   tasks) and _archive/ (captured Duda HTML full of classes that collide with
+   Tailwind names, e.g. size-14, flex-element). That leaks unused utility
+   classes into the build and would mask a real bug where a component omits a
+   class it needs — the class could still show up in the CSS "by accident"
+   because the plan or the archive happens to mention it. */
+@import 'tailwindcss' source('../');
 
 @import '@fontsource-variable/rubik';
 @import '@fontsource/source-sans-pro/400.css';
