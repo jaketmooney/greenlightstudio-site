@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import hero from '../../assets/home/hero.jpg';
 ---
+
 <section class="relative isolate overflow-hidden bg-gls-green-dark">
   <Image
     src={hero}
@@ -11,21 +12,31 @@ import hero from '../../assets/home/hero.jpg';
     class="absolute inset-0 -z-10 h-full w-full object-cover"
     loading="eager"
   />
-  <div class="absolute inset-0 -z-10 bg-black/50"></div>
-  <div class="mx-auto flex min-h-[80vh] max-w-4xl flex-col items-center justify-center px-4 py-24 text-center text-white">
-    <p class="font-heading text-2xl">Finally reach your marketing goals with</p>
-    <h1 class="mt-2 font-heading text-4xl font-bold sm:text-5xl">
-      <span class="text-gls-yellow">Custom marketing</span> support
-    </h1>
-    <p class="mt-6 max-w-xl text-lg">
-      We support your team to implement the marketing that matters for your business.
-    </p>
-    <p class="mt-2 text-lg font-bold">On Time. On Budget. On Brand.</p>
-    <a
-      href="#contact-2026"
-      class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow-lg transition hover:opacity-90"
-    >
-      Let's Chat
-    </a>
+  {/* Gradient rather than a flat scrim: keeps the left of the frame clear so
+      the people in the photo stay visible, and darkens only behind the copy
+      on the right. Matches the live site's treatment. */}
+  <div
+    class="absolute inset-0 -z-10 bg-gradient-to-r from-black/25 via-black/35 to-black/70"
+  >
+  </div>
+
+  {/* pt-20 clears the transparent header that overlays this section. */}
+  <div class="mx-auto max-w-6xl px-4 pb-24 pt-32 sm:pt-40">
+    <div class="ml-auto max-w-xl text-center text-white lg:text-right">
+      <p class="text-xl sm:text-2xl">Finally reach your marketing goals with</p>
+      <h1 class="mt-2 font-heading text-4xl font-bold leading-tight sm:text-6xl">
+        <span class="text-gls-yellow">Custom marketing</span> support
+      </h1>
+      <p class="mt-6 text-lg">
+        We support your team to implement the marketing that matters for your business.
+      </p>
+      <p class="mt-2 text-lg font-bold">On Time. On Budget. On Brand.</p>
+      <a
+        href="#contact-2026"
+        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow-lg transition hover:opacity-90"
+      >
+        Let's Chat
+      </a>
+    </div>
   </div>
 </section>

@@ -2,13 +2,28 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
+interface Props {
+  /** Overlay the header on the page's own hero instead of sitting in a bar.
+      Only the homepage has a hero to overlay. */
+  transparent?: boolean;
+}
+const { transparent = false } = Astro.props;
+
+// Section anchors on the homepage. On any other page these resolve back to the
+// homepage first, so they work sitewide.
+const nav = [
+  { href: '/#projects', label: 'Our Work' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#team', label: 'About' },
+  { href: '/#contact-2026', label: 'Contact' },
+];
+
 // Order and targets taken from the live site's header social hub.
 // NOTE: the site's linked address is hello@, not jacob@. All 50 mailto:
 // links across the archived pages use hello@; jacob@ appears once, as
-// plain text in the homepage contact section only (see Task 5).
-//
-// The live site renders these as icon glyphs with no visible text, so the
-// accessible name comes from aria-label rather than link text.
+// plain text in the homepage contact section only.
+// Rendered as icon glyphs with no visible text, so the accessible name
+// comes from aria-label.
 const social = [
   {
     href: 'mailto:hello@greenlightstudio.co',
@@ -33,19 +48,34 @@ const social = [
 ];
 ---
 
-<header class="bg-gls-green-dark">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-    <a href="/" aria-label="Green Light Studio home">
+<header
+  class:list={[
+    'w-full',
+    transparent ? 'absolute inset-x-0 top-0 z-20 bg-transparent' : 'bg-gls-green-dark',
+  ]}
+>
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-4 py-4">
+    <a href="/" aria-label="Green Light Studio home" class="shrink-0">
       <Image src={logo} alt="Green Light Studio" width={200} loading="eager" />
     </a>
-    <nav class="flex items-center gap-4" aria-label="Social links">
+
+    <nav class="order-3 flex flex-wrap items-center gap-6 sm:order-2" aria-label="Main">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="font-heading text-sm font-semibold text-white transition hover:text-gls-yellow sm:text-base"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <nav class="order-2 ml-auto flex items-center gap-4 sm:order-3" aria-label="Social links">
       {
         social.map((s) => (
-          <a
-            href={s.href}
-            aria-label={s.label}
-            class="text-white transition hover:text-gls-yellow"
-          >
+          <a href={s.href} aria-label={s.label} class="text-white transition hover:text-gls-yellow">
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
