@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import pypdf; r=pypdf.PdfReader\\('Rankin - Proposal.pdf'\\); print\\(len\\(r.pages\\)\\); [print\\('----PAGE',i+1,'----\\\\n', \\(r.pages[i].extract_text\\(\\) or ''\\)[:800]\\) for i in range\\(min\\(30,len\\(r.pages\\)\\)\\)]\")",
+      "Bash(PYTHONIOENCODING=utf-8 python -c \"import pypdf; r=pypdf.PdfReader\\('Rankin - Proposal.pdf'\\); print\\('PAGES',len\\(r.pages\\)\\); [print\\('\\\\n----PAGE',i+1,'----\\\\n', \\(r.pages[i].extract_text\\(\\) or ''\\)\\) for i in range\\(len\\(r.pages\\)\\)]\")",
+      "Bash(PYTHONIOENCODING=utf-8 python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(PYTHONIOENCODING=utf-8 python render.py)",
+      "Bash(python sample.py)",
+      "Bash(python sample2.py)",
+      "Bash(node build.js)"
+    ]
+  }
+}
