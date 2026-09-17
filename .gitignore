@@ -4,3 +4,5 @@ dist/
 .wrangler/
 .env
 .DS_Store
+.superpowers/
+_incoming/
