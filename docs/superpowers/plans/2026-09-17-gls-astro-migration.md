@@ -655,10 +655,15 @@ Create `src/components/SiteHeader.astro`. Matches the current site: logo left, s
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
+// Order and targets taken from the live site's header social hub.
+// NOTE: the site's linked address is hello@, not jacob@. All 50 mailto:
+// links across the archived pages use hello@; jacob@ appears once, as
+// plain text in the homepage contact section only (see Task 5).
 const social = [
+  { href: 'mailto:hello@greenlightstudio.co', label: 'Email' },
+  { href: 'https://www.facebook.com/greenlightstudio.co', label: 'Facebook' },
   { href: 'https://www.youtube.com/@greenlightyourmarketing', label: 'YouTube' },
   { href: 'https://www.linkedin.com/company/green-light-marketing-solutions/', label: 'LinkedIn' },
-  { href: 'mailto:jacob@greenlightstudio.co', label: 'Email' },
 ];
 ---
 <header class="bg-gls-green-dark">
