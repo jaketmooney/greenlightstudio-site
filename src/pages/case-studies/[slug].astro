@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResultStat from '../../components/ResultStat.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('caseStudies');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, client, summary, heroImage, heroAlt, services, results } = entry.data;
+---
+
+<BaseLayout title={`${title} | Green Light Studio`} description={summary}>
+  <article class="mx-auto max-w-3xl px-4 py-16">
+    <p class="font-semibold text-gls-green">{client}</p>
+    <h1 class="mt-2 font-heading text-3xl text-gls-green-dark sm:text-4xl">{title}</h1>
+
+    <Image
+      src={heroImage}
+      alt={heroAlt}
+      width={1200}
+      height={630}
+      class="mt-8 w-full rounded-lg object-cover"
+    />
+
+    {
+      results.length > 0 && (
+        <div class="mt-10 grid gap-4 sm:grid-cols-3">
+          {results.map((r) => (
+            <ResultStat value={r.value} label={r.label} delta={r.delta} />
+          ))}
+        </div>
+      )
+    }
+
+    <div class="prose prose-lg mt-10 max-w-none prose-headings:font-heading prose-headings:text-gls-green-dark prose-a:text-gls-green">
+      <Content />
+    </div>
+
+    {
+      services.length > 0 && (
+        <ul class="mt-12 flex flex-wrap gap-2">
+          {services.map((s) => (
+            <li class="rounded-full bg-gls-green/15 px-3 py-1 text-sm">{s}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
+      <a href="/our-work" class="text-gls-green underline">← All case studies</a>
+      <a
+        href="/#contact-2026"
+        class="inline-block rounded bg-gls-green px-6 py-2 font-semibold text-white transition hover:bg-gls-green-dark"
+      >
+        Let's Chat
+      </a>
+    </div>
+  </article>
+</BaseLayout>

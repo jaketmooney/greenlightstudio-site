@@ -9,14 +9,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "node scripts/build-redirects.mjs && node scripts/verify-redirects.mjs && astro build",
+    "preview": "astro preview",
+    "redirects": "node scripts/build-redirects.mjs && node scripts/verify-redirects.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
     "cheerio": "^1.2.0",
     "turndown": "^7.2.4",
     "turndown-plugin-gfm": "^1.0.2"

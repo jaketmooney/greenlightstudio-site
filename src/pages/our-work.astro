@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+
+const entries = (await getCollection('caseStudies')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Our Work | Green Light Studio"
+  description="Case studies from marketing work with industrial manufacturers, NGOs and purpose-driven organisations across the U.S., Europe and Southeast Asia."
+>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h1 class="font-heading text-4xl text-gls-green-dark sm:text-5xl">Our Work</h1>
+    <p class="mt-4 max-w-2xl text-lg">
+      Projects with industrial manufacturers, commercial companies, NGOs and
+      purpose-driven organisations.
+    </p>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry) => <CaseStudyCard entry={entry} />)}
+    </div>
+
+    <div class="mt-16 text-center">
+      <a
+        href="/#contact-2026"
+        class="inline-block rounded bg-gls-green px-8 py-3 font-semibold text-white transition hover:bg-gls-green-dark"
+      >
+        Let's Chat
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -23,6 +23,18 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {/* Cloudflare Web Analytics: free, cookieless, so no consent banner is
+        needed. The token is issued when the Pages project exists (Task 10)
+        and is supplied as a build-time env var, so no placeholder ships. */}
+    {
+      import.meta.env.PUBLIC_CF_BEACON && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${import.meta.env.PUBLIC_CF_BEACON}"}`}
+        />
+      )
+    }
   </head>
   <body class="font-body bg-gls-paper text-gls-ink">
     <SiteHeader />

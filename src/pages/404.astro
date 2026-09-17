@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found | Green Light Studio"
+  description="That page has moved or no longer exists."
+>
+  <section class="mx-auto max-w-2xl px-4 py-24 text-center">
+    <p class="font-heading text-6xl text-gls-green">404</p>
+    <h1 class="mt-4 font-heading text-3xl text-gls-green-dark">Page not found</h1>
+    <p class="mt-4 text-lg">That page has moved or no longer exists.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-6">
+      <a href="/" class="text-gls-green underline">Home</a>
+      <a href="/our-work" class="text-gls-green underline">Our work</a>
+      <a href="/#contact-2026" class="text-gls-green underline">Get in touch</a>
+    </div>
+  </section>
+</BaseLayout>
