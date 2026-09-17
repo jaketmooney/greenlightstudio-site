@@ -6,12 +6,16 @@ import hero from '../../assets/home/hero.jpg';
 {/* min-h-dvh, not min-h-screen: dvh tracks the *visible* viewport on mobile,
     so the hero is not cut off by the browser's collapsing address bar. */}
 <section class="relative isolate flex min-h-dvh flex-col overflow-hidden bg-gls-green-dark">
+  {/* A phone shows only ~31% of this frame's width, so the crop window has to
+      be placed deliberately: 42% puts the seated subject just right of centre
+      across common phone sizes. Desktop shows enough of the frame that plain
+      centring works. */}
   <Image
     src={hero}
     alt=""
     width={1920}
     height={1280}
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-[65%_center] sm:object-center"
+    class="absolute inset-0 -z-10 h-full w-full object-cover object-[42%_center] sm:object-center"
     loading="eager"
   />
   {/* Desktop: darken to the right, behind the copy, leaving the people clear.
