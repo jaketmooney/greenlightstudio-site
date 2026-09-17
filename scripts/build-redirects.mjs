@@ -16,7 +16,7 @@ const moved = CASE_STUDIES.filter((c) => c.old !== `/case-studies/${c.slug}`);
 // Two sitemap entries carry a stray leading space. They 404 on the live site
 // today; redirecting them costs two lines and fixes a standing defect.
 const MALFORMED = [
-  { from: '/%20cro-case-study-workwear-branding-sme-growth', to: '/our-work' },
+  { from: '/%20cro-case-study-workwear-branding-sme-growth', to: '/our-work/' },
   { from: '/%20video-marketing-industrial-b2b-2025', to: '/' },
 ];
 
@@ -42,7 +42,7 @@ const lines = [
   '# before dynamic ones, so ordering here is deliberate.',
   '',
   `# Case studies: legacy paths to standardised /case-studies/<slug> (${moved.length})`,
-  ...moved.map((c) => `${pad(c.old, width)}/case-studies/${c.slug}  301`),
+  ...moved.map((c) => `${pad(c.old, width)}/case-studies/${c.slug}/  301`),
   '',
   '# Sections cut from the rebuild',
   ...cutStatic.map((r) => `${pad(r.from, width)}${r.to}  301`),

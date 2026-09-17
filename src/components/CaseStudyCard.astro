@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 interface Props { entry: CollectionEntry<'caseStudies'> }
 const { entry } = Astro.props;
 ---
-<a href={`/case-studies/${entry.id}`} class="group block overflow-hidden rounded-lg bg-white shadow">
+<a href={`/case-studies/${entry.id}/`} class="group block overflow-hidden rounded-lg bg-white shadow">
   <Image src={entry.data.heroImage} alt={entry.data.heroAlt} width={600} height={400}
          class="h-48 w-full object-cover transition group-hover:scale-105" />
   <div class="p-5">
