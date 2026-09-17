@@ -2,10 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
+import { featuredInOrder, restAfterFeatured } from '../data/featured';
 
-const entries = (await getCollection('caseStudies')).sort(
-  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
-);
+const all = await getCollection('caseStudies');
+// The owner's chosen eight lead the page, in their order; everything else
+// follows, newest first.
+const entries = [...featuredInOrder(all), ...restAfterFeatured(all)];
 ---
 
 <BaseLayout

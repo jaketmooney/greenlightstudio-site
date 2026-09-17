@@ -59,7 +59,13 @@ const social = [
       <Image src={logo} alt="Green Light Studio" width={200} loading="eager" />
     </a>
 
-    <nav class="order-3 flex flex-wrap items-center gap-6 sm:order-2" aria-label="Main">
+    <nav
+      class:list={[
+        'order-3 flex-wrap items-center gap-6 sm:order-2 sm:flex',
+        transparent ? 'hidden sm:flex' : 'flex',
+      ]}
+      aria-label="Main"
+    >
       {
         nav.map((item) => (
           <a
@@ -72,7 +78,13 @@ const social = [
       }
     </nav>
 
-    <nav class="order-2 ml-auto flex items-center gap-4 sm:order-3" aria-label="Social links">
+    <nav
+      class:list={[
+        'order-2 ml-auto items-center gap-4 sm:order-3 sm:flex',
+        transparent ? 'hidden sm:flex' : 'flex',
+      ]}
+      aria-label="Social links"
+    >
       {
         social.map((s) => (
           <a href={s.href} aria-label={s.label} class="text-white transition hover:text-gls-yellow">
