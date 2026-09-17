@@ -20,7 +20,7 @@
 - All case studies live at `/case-studies/<slug>`. Every legacy URL gets an explicit 301.
 - No Google Analytics. No GA4 property. No MailerLite script. Cloudflare Web Analytics only.
 - SPF record `include:_spf.mlsend.com` must be preserved during DNS work — MailerLite still sends mail even though it is removed from the site.
-- The `#contact-2026` anchor id must exist on the homepage; many legacy links target it.
+- The `#contact-2026` and `#services` anchor ids must exist on the homepage; legacy links and redirects target both.
 - Commit after every task.
 
 ---
@@ -786,7 +786,7 @@ Create one file per section under `src/components/home/`. Copy is taken verbatim
 | `Intro.astro` | "I'm Jake. I've been there." — the two problems, then the two solution paragraphs |
 | `Projects.astro` | "some of our **PROJECTS**" — grid of `featured` case studies. Props: `{ entries: CollectionEntry<'caseStudies'>[] }`, rendered via `CaseStudyCard` |
 | `Testimonials.astro` | "let's get to work!" / "why us?" / "the team" — the 4 YouTube embeds, each via the `YouTube` component |
-| `Services.astro` | "What do we actually do?" — the 16-item service list |
+| `Services.astro` | "What do we actually do?" — the 16-item service list. **Must carry `id="services"`** — Task 9 redirects the four cut `/services/*` pages to `/#services`, and without the anchor they land on the homepage with no scroll target. |
 | `WhoWeWorkWith.astro` | "Who we work with" — industries served, and the explicit "we don't work with startups, tech, crypto, or AI" paragraph |
 | `HowWeWork.astro` | "How we work with you" |
 | `Pricing.astro` | "What's it cost?" — including "Typical engagements start around $3,500 monthly." |
