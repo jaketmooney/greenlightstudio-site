@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "greenlightstudio-site",
+  "compatibility_date": "2026-09-17",
+
+  // Pure static site: no Worker script, so there is no "main" entry.
+  // Cloudflare serves everything from the build output directly.
+  "assets": {
+    "directory": "./dist",
+
+    // Serve dist/404.html for anything that matches neither a static asset
+    // nor a rule in public/_redirects. The default would be a bare 404 with
+    // no page. Do NOT use "single-page-application" here: that returns 200
+    // with index.html for unknown paths, which would tell search engines
+    // every mistyped URL is a real page.
+    "not_found_handling": "404-page"
+  }
+}
