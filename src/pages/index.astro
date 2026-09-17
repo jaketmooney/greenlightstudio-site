@@ -1,6 +1,31 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Intro from '../components/home/Intro.astro';
+import Projects from '../components/home/Projects.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import Services from '../components/home/Services.astro';
+import WhoWeWorkWith from '../components/home/WhoWeWorkWith.astro';
+import HowWeWork from '../components/home/HowWeWork.astro';
+import Pricing from '../components/home/Pricing.astro';
+import Differentiators from '../components/home/Differentiators.astro';
+import Contact from '../components/home/Contact.astro';
+
+const featured = (await getCollection('caseStudies')).filter((e) => e.data.featured);
 ---
-<BaseLayout title="Green Light Studio" description="Green Light Studio marketing and video production.">
-  <h1 class="text-gls-green font-heading">Green Light Studio</h1>
+<BaseLayout
+  title="Green Light Studio | Calm Marketing"
+  description="We help your team build a practical marketing plan and carry enough of the load that marketing becomes manageable and measurable again."
+>
+  <Hero />
+  <Intro />
+  <Projects entries={featured} />
+  <Testimonials />
+  <Services />
+  <WhoWeWorkWith />
+  <HowWeWork />
+  <Pricing />
+  <Differentiators />
+  <Contact />
 </BaseLayout>

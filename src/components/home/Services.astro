@@ -1,0 +1,27 @@
+---
+const items = [
+  'Annual marketing plans',
+  'Video editing',
+  'Podcast editing',
+  'Social media',
+  'Branding',
+  'Newsletters',
+  'Sales Promotion designs',
+  'Video case studies',
+  'International dealer marketing support',
+  'Article writing',
+  'YouTube channel management',
+  '3D product visualization',
+  'Website upgrades',
+  'Google/Facebook ads',
+  'Influencer marketing',
+];
+---
+<section id="services" class="bg-gls-paper px-4 py-16">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center font-heading text-3xl font-bold sm:text-4xl">What do we actually do?</h2>
+    <ul class="mx-auto mt-8 grid max-w-2xl list-disc gap-x-8 gap-y-2 pl-5 sm:grid-cols-2">
+      {items.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>

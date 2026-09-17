@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import YouTube from '../YouTube.astro';
+import teamMeeting from '../../assets/home/team-meeting.jpg';
+import iconStrategy from '../../assets/home/icon-strategy.svg';
+import iconCopilot from '../../assets/home/icon-copilot.svg';
+import iconFulfillment from '../../assets/home/icon-fulfillment.svg';
+import iconMedia from '../../assets/home/icon-media.svg';
+import iconCoaching from '../../assets/home/icon-coaching.svg';
+
+const services = [
+  {
+    icon: iconStrategy,
+    title: 'Marketing Strategy',
+    description:
+      "Start with a sensible and achievable marketing strategy that shows what to stop, what to keep doing, and how to focus over the next 3, 9, and 15 months. Practical and not over-complicated.",
+  },
+  {
+    icon: iconCopilot,
+    title: 'Marketing Co-Pilot',
+    description:
+      'We bolt onto your team with high level strategy support, while also clearing your backlog, and handle execution so you can lead strategy instead of drowning in to-dos.',
+  },
+  {
+    icon: iconFulfillment,
+    title: 'Marketing Fulfillment',
+    description:
+      "You know what needs to be done and just need a partner to action it! We handle the ongoing and ad hoc work your team doesn't have capacity for - at less than cost of one local hire.",
+  },
+  {
+    icon: iconMedia,
+    title: 'Media Retainer',
+    description:
+      'Consistent, on-brand video and podcast editing and publishing without managing freelancers or chasing unfinished footage.',
+  },
+  {
+    icon: iconCoaching,
+    title: 'Coaching',
+    description:
+      '1:1 support for marketing leaders and CEOs who need a sensible sounding board with an experienced and empathetic marketing leader.',
+  },
+];
+---
+<section class="bg-white px-4 py-16">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="font-heading text-xl text-gls-ink/70">let's get to work!</p>
+      <h2 class="font-heading text-4xl font-bold sm:text-5xl">Services</h2>
+    </div>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      {services.map((service) => (
+        <div class="text-center">
+          <Image src={service.icon} alt="" width={72} height={72} class="mx-auto h-16 w-16" />
+          <h3 class="mt-4 font-heading text-lg font-bold">{service.title}</h3>
+          <p class="mt-2 text-sm">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mx-auto mt-12 max-w-3xl">
+      <YouTube id="Txas4ESKQ5I" title="Extending Your Marketing Team with Green Light Studio" />
+    </div>
+
+    <div class="mt-8 text-center">
+      <a
+        href="#contact-2026"
+        class="inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90"
+      >
+        Let's Chat
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="relative isolate overflow-hidden bg-gls-green-dark px-4 py-16 text-white">
+  <Image
+    src={teamMeeting}
+    alt=""
+    width={1920}
+    height={1280}
+    class="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+  />
+  <div class="mx-auto max-w-4xl text-center">
+    <p class="font-heading text-xl text-white/70">why us?</p>
+    <h2 class="font-heading text-4xl font-bold sm:text-5xl">the team</h2>
+    <p class="mx-auto mt-6 max-w-2xl text-lg">
+      Green Light Studio is a compact, experienced marketing implementation team that helps clarify your
+      strategy and carry enough of the load so marketing becomes manageable and measurable again.
+    </p>
+    <p class="mt-6 font-heading text-xl font-bold">Sound like a team you want to work with?</p>
+    <a
+      href="#contact-2026"
+      class="mt-6 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90"
+    >
+      Work with us
+    </a>
+  </div>
+
+  <div class="mx-auto mt-12 grid max-w-6xl gap-8 lg:grid-cols-3">
+    <YouTube id="zPAM7uoANrk" title="What is 'Calm Marketing' and Why It Works" />
+    <YouTube id="x9x9I7G_svo" title="The Antidote to Marketing that Goes Nowhere..." />
+    <YouTube id="0y06kY-RGow" title="Run Your Business. We'll Handle the Marketing" />
+  </div>
+</section>

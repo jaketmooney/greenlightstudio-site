@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import jake from '../../assets/home/jake-portrait.jpg';
+---
+<section class="bg-gls-paper px-4 py-16">
+  <div class="mx-auto max-w-5xl">
+    <div class="text-center">
+      <p class="font-heading text-xl text-gls-ink/70">is <em>this</em> the</p>
+      <h2 class="font-heading text-4xl font-bold sm:text-5xl">status quo?</h2>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-2xl bg-white p-6 shadow">
+        <h3 class="font-heading text-xl font-bold">for business leaders...</h3>
+        <p class="mt-3">
+          You're spending on marketing but you can't tell what it's actually doing for the business.
+        </p>
+        <p class="mt-3">And you're not sure if the problem is the strategy, the team, or both.</p>
+      </div>
+      <div class="rounded-2xl bg-white p-6 shadow">
+        <h3 class="font-heading text-xl font-bold">for marketing leaders...</h3>
+        <p class="mt-3">
+          You know what needs doing but you're buried in requests from sales and leadership.
+        </p>
+        <p class="mt-3">
+          So instead of driving marketing forward, you're running a service desk for other departments.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto mt-20 grid max-w-5xl items-center gap-10 sm:grid-cols-2">
+    <div>
+      <h2 class="font-heading text-3xl font-bold sm:text-4xl">I'm Jake. I've been there.</h2>
+      <p class="mt-4">
+        After years of managing marketing strategies and teams, I kept running into
+        <strong>the same two problems</strong>:
+      </p>
+      <ul class="mt-4 list-disc space-y-1 pl-5">
+        <li>Nobody knows if marketing is working</li>
+        <li>The <strong>to-do list never gets shorter</strong></li>
+      </ul>
+      <p class="mt-4">
+        So we help you build a <strong>practical plan</strong> that is grounded in what the
+        <strong>business actually needs</strong> and <strong>achievable</strong> with the resources you have.
+      </p>
+      <p class="mt-4">
+        Then <strong>we work alongside your team</strong> to clear the backlog, manage ongoing work, and give
+        <strong>you the capacity to lead</strong> marketing instead of just keeping up with it.
+      </p>
+      <a
+        href="#contact-2026"
+        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90"
+      >
+        Let's Chat
+      </a>
+    </div>
+    <div class="text-center">
+      <Image
+        src={jake}
+        alt="Jake Mooney, founder of Green Light Studio"
+        width={600}
+        height={600}
+        class="mx-auto rounded-2xl object-cover shadow-lg"
+      />
+      <p class="mt-4 font-heading font-bold">Jake Mooney</p>
+      <p class="text-sm text-gls-ink/70">Founder &middot; Green Light Studio</p>
+    </div>
+  </div>
+</section>

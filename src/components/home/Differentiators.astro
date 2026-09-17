@@ -1,0 +1,38 @@
+---
+const blocks = [
+  {
+    title: 'Nothing off-the-shelf',
+    paragraphs: [
+      "We don't grab a 'social media template' and apply it to your brand and 20 other brands.",
+      'Everything we do is tailored to your business needs.',
+      'We adapt to your market, your internal constraints, and the reality of how your company actually operates, and most importantly, what your customers expect.',
+    ],
+  },
+  {
+    title: 'Tightknit by design',
+    paragraphs: [
+      'Our team is intentionally small. We hire carefully, train seriously, and work with a limited number of clients at a time. Everyone on the team takes pride in their work and is accountable for what they deliver.',
+      'Between us, we speak nine languages and work comfortably across time zones.',
+    ],
+  },
+  {
+    title: 'A long-term vision',
+    paragraphs: [
+      "We don't do one-off projects or short engagements. Our work is built around long-term partnerships where strategy, systems, and execution improve steadily over time.",
+      "Most clients stay with us for years because the work reduces pressure, increases confidence in what's working, and actually moves the business forward.",
+    ],
+  },
+];
+---
+<section class="bg-gls-paper px-4 py-16">
+  <div class="mx-auto grid max-w-6xl gap-10 sm:grid-cols-3">
+    {blocks.map((block) => (
+      <div>
+        <h3 class="font-heading text-2xl font-bold">{block.title}</h3>
+        {block.paragraphs.map((p) => (
+          <p class="mt-3">{p}</p>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>

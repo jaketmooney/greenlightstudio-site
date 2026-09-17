@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import CaseStudyCard from '../CaseStudyCard.astro';
+import brushStroke from '../../assets/home/brush-stroke.png';
+
+interface Props { entries: CollectionEntry<'caseStudies'>[] }
+const { entries } = Astro.props;
+---
+<section class="px-4 py-16">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="font-heading text-xl text-gls-ink/70">some of our</p>
+      <h2 class="font-heading text-4xl font-bold sm:text-5xl">PROJECTS</h2>
+      <Image src={brushStroke} alt="" width={230} height={27} class="mx-auto mt-2" />
+    </div>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry) => <CaseStudyCard entry={entry} />)}
+    </div>
+  </div>
+</section>
