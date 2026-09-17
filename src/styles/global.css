@@ -14,7 +14,13 @@
 @import '@fontsource/source-sans-pro/600.css';
 @import '@fontsource/source-sans-pro/700.css';
 
-@theme {
+/* static: these brand tokens are a contract that later tasks and the site
+   owner (non-developer hand-edits after handover) build against, so they must
+   be emitted unconditionally — not dropped just because no utility class
+   referencing them happens to appear in what Tailwind's Vite plugin scans
+   (e.g. inline style="" attributes or CSS served from public/ never get
+   scanned at all). */
+@theme static {
   --color-gls-green: #59b062;
   --color-gls-yellow: #ffc421;
   --color-gls-green-dark: #2b3c26;
