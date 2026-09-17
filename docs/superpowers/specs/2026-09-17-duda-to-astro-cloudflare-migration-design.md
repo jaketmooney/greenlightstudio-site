@@ -50,7 +50,7 @@ Two alternatives were rejected:
 
 | Layer | Choice | Rationale |
 |---|---|---|
-| Framework | Astro 5, `output: 'static'` | Ships zero JS by default; content collections are native |
+| Framework | Astro 7, `output: 'static'` | Ships zero JS by default; content collections are native. Astro 5 carries a critical AVIF RCE advisory (GHSA-26w7-cxv4-gfx2) and 9 others; v7 clears them. |
 | Styling | Tailwind CSS 4 | Brand tokens as CSS variables |
 | Fonts | `@fontsource` Rubik + Source Sans Pro | Same fonts as today, self-hosted, no Google CDN request |
 | Images | Astro `<Image>` + sharp | Auto WebP/AVIF, responsive sizes, lazy loading |
@@ -154,7 +154,7 @@ a content decision for the site owner, not a technical blocker.
 Case studies are an Astro content collection: one markdown file per study in
 `src/content/case-studies/`, rendered by a single `[slug].astro` template.
 
-This mirrors how Duda already stores them — all 22 render through one shared
+This mirrors how Duda already stores them — all 23 render through one shared
 template bound to `blog.title`, confirmed by the identical `id="1554741311"` H1
 across pages.
 

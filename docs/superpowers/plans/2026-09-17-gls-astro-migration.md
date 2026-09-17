@@ -6,14 +6,14 @@
 
 **Architecture:** A crawl-and-archive pass captures every page's HTML and every image off Duda's CDN before anything else, because those assets become unrecoverable when the Duda subscription lapses. The archive is then converted to markdown in an Astro content collection with a Zod-validated schema. Pages render through one shared case study template. A generated `_redirects` file maps every legacy URL to its new home.
 
-**Tech Stack:** Astro 5 (static output), Tailwind CSS 4, `@fontsource` self-hosted fonts, `@astrojs/sitemap`, `lite-youtube-embed`, Cloudflare Pages, Cloudflare Web Analytics.
+**Tech Stack:** Astro 7 (static output), Tailwind CSS 4, `@fontsource` self-hosted fonts, `@astrojs/sitemap`, `lite-youtube-embed`, Cloudflare Pages, Cloudflare Web Analytics.
 
 **Spec:** `docs/superpowers/specs/2026-09-17-duda-to-astro-cloudflare-migration-design.md`
 
 ## Global Constraints
 
 - **Do not cancel or allow the Duda subscription to lapse until Task 11 completes.** All source imagery lives on Duda's CDN.
-- Node 20.3+ required (Astro 5 floor).
+- Node 22.12+ required (Astro 7 floor). Cloudflare Pages must be set to NODE_VERSION=22 or higher.
 - `output: 'static'`. No SSR, no server endpoints, no forms, no backend.
 - Brand tokens, exact values: green `#59B062`, yellow `#FFC421`, dark green `#2B3C26`, ink `#242925`, paper `#F1EFEE`.
 - Heading font Rubik; body font Source Sans Pro. Self-hosted via `@fontsource`. No Google Fonts CDN request.
@@ -286,9 +286,15 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 - [ ] **Step 1: Install Astro and Tailwind 4**
 
 ```bash
-npm install astro@^5 @astrojs/sitemap@^3 tailwindcss@^4 @tailwindcss/vite@^4 sharp@^0.33
+npm install astro@^7 @astrojs/sitemap@^3 tailwindcss@^4 @tailwindcss/vite@^4 sharp@^0.35
 npm install @fontsource-variable/rubik @fontsource/source-sans-pro lite-youtube-embed
 ```
+
+Astro 7, not 5: Astro 5 carries a critical AVIF image-optimization RCE
+(GHSA-26w7-cxv4-gfx2) plus 9 further advisories, and sharp below 0.35.4 inherits
+high-severity libvips and libheif vulnerabilities. Both are cleared by these
+versions. `@tailwindcss/vite@4` declares Vite `^8` support, which is what Astro 7
+uses.
 
 - [ ] **Step 2: Write the Astro config**
 
@@ -302,6 +308,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://greenlightstudio.co',
   output: 'static',
+  // Astro 7 defaults compressHTML to 'jsx', which strips whitespace between
+  // inline elements using JSX rules — "<span>hello</span> <em>world</em>"
+  // renders as "helloworld". This site is being rebuilt for visual parity with
+  // the live Duda site, so keep the pre-v7 HTML-aware behaviour.
+  compressHTML: true,
   integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
 });
@@ -378,7 +389,7 @@ Expected: `OK: brand green present`.
 
 ```bash
 git add -A
-git commit -m "feat: scaffold Astro 5 with Tailwind 4 and brand tokens
+git commit -m "feat: scaffold Astro 7 with Tailwind 4 and brand tokens
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 ```
@@ -401,7 +412,11 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 Create `src/content.config.ts`:
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+// Astro 6 deprecated re-exporting `z` from 'astro:content'. Import Zod from
+// 'astro/zod' instead. Note Zod 4 semantics: a .default() must match the
+// OUTPUT type, not the input — the defaults below already do.
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const caseStudies = defineCollection({
@@ -1250,7 +1265,7 @@ In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect 
 | Framework preset | Astro |
 | Build command | `npm run build` |
 | Output directory | `dist` |
-| Node version | `20` (env var `NODE_VERSION=20`) |
+| Node version | `22` (env var `NODE_VERSION=22`) |
 
 - [ ] **Step 3: Enable Web Analytics and set the beacon token**
 
