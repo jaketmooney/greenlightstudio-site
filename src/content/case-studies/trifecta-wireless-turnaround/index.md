@@ -32,7 +32,7 @@ Despite a strong product, the company faced a two-year decline in customers and 
 
   
 
-"We had gone through three different agencies in the last year, all of which were unsuccessful," says CEO Steve Krupp. "One gave outright false conversion metrics, another would often take 5-7 days to respond to messages, and another had a prohibitively high CPA."
+> "We had gone through three different agencies in the last year, all of which were unsuccessful," says CEO Steve Krupp. "One gave outright false conversion metrics, another would often take 5-7 days to respond to messages, and another had a prohibitively high CPA."
 
   
 
@@ -46,7 +46,7 @@ Steve met Jake Mooney, founder of Green Light Studio, over a year prior. After a
 
   
 
-"What he said resonated with what I had learned in the past, and it was spot-on advice for where we were at," Steve recalls.
+> "What he said resonated with what I had learned in the past, and it was spot-on advice for where we were at," Steve recalls.
 
 At first, their calls were informal, but as Steve saw the value of Green Light Studio’s input, he decided to formally engage Jake as a consultant.
 
@@ -100,10 +100,9 @@ In just six weeks, Trifecta Wireless:
 
 ![](./b339b34d.png)
 
-"We've since then begun an upward trajectory," says Steve. "The two-year decline of the company has turned around, and we're out of the danger zone of being unprofitable."
+> "We've since then begun an upward trajectory," says Steve. "The two-year decline of the company has turned around, and we're out of the danger zone of being unprofitable."
 
-### **  
-Why This Worked: The Value of the Right Guidance**
+### Why This Worked: The Value of the Right Guidance
 
 Trifecta’s previous failures weren’t just about bad agencies—they didn’t know what they needed until it was too late.  
 "A consultant can be a great way to avoid that mistake and get matched up with the right implementation solution," Jake explains.
@@ -114,9 +113,8 @@ For Steve, the biggest value wasn’t just the strategy—it was the clarity and
 
   
 
-"Working with Jake provided the clarity I needed to know how to move forward with marketing for our company," he says. "That meant we were able to keep this company alive and keep all our people employed."
+> "Working with Jake provided the clarity I needed to know how to move forward with marketing for our company," he says. "That meant we were able to keep this company alive and keep all our people employed."
 
-### **  
-Looking Ahead: Sustainable Growth for 2025 and Beyond**
+### Looking Ahead: Sustainable Growth for 2025 and Beyond
 
-"I reflect on where we were at, and there’s a very low probability that we would have figured out how to successfully do marketing as a company. Myself, my business partner, and all the people who work for us owe a massive thank you to Jake and Green Light Studio for the clarity and direction they’ve provided."
+> "I reflect on where we were at, and there’s a very low probability that we would have figured out how to successfully do marketing as a company. Myself, my business partner, and all the people who work for us owe a massive thank you to Jake and Green Light Studio for the clarity and direction they’ve provided."

@@ -43,7 +43,7 @@ On top of that, they were running two different websites for the business and th
 
 ### Deep Discovery
 
-“We had very long but very fruitful discovery meetings,” Jake explained. “We went through every service, every FAQ, recorded everything we talked about so we could reference it in detail later, and gathered all their existing service and company documentation.” 
+> “We had very long but very fruitful discovery meetings,” Jake explained. “We went through every service, every FAQ, recorded everything we talked about so we could reference it in detail later, and gathered all their existing service and company documentation.”
 
   
 These sessions provided us with a comprehensive understanding of what Bliss needed, not just technically, but also in terms of retelling their story and ensuring that services were fully described.  

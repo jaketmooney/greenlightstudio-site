@@ -38,7 +38,7 @@ And managing all of it in-house didn't give them the flexibility and risk manage
 
 When Green Light Studio first got involved, ForestNet had a significant backlog of raw footage and no long-term solution to process, edit and publish it while keeping up with the firehose of new content.
 
-"Video editing consistency, affordability, and speed are always difficult to achieve," said Jake Mooney, founder of Green Light Studio. "In-house would be too expensive, outsourcing to individual editors is difficult to control consistency, quality, and feedback. They needed ONE reliable and long-term solution that could ebb and flow if they needed to change the brief."
+> "Video editing consistency, affordability, and speed are always difficult to achieve," said Jake Mooney, founder of Green Light Studio. "In-house would be too expensive, outsourcing to individual editors is difficult to control consistency, quality, and feedback. They needed ONE reliable and long-term solution that could ebb and flow if they needed to change the brief."
 
 The scope of what needed managing was broad: long-form video and podcast editing, YouTube uploads, thumbnail design, Shorts production, podcast publishing, scripting, voiceovers, and more. Doing all of that through separate freelancers would have created more coordination work than it solved.
 
@@ -56,7 +56,9 @@ Without fixing the workflow, the content would keep piling up, the publishing ca
 
 The structure Green Light Studio proposed was a flexible monthly retainer, not a per-project billing model, with the intent to build a consistent workflow.
 
-"The idea was simple: let the client focus on what they do best, interviewing guests, attending trade shows, and touring factories, and provide raw footage for us. Then, we handle everything behind the scenes to keep content flowing, consistent, and live on YouTube." — Meriam Kerkeni
+> "The idea was simple: let the client focus on what they do best, interviewing guests, attending trade shows, and touring factories, and provide raw footage for us. Then, we handle everything behind the scenes to keep content flowing, consistent, and live on YouTube."
+>
+> — Meriam Kerkeni
 
 > "Green Light Studio has been a great partner for Forestnet Media. The team has been incredibly accommodating to our often hectic and unpredictable schedule. In the media world, some months are extremely busy, and others are much quieter, so having a team that can adapt quickly while consistently delivering high-quality content has been very important to us."
 >
@@ -80,7 +82,7 @@ For longer interviews, the team used AI tools to quickly identify key talking po
 
 By leveraging cloud-hosted video projects, ForestNet projects could be worked on efficiently across the globe without slowing down the team. This cut down the back-and-forth of transferring large footage files between editors and the ForestNet team, a small operational detail that adds up across dozens of projects.
 
-"The key was staying tightly aligned with the client at every stage," Meriam explained.
+> "The key was staying tightly aligned with the client at every stage," Meriam explained.
 
 ![](./43550054.jpg)
 
@@ -106,11 +108,11 @@ Most importantly, the channel is doing what Anthony hoped it could: show the com
 
 ### Why This Project Mattered to Us
 
-"With our background in the sawmill, forestry & woodworking industries, it was a great fit because we understand the industry," Jake said. "We want to get those positive messages about the wood industry to the public and help wood companies tell their message."
+> "With our background in the sawmill, forestry & woodworking industries, it was a great fit because we understand the industry," Jake said. "We want to get those positive messages about the wood industry to the public and help wood companies tell their message."
 
 That shared context matters. The forestry industry doesn't always get fair coverage, and a lot of the companies working in it are doing important, skilled work that rarely gets told well on video.
 
-"Helping ForestNet promote a vital industry is something we're very happy to be part of," Jake added.
+> "Helping ForestNet promote a vital industry is something we're very happy to be part of," Jake added.
 
 > "We've appreciated Green Light Studio's flexibility, responsiveness, and ability to support our changing needs as Forestnet Media continues to grow and evolve."
 >

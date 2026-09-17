@@ -55,7 +55,7 @@ Highlight ECHO’s regional training centers and their role in advancing agricul
 
 Emphasize ECHO’s collaborative model, where they work alongside NGOs, local organizations, and farmers to multiply their impact.
 
-### **G****reen Light Studio's Approach**
+### Green Light Studio's Approach
 
 ![](./0d27f3bd.jpg)
 

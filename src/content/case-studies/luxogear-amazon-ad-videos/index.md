@@ -51,8 +51,7 @@ We worked closely with David from the start, making sure his expectations matche
 
 From the team’s side, Jake Mooney, who managed the project (and even modeled in the videos), remembers the constraints:
 
-  
-“We needed to shoot everything in one day to keep it cost-effective. That meant finding a location in the wild jungle near Chiang Mai where we could start fires, cut wood, and still have lakes and mountains in the background. It worked out perfectly actually.”
+> “We needed to shoot everything in one day to keep it cost-effective. That meant finding a location in the wild jungle near Chiang Mai where we could start fires, cut wood, and still have lakes and mountains in the background. It worked out perfectly actually.”
 
   
 
@@ -76,7 +75,7 @@ LuxoGear came away with a full set of assets consisting of videos, raw footage, 
 
 He especially valued the speed:
 
-“Careful preparation to align and manage expectations. Quick turnaround.”
+> “Careful preparation to align and manage expectations. Quick turnaround.”
 
   
 
