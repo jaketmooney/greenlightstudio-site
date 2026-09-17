@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import brushStroke from '../assets/home/brush-stroke.png';
+
+// The site's signature section header: a small lowercase eyebrow, a large
+// heading, and the hand-drawn yellow brush stroke beneath it. Every major
+// section on the live site uses this, so it lives in one place.
+interface Props {
+  eyebrow: string;
+  heading: string;
+  /** Use on dark backgrounds to lighten the eyebrow. */
+  inverted?: boolean;
+  class?: string;
+}
+const { eyebrow, heading, inverted = false, class: className = '' } = Astro.props;
+---
+
+<div class:list={['text-center', className]}>
+  <p class:list={['font-body text-lg', inverted ? 'text-white/70' : 'text-gls-ink/60']}>
+    {eyebrow}
+  </p>
+  <h2
+    class:list={[
+      'font-heading text-4xl font-bold sm:text-5xl',
+      inverted ? 'text-white' : 'text-gls-ink',
+    ]}
+  >
+    {heading}
+  </h2>
+  <Image src={brushStroke} alt="" width={230} height={27} class="mx-auto mt-1" />
+</div>

@@ -1,27 +1,87 @@
 ---
-const items = [
-  'Annual marketing plans',
-  'Video editing',
-  'Podcast editing',
-  'Social media',
-  'Branding',
-  'Newsletters',
-  'Sales Promotion designs',
-  'Video case studies',
-  'International dealer marketing support',
-  'Article writing',
-  'YouTube channel management',
-  '3D product visualization',
-  'Website upgrades',
-  'Google/Facebook ads',
-  'Influencer marketing',
+import { Image } from 'astro:assets';
+import SectionHeading from '../SectionHeading.astro';
+import YouTube from '../YouTube.astro';
+import iconStrategy from '../../assets/home/icon-strategy.svg';
+import iconCopilot from '../../assets/home/icon-copilot.svg';
+import iconFulfillment from '../../assets/home/icon-fulfillment.svg';
+import iconMedia from '../../assets/home/icon-media.svg';
+import iconCoaching from '../../assets/home/icon-coaching.svg';
+
+// Copy taken verbatim from the live site. `strong` marks the phrases the live
+// page sets in bold within each description.
+const services = [
+  {
+    icon: iconStrategy,
+    title: 'Marketing Strategy',
+    before: 'Start with a ',
+    strong: 'sensible and achievable marketing strategy',
+    after:
+      ' that shows what to stop, what to keep doing, and how to focus over the next 3, 9, and 15 months. Practical and not over-complicated.',
+  },
+  {
+    icon: iconCopilot,
+    title: 'Marketing Co-Pilot',
+    before: 'We bolt onto your team with ',
+    strong: 'high level strategy support',
+    after:
+      ', while also clearing your backlog, and handle execution so you can lead strategy instead of drowning in to-dos.',
+  },
+  {
+    icon: iconFulfillment,
+    title: 'Marketing Fulfillment',
+    before: 'You know what needs to be done and just need a partner to action it! ',
+    strong: 'We handle the ongoing and ad hoc work',
+    after: " your team doesn't have capacity for - at less than cost of one local hire.",
+  },
+  {
+    icon: iconMedia,
+    title: 'Media Retainer',
+    before: 'Consistent, on-brand video and podcast ',
+    strong: 'editing and publishing',
+    after: ' without managing freelancers or chasing unfinished footage.',
+  },
+  {
+    icon: iconCoaching,
+    title: 'Coaching',
+    before: '1:1 support for marketing leaders and CEOs who need a ',
+    strong: 'sensible sounding board',
+    after: ' with an experienced and empathetic marketing leader.',
+  },
 ];
 ---
-<section id="services" class="bg-gls-paper px-4 py-16">
-  <div class="mx-auto max-w-3xl">
-    <h2 class="text-center font-heading text-3xl font-bold sm:text-4xl">What do we actually do?</h2>
-    <ul class="mx-auto mt-8 grid max-w-2xl list-disc gap-x-8 gap-y-2 pl-5 sm:grid-cols-2">
-      {items.map((item) => <li>{item}</li>)}
-    </ul>
+
+<section id="services" class="bg-gls-paper px-4 py-20">
+  <div class="mx-auto max-w-6xl">
+    <SectionHeading eyebrow="let's get to work!" heading="Services" />
+
+    <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <div>
+            <Image src={service.icon} alt="" width={260} height={180} class="h-32 w-auto" />
+            <h3 class="mt-4 font-heading text-xl font-bold">{service.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed">
+              {service.before}
+              <strong class="font-semibold">{service.strong}</strong>
+              {service.after}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mx-auto mt-16 max-w-3xl">
+      <YouTube id="Txas4ESKQ5I" title="Extending Your Marketing Team with Green Light Studio" />
+    </div>
+
+    <div class="mt-10 text-center">
+      <a
+        href="#contact-2026"
+        class="inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark"
+      >
+        Let's Chat
+      </a>
+    </div>
   </div>
 </section>

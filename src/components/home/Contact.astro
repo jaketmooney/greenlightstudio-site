@@ -1,28 +1,52 @@
 ---
+import { Image } from 'astro:assets';
+import SectionHeading from '../SectionHeading.astro';
+import jakePortrait from '../../assets/home/jake-portrait.jpg';
 ---
-<section id="contact-2026" class="bg-gls-green-dark px-4 py-16 text-white">
-  <div class="mx-auto max-w-3xl text-center">
-    <p class="font-heading text-xl text-white/70">think we can help?</p>
-    <h2 class="font-heading text-4xl font-bold sm:text-5xl">Let's Connect</h2>
-  </div>
 
-  <div class="mx-auto mt-12 max-w-md text-center">
-    <h3 class="font-heading text-2xl font-bold">Connect 🤝</h3>
-    <ul class="mt-4 space-y-2 text-lg">
-      <li>
-        <a href="https://www.linkedin.com/in/jacob-threlkeld-mooney/" target="_blank" rel="noopener noreferrer" class="underline hover:text-gls-yellow">
-          LinkedIn
-        </a>
-      </li>
-      <!-- Ambiguity resolved per Task 5 brief: the live site shows this address as
-           plain text, not a mailto: link. Reproduced faithfully, though it may be
-           an oversight on the original site -- that's the site owner's call. -->
-      <li>jacob@greenlightstudio.co</li>
-      <li>
-        <a href="https://www.youtube.com/@greenlightyourmarketing" target="_blank" rel="noopener noreferrer" class="underline hover:text-gls-yellow">
-          YouTube
-        </a>
-      </li>
-    </ul>
+<section id="contact-2026" class="bg-white px-4 py-20">
+  <div class="mx-auto max-w-6xl">
+    <SectionHeading eyebrow="think we can help?" heading="Let's Connect" />
+
+    <div class="mx-auto mt-14 grid max-w-4xl items-stretch gap-8 sm:grid-cols-2">
+      <div class="rounded-xl bg-gls-paper p-8">
+        <h3 class="font-heading text-2xl font-bold">Connect 🤝</h3>
+        <ul class="mt-6 space-y-3">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/jacob-threlkeld-mooney/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gls-green underline hover:text-gls-green-dark"
+            >
+              LinkedIn
+            </a>
+          </li>
+          {/* The live site shows this address as plain text rather than a mailto:
+              link. Reproduced as-is; the header's icon links hello@ separately. */}
+          <li>jacob@greenlightstudio.co</li>
+          <li>
+            <a
+              href="https://www.youtube.com/@greenlightyourmarketing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gls-green underline hover:text-gls-green-dark"
+            >
+              YouTube
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="overflow-hidden rounded-xl">
+        <Image
+          src={jakePortrait}
+          alt="Jake Mooney, founder of Green Light Studio"
+          width={800}
+          height={600}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
   </div>
 </section>

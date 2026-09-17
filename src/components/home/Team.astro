@@ -1,0 +1,145 @@
+---
+import { Image } from 'astro:assets';
+import SectionHeading from '../SectionHeading.astro';
+import YouTube from '../YouTube.astro';
+import teamMeeting from '../../assets/home/team-meeting.jpg';
+
+// On the live site these seven items are an accordion inside a white card
+// overlaid on the team photo. Built with native <details>/<summary> so it
+// needs no JavaScript and stays keyboard accessible.
+const items = [
+  {
+    q: 'Who we work with',
+    a: [
+      'We work with industrial manufacturers, commercial companies, NGOs, and purpose-driven organizations across the U.S., Europe, and Southeast Asia. Most of our clients have long sales cycles, distributor networks, and technical products where clarity matters more than hype.',
+      "We don't work with startups, tech, crypto, or AI companies. Nothing wrong with them, we just don't match their needs.",
+    ],
+  },
+  {
+    q: 'How we work with you',
+    a: [
+      'We work best alongside an in-house marketing lead or small internal team. Your team owns marketing internally—we provide dependable backup.',
+      'That includes strategic thinking, execution support, and day-to-day help that reduces pressure instead of creating more work to manage.',
+    ],
+  },
+  {
+    q: 'What do we actually do?',
+    list: [
+      'Annual marketing plans',
+      'Video editing',
+      'Podcast editing',
+      'Social media',
+      'Branding',
+      'Newsletters',
+      'Sales Promotion designs',
+      'Video case studies',
+      'International dealer marketing support',
+      'Article writing',
+      'YouTube channel management',
+      '3D product visualization',
+      'Website upgrades',
+      'Google/Facebook ads',
+      'Influencer marketing',
+    ],
+  },
+  {
+    q: "What's it cost?",
+    a: [
+      'Because our experienced team works remotely and efficiently, our rates offer significant value compared to hiring equivalent roles in the U.S. or Europe—without compromising quality, ownership, or accountability.',
+      'Typical engagements start around $3,500 monthly.',
+    ],
+  },
+  {
+    q: 'Nothing off-the-shelf',
+    a: [
+      "We don't grab a 'social media template' and apply it to your brand and 20 other brands.",
+      'Everything we do is tailored to your business needs.',
+      'We adapt to your market, your internal constraints, and the reality of how your company actually operates, and most importantly, what your customers expect.',
+    ],
+  },
+  {
+    q: 'Tightknit by design',
+    a: [
+      'Our team is intentionally small. We hire carefully, train seriously, and work with a limited number of clients at a time. Everyone on the team takes pride in their work and is accountable for what they deliver.',
+      'Between us, we speak nine languages and work comfortably across time zones.',
+    ],
+  },
+  {
+    q: 'A long-term vision',
+    a: [
+      "We don't do one-off projects or short engagements. Our work is built around long-term partnerships where strategy, systems, and execution improve steadily over time.",
+      "Most clients stay with us for years because the work reduces pressure, increases confidence in what's working, and actually moves the business forward.",
+    ],
+  },
+];
+---
+
+<section class="relative isolate overflow-hidden px-4 py-20">
+  <Image
+    src={teamMeeting}
+    alt=""
+    width={1920}
+    height={1280}
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 -z-10 bg-white/25"></div>
+
+  <SectionHeading eyebrow="why us?" heading="the team" />
+
+  <div class="mx-auto mt-12 max-w-2xl rounded-xl bg-white/95 p-8 shadow-xl backdrop-blur-sm lg:mx-0 lg:ml-[8%]">
+    <p class="leading-relaxed">
+      Green Light Studio is a <strong class="font-semibold"
+        >compact, experienced marketing implementation team</strong
+      > that helps clarify your strategy and carry enough of the load so marketing becomes manageable
+      and measurable again.
+    </p>
+    <p class="mt-4 leading-relaxed">Sound like a team you want to work with?</p>
+
+    <div class="mt-6 divide-y divide-gls-ink/10 border-y border-gls-ink/10">
+      {
+        items.map((item) => (
+          <details class="group py-3">
+            <summary class="flex cursor-pointer list-none items-center gap-3 font-semibold">
+              <svg
+                viewBox="0 0 24 24"
+                class="h-4 w-4 shrink-0 text-gls-yellow transition-transform group-open:rotate-90"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                aria-hidden="true"
+              >
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              {item.q}
+            </summary>
+            <div class="mt-3 pl-7 text-sm leading-relaxed">
+              {item.a?.map((p) => <p class="mt-2 first:mt-0">{p}</p>)}
+              {item.list && (
+                <ul class="mt-2 grid list-disc gap-x-6 gap-y-1 pl-5 sm:grid-cols-2">
+                  {item.list.map((li) => (
+                    <li>{li}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+
+    <a
+      href="#contact-2026"
+      class="mt-8 inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark"
+    >
+      Work with us
+    </a>
+  </div>
+</section>
+
+<section class="bg-gls-paper px-4 py-16">
+  <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-3">
+    <YouTube id="zPAM7uoANrk" title="What is 'Calm Marketing' and Why It Works" />
+    <YouTube id="x9x9I7G_svo" title="The Antidote to Marketing that Goes Nowhere" />
+    <YouTube id="0y06kY-RGow" title="Run Your Business. We'll Handle the Marketing" />
+  </div>
+</section>

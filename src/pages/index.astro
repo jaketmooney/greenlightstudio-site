@@ -4,16 +4,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import Intro from '../components/home/Intro.astro';
 import Projects from '../components/home/Projects.astro';
-import Testimonials from '../components/home/Testimonials.astro';
 import Services from '../components/home/Services.astro';
-import WhoWeWorkWith from '../components/home/WhoWeWorkWith.astro';
-import HowWeWork from '../components/home/HowWeWork.astro';
-import Pricing from '../components/home/Pricing.astro';
-import Differentiators from '../components/home/Differentiators.astro';
+import Team from '../components/home/Team.astro';
 import Contact from '../components/home/Contact.astro';
 
+// Section order matches the live site. The INSIGHTS section and the
+// "Get Jake's Take" block are deliberately omitted: the blog is cut from this
+// migration and /jake-take is deleted.
 const featured = (await getCollection('caseStudies')).filter((e) => e.data.featured);
 ---
+
 <BaseLayout
   title="Green Light Studio | Calm Marketing"
   description="We help your team build a practical marketing plan and carry enough of the load that marketing becomes manageable and measurable again."
@@ -21,11 +21,7 @@ const featured = (await getCollection('caseStudies')).filter((e) => e.data.featu
   <Hero />
   <Intro />
   <Projects entries={featured} />
-  <Testimonials />
   <Services />
-  <WhoWeWorkWith />
-  <HowWeWork />
-  <Pricing />
-  <Differentiators />
+  <Team />
   <Contact />
 </BaseLayout>
