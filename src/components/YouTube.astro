@@ -1,0 +1,7 @@
+---
+import 'lite-youtube-embed/src/lite-yt-embed.css';
+interface Props { id: string; title: string }
+const { id, title } = Astro.props;
+---
+<lite-youtube videoid={id} playlabel={title}></lite-youtube>
+<script>import 'lite-youtube-embed';</script>

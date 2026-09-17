@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+const social = [
+  { href: 'https://www.youtube.com/@greenlightyourmarketing', label: 'YouTube' },
+  { href: 'https://www.linkedin.com/company/green-light-marketing-solutions/', label: 'LinkedIn' },
+  { href: 'mailto:jacob@greenlightstudio.co', label: 'Email' },
+];
+---
+<header class="bg-gls-green-dark">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <a href="/" aria-label="Green Light Studio home">
+      <Image src={logo} alt="Green Light Studio" width={160} loading="eager" />
+    </a>
+    <nav class="flex gap-4">
+      {social.map((s) => (
+        <a href={s.href} class="text-white hover:text-gls-yellow">{s.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
