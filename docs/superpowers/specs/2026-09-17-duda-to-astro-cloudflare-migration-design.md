@@ -230,27 +230,70 @@ the list of source URLs cannot drift from what was actually migrated.
 | Universal Analytics tag `UA-147403899-1` (dead since 2023) | Removed; replaced by Cloudflare Web Analytics |
 | MailerLite popup script | Removed |
 
+## DNS and email (audited 2026-09-17)
+
+**Registrar:** Squarespace (inherited from the Google Domains acquisition).
+**Nameservers:** Google Cloud DNS — `ns-cloud-a{1..4}.googledomains.com`.
+
+Nameservers are changed at Squarespace. The zone records themselves currently
+live on the Google Cloud DNS side.
+
+Current records:
+
+| Type | Value |
+|---|---|
+| MX | Google Workspace — `aspmx.l.google.com` (1), `alt1`/`alt2` (5), `alt3`/`alt4` (10) |
+| SPF | `v=spf1 include:_spf.google.com include:_spf.mlsend.com ~all` |
+| DKIM | `google._domainkey` — RSA key present |
+| DMARC | `v=DMARC1; p=reject; pct=100; rua=mailto:...@dmarc.postmarkapp.com` |
+| CAA | none |
+| Subdomains | `www` only |
+
+### Critical: DMARC is `p=reject`
+
+The policy is strict and correctly configured. The consequence for this
+migration is that **if SPF or DKIM fail to replicate exactly through the
+nameserver change, outbound mail bounces rather than being filtered to spam.**
+Inbound mail is unaffected. This is the highest-consequence step in the project.
+
+`_spf.mlsend.com` is MailerLite. MailerLite is being removed from the *website*,
+but the SPF include must be retained if newsletters still send through it. It
+must not be treated as dead configuration to clean up.
+
+### Registrar transfer is out of scope
+
+Changing nameservers is sufficient, free, and reversible within minutes.
+Transferring the registrar from Squarespace to Cloudflare Registrar is a
+separate, slower, harder-to-reverse operation with no benefit to this project.
+It can be considered independently later.
+
 ## Cutover sequence
 
 Order matters. Duda is cancelled last.
 
 1. Build and deploy to the `*.pages.dev` preview URL
 2. Review side-by-side against the live Duda site
-3. **Audit existing DNS records, especially MX** — email must not break
-4. Move nameservers from Google Cloud DNS (`ns-cloud-a{1..4}.googledomains.com`)
-   to Cloudflare
-5. Point apex and `www` at Cloudflare Pages
-6. Verify every redirect resolves
-7. Submit the new sitemap to Google Search Console
-8. Monitor for 48 hours
-9. **Only then** cancel Duda
+3. **Capture a full screenshot/export of the current DNS zone** as a known-good
+   reference. Cloudflare's import scan is used for speed, but is diffed against
+   this reference rather than trusted outright.
+4. Add the domain to Cloudflare, let it scan, then **manually verify MX, SPF,
+   DKIM and DMARC** against the step 3 reference
+5. Change nameservers at Squarespace to the assigned Cloudflare pair
+6. Point apex and `www` at Cloudflare Pages
+7. **Send and receive a test email in both directions**, and confirm the
+   Postmark DMARC digest shows no new failures, before proceeding
+8. Verify every redirect resolves
+9. Submit the new sitemap to Google Search Console
+10. Monitor for 48 hours
+11. **Only then** cancel Duda
 
 ## Risks
 
 | Risk | Mitigation |
 |---|---|
-| **Duda lapses before assets are captured** — images become unrecoverable | Asset download is the first implementation task, not the last. Cancellation is step 9 of cutover. |
-| Nameserver move breaks email | Audit and replicate all MX/TXT/CNAME records before switching (step 3) |
+| **Duda lapses before assets are captured** — images become unrecoverable | Asset download is the first implementation task, not the last. Cancellation is step 11 of cutover. |
+| **Nameserver move breaks outbound email.** DMARC is `p=reject`, so an SPF or DKIM mismatch bounces mail rather than filtering it | Capture the zone as a reference before switching (cutover step 3), verify records manually against it (step 4), and send/receive test mail before proceeding (step 7) |
+| SPF `include:_spf.mlsend.com` dropped as "unused" when MailerLite is removed from the site | MailerLite is removed from the *page* only. The SPF include is retained; noted explicitly in the DNS section. |
 | SEO dip from dropping the blog | Accepted trade-off. 301s pass equity to `/` rather than 404ing. |
 | Editing shifts from a visual editor to markdown in git | Accepted knowingly. Claude Code handles the git mechanics. |
 
