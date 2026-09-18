@@ -6,7 +6,8 @@ import brushStroke from '../assets/home/brush-stroke.png';
 // heading, and the hand-drawn yellow brush stroke beneath it. Every major
 // section on the live site uses this, so it lives in one place.
 interface Props {
-  eyebrow: string;
+  /** Optional: some sections carry the heading alone. */
+  eyebrow?: string;
   heading: string;
   /** Use on dark backgrounds to lighten the eyebrow. */
   inverted?: boolean;
@@ -16,9 +17,13 @@ const { eyebrow, heading, inverted = false, class: className = '' } = Astro.prop
 ---
 
 <div class:list={['text-center', className]}>
-  <p class:list={['font-body text-lg', inverted ? 'text-white/70' : 'text-gls-ink/60']}>
-    {eyebrow}
-  </p>
+  {
+    eyebrow && (
+      <p class:list={['font-body text-lg', inverted ? 'text-white/70' : 'text-gls-ink/60']}>
+        {eyebrow}
+      </p>
+    )
+  }
   <h2
     class:list={[
       'font-heading text-4xl font-bold sm:text-5xl',

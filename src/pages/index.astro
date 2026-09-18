@@ -3,25 +3,27 @@ import { getCollection } from 'astro:content';
 import { featuredInOrder } from '../data/featured';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import Intro from '../components/home/Intro.astro';
+import Problem from '../components/home/Problem.astro';
+import Jake from '../components/home/Jake.astro';
 import Projects from '../components/home/Projects.astro';
 import Services from '../components/home/Services.astro';
 import Team from '../components/home/Team.astro';
 import Contact from '../components/home/Contact.astro';
 
-// Section order matches the live site. The INSIGHTS section and the
-// "Get Jake's Take" block are deliberately omitted: the blog is cut from this
-// migration and /jake-take is deleted.
+// The INSIGHTS section and the "Get Jake's Take" block from the old Duda site
+// are deliberately omitted: the blog is cut from this migration and /jake-take
+// is deleted.
 const featured = featuredInOrder(await getCollection('caseStudies'));
 ---
 
 <BaseLayout
   title="Green Light Studio | Calm Marketing"
-  description="We help your team build a practical marketing plan and carry enough of the load that marketing becomes manageable and measurable again."
+  description="Custom marketing support for small, ambitious marketing teams that need more capacity without building a bigger internal team."
   transparentHeader
 >
   <Hero />
-  <Intro />
+  <Problem />
+  <Jake />
   <Projects entries={featured} />
   <Services />
   <Team />
