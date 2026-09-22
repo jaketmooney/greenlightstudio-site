@@ -1,7 +1,32 @@
 # DNS cutover runbook
 
-**Planned:** Friday 18 September 2026, morning (Asia/Bangkok)
+**COMPLETED:** Tuesday 22 September 2026, 12:44 Asia/Bangkok. Zone active ~12:50.
 **Decision:** `greenlightstudio.co` is the primary address. `www` forwards to it.
+
+## Outcome
+
+Went cleanly. Nameservers propagated in about three minutes; the zone activated
+a few minutes later. Inbound mail was confirmed working immediately (Cloudflare's
+own activation email arrived in the Google Workspace inbox). All 15 email and
+verification records came through byte-identical, DKIM included.
+
+Two things that mattered:
+
+- **DNSSEC had to be disabled first.** A DS record was published at the .co
+  registry. Moving nameservers while it stood would have broken DNS resolution
+  entirely -- site and mail -- for any validating resolver. It took a few hours
+  to clear after being switched off at Squarespace.
+- **Cloudflare's scan missed 6 of 19 records** -- the three Google verification
+  CNAMEs, whose names are random strings, and the whole `mlcustom` MailerLite
+  subdomain. The saved zone file is what caught them. Never trust the scan alone.
+
+One artefact worth knowing: while a zone is *pending*, proxied records return
+their raw placeholder value rather than Cloudflare IPs, because the proxy is not
+engaged yet. That looks alarming and is not a misconfiguration -- it resolves on
+activation.
+
+Remaining: enable SSL/TLS > Edge Certificates > Always Use HTTPS. Plain http://
+currently serves 200 rather than redirecting.
 
 The site is built, deployed and verified on
 `https://greenlightstudio-site.jacob-cd9.workers.dev`. This document covers only
