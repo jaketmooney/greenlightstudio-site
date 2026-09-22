@@ -1,0 +1,19 @@
+### apex
+greenlightstudio.co                        MX     1 aspmx.l.google.com.|10 alt3.aspmx.l.google.com.|10 alt4.aspmx.l.google.com.|5 alt1.aspmx.l.google.com.|5 alt2.aspmx.l.google.com.|
+greenlightstudio.co                        TXT    v=spf1 include:_spf.google.com include:_spf.mlsend.com ~all|
+greenlightstudio.co                        A      100.24.208.97|35.172.94.1|
+### email auth
+_dmarc.greenlightstudio.co                 TXT    v=DMARC1; p=reject; pct=100; rua=mailto:re+xx41yoqcbmf@dmarc.postmarkapp.com|
+google._domainkey.greenlightstudio.co      TXT    v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoiz/jap1WyF80+q1+SUMVmTmdk8JRh4ZJJ3Tb1FWjPaKFIMwP5xpcDS1n0ttzWz0OpRQxkZzLYsZVLrClIIfP3021y1+nMfoptOYrCuWZEgnN/LDp0vEmIU4pugLpqYMUxbAk05L5/Tf1QejX8DCRocgdSuC6ThqjTPdnX5KMAL1GIxt9Yfy9urLjqgQ/JULJhiqmsjoGoheZH6q04BOaLWS45WR8if8jcwXGhy69Z6ynCdo8KQ29gHVUZ5tTNqqpvGepN/kO1v7zBZac1peHW2q7IaMmQeDTVlZxUfNsD1HSDf/qbP7CQOAAthDmdx7MhWLUNx4JSgeF5/NY0iFzwIDAQAB|
+litesrv._domainkey.greenlightstudio.co     CNAME  litesrv._domainkey.mlsend.com.|
+### mailerlite sending domain
+mlcustom.greenlightstudio.co               A      34.91.249.129|
+mlcustom.greenlightstudio.co               MX     10 mail.litesrv.io.|
+mlcustom.greenlightstudio.co               TXT    v=spf1 a mx include:_spf.mlsend.com ?all|
+### google workspace verification
+fefnutrlmilj.greenlightstudio.co           CNAME  gv-br27qfdwfy2ahf.dv.googlehosted.com.|
+fohf32tb2u27.greenlightstudio.co           CNAME  gv-exakl4fmejhr3y.dv.googlehosted.com.|
+krf47dxt6rbr.greenlightstudio.co           CNAME  gv-4hzcapc3oywmxc.dv.googlehosted.com.|
+### www + nameservers
+www.greenlightstudio.co                    CNAME  s.multiscreensite.com.|
+greenlightstudio.co                        NS     ns-cloud-a1.googledomains.com.|ns-cloud-a2.googledomains.com.|ns-cloud-a3.googledomains.com.|ns-cloud-a4.googledomains.com.|

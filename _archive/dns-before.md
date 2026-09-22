@@ -33,7 +33,7 @@ Cloudflare. Not required.
 | MX | `@` | 10 | 4 hrs | `alt4.aspmx.l.google.com` | **KEEP** |
 | TXT | `@` | — | 4 hrs | `v=spf1 include:_spf.google.com include:_spf.mlsend.com ~all` | **KEEP** |
 | TXT | `_dmarc` | — | 4 hrs | `v=DMARC1; p=reject; pct=100; rua=mailto:re+xx41yoqcbmf@dmarc.postmarkapp.com` | **KEEP** |
-| TXT | `google._domainkey` | — | 4 hrs | `v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoiz/jap1WyF80+q1+SUMVmTmdk8JRh4ZJJ3Tb1FWjPaKFIMwP5xpcDS1n0ttzWz0OpRQxkZzLYsZVLrClIIfP3021y1+nMfoptOYrCuWZEgnN/LDp0vEmIU4pugLpqYMUxbAk05L5/…` | **KEEP** — full value must be copied from Squarespace, it is truncated in the UI |
+| TXT | `google._domainkey` | — | 4 hrs | DKIM key — **full value below**, the Squarespace UI truncates it | **KEEP** |
 | CNAME | `fefnutrlmilj` | — | 4 hrs | `gv-br27qfdwfy2ahf.dv.googlehosted.com` | **KEEP** — Google verification |
 | CNAME | `fohf32tb2u27` | — | 4 hrs | `gv-exakl4fmejhr3y.dv.googlehosted.com` | **KEEP** — Google verification |
 | CNAME | `krf47dxt6rbr` | — | 4 hrs | `gv-4hzcapc3oywmxc.dv.googlehosted.com` | **KEEP** — Google verification |
@@ -65,3 +65,16 @@ move, its mail **bounces** rather than landing in spam.
 - Both apex `A` records (Duda's servers)
 - `www` CNAME to `s.multiscreensite.com` (Duda)
 - `_domainconnect` (Squarespace management hook, inert after the move)
+
+
+## Full DKIM value
+
+The Squarespace UI truncates this. Captured live from DNS on 2026-09-22, complete:
+
+```
+v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoiz/jap1WyF80+q1+SUMVmTmdk8JRh4ZJJ3Tb1FWjPaKFIMwP5xpcDS1n0ttzWz0OpRQxkZzLYsZVLrClIIfP3021y1+nMfoptOYrCuWZEgnN/LDp0vEmIU4pugLpqYMUxbAk05L5/Tf1QejX8DCRocgdSuC6ThqjTPdnX5KMAL1GIxt9Yfy9urLjqgQ/JULJhiqmsjoGoheZH6q04BOaLWS45WR8if8jcwXGhy69Z6ynCdo8KQ29gHVUZ5tTNqqpvGepN/kO1v7zBZac1peHW2q7IaMmQeDTVlZxUfNsD1HSDf/qbP7CQOAAthDmdx7MhWLUNx4JSgeF5/NY0iFzwIDAQAB
+```
+
+A raw snapshot of every record, taken immediately before the cutover, is in
+`_archive/dns-snapshot-2026-09-22.txt`. Re-run
+`scripts/dns-snapshot.sh` after the move and diff the two.
