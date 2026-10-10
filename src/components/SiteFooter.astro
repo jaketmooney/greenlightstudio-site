@@ -1,16 +1,120 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { NAV, SOCIAL } from '../data/site';
+
 const year = new Date().getFullYear();
+
+// On phones the homepage header hides its nav and social links, so the footer
+// is the only navigation a mobile visitor gets. It repeats the header's links
+// (from the same data) plus Pricing and the full case-study list.
+const explore = [
+  ...NAV.slice(0, 2),
+  { href: '/#pricing', label: 'Pricing' },
+  ...NAV.slice(2),
+  { href: '/our-work/', label: 'All case studies' },
+];
+
+const offices = [
+  { place: 'USA', lines: ['5534 St Joe Drive, Fort Wayne', 'Indiana, 46835, United States'] },
+  { place: 'Thailand', lines: ['186/3 Moo 1, Cheong Doi, Doi Saket', 'Chiang Mai 50220, Thailand'] },
+];
+
+const email = SOCIAL.find((s) => s.label === 'Email')!;
+const channels = SOCIAL.filter((s) => s.label !== 'Email');
 ---
-<footer class="bg-gls-green-dark text-white">
-  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2">
-    <address class="not-italic">
-      5534 St Joe Drive, Fort Wayne<br />Indiana, 46835, United States
-    </address>
-    <address class="not-italic">
-      186/3 Moo 1, Cheong Doi, Doi Saket<br />Chiang Mai 50220, Thailand
-    </address>
+
+<footer class="relative bg-gls-green-dark text-white">
+  {/* The brand gradient from the buttons, as a thin rule along the top. */}
+  <div class="h-1 bg-gradient-to-r from-gls-green to-gls-yellow" aria-hidden="true"></div>
+
+  <div
+    class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.4fr_1.2fr] lg:gap-12"
+  >
+    <div>
+      <a href="/" aria-label="Green Light Studio home" class="inline-block">
+        <Image src={logo} alt="Green Light Studio" width={180} />
+      </a>
+      <p class="mt-5 max-w-xs leading-relaxed text-white/75">
+        Video and marketing support for marketing teams.
+      </p>
+    </div>
+
+    <nav aria-label="Footer">
+      <h2 class="text-xs font-semibold tracking-widest text-gls-yellow uppercase">Explore</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5 sm:block sm:space-y-2.5">
+        {
+          explore.map((item) => (
+            <li>
+              <a href={item.href} class="text-white/85 transition hover:text-gls-yellow">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-widest text-gls-yellow uppercase">Offices</h2>
+      <div class="mt-4 space-y-5">
+        {
+          offices.map((o) => (
+            <address class="text-sm leading-relaxed text-white/75 not-italic">
+              <span class="mb-1 block font-heading text-base font-bold text-white">{o.place}</span>
+              {o.lines[0]}
+              <br />
+              {o.lines[1]}
+            </address>
+          ))
+        }
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-widest text-gls-yellow uppercase">Get in touch</h2>
+      <a
+        href={email.href}
+        class="mt-4 inline-block font-semibold break-all text-white underline decoration-gls-yellow/60 underline-offset-4 transition hover:text-gls-yellow"
+      >
+        hello@greenlightstudio.co
+      </a>
+      <ul class="mt-6 flex gap-3" aria-label="Social links">
+        {
+          channels.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                aria-label={s.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-gls-yellow hover:text-gls-green-dark"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true" focusable="false">
+                  <path d={s.path} />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
-  <p class="px-4 pb-8 text-center text-sm opacity-80">
-    &copy; {year} All Rights Reserved | green light studio
-  </p>
+
+  <div class="border-t border-white/10">
+    <div
+      class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-white/60 sm:flex-row"
+    >
+      <p>&copy; {year} Green Light Studio. All rights reserved.</p>
+      <a href="#top" class="inline-flex items-center gap-1.5 transition hover:text-gls-yellow">
+        Back to top
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M10 4a1 1 0 0 1 .7.3l5 5a1 1 0 0 1-1.4 1.4L11 7.42V15a1 1 0 1 1-2 0V7.41l-3.3 3.3a1 1 0 0 1-1.4-1.42l5-5A1 1 0 0 1 10 4Z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
 </footer>
