@@ -1,0 +1,44 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import VideoCard from '../VideoCard.astro';
+
+// Jake's own videos from the GLS YouTube channel. Titles match YouTube.
+const videos = [
+  { id: 'zPAM7uoANrk', title: "What is 'Calm Marketing' and Why It Works" },
+  { id: 'x9x9I7G_svo', title: 'The Antidote to Marketing that Goes Nowhere' },
+  { id: '0y06kY-RGow', title: "Run Your Business. We'll Handle the Marketing" },
+];
+---
+
+<section id="channel" class="bg-gls-paper px-4 py-20">
+  <div class="mx-auto max-w-6xl">
+    <SectionHeading eyebrow="from our YouTube channel" heading="Calm marketing, explained" />
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        videos.map((v, i) => (
+          <VideoCard
+            id={v.id}
+            title={v.title}
+            label="Jake Mooney"
+            class={i === videos.length - 1 ? 'sm:col-span-2 lg:col-span-1' : ''}
+          />
+        ))
+      }
+    </div>
+
+    <div class="mt-10 text-center">
+      <a
+        href="https://www.youtube.com/@greenlightyourmarketing"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-md border-2 border-gls-green px-6 py-2.5 font-heading font-bold text-gls-green-dark transition hover:bg-gls-green hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+        </svg>
+        More on our YouTube channel
+      </a>
+    </div>
+  </div>
+</section>

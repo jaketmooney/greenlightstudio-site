@@ -7,10 +7,21 @@ interface Props {
       large. Only set it on videos that have one: YouTube serves a grey
       placeholder, not an error, when maxresdefault is missing. */
   hd?: boolean;
+  /** An explicit poster URL, overriding both of the above. */
+  poster?: string;
+  /** 9:16 frame for Shorts. */
+  vertical?: boolean;
 }
-const { id, title, hd = false } = Astro.props;
+const { id, title, hd = false, poster, vertical = false } = Astro.props;
 // lite-youtube only picks its own poster when no background-image is set.
-const style = hd ? `background-image: url('https://i.ytimg.com/vi/${id}/maxresdefault.jpg')` : undefined;
+const posterUrl = poster ?? (hd ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : undefined);
+const style = posterUrl ? `background-image: url('${posterUrl}')` : undefined;
 ---
-<lite-youtube videoid={id} playlabel={title} style={style}></lite-youtube>
+<lite-youtube videoid={id} playlabel={title} style={style} class:list={[{ vertical }]}></lite-youtube>
 <script>import 'lite-youtube-embed';</script>
+
+<style>
+  lite-youtube.vertical::after {
+    padding-bottom: calc(100% / (9 / 16));
+  }
+</style>

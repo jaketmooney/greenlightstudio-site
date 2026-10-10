@@ -9,6 +9,7 @@ import Testimonials from '../components/home/Testimonials.astro';
 import Services from '../components/home/Services.astro';
 import Pricing from '../components/home/Pricing.astro';
 import Team from '../components/home/Team.astro';
+import ChannelVideos from '../components/home/ChannelVideos.astro';
 import Contact from '../components/home/Contact.astro';
 
 // The INSIGHTS section and the "Get Jake's Take" block from the old Duda site
@@ -29,5 +30,6 @@ const featured = featuredInOrder(await getCollection('caseStudies'));
   <Services />
   <Pricing />
   <Team />
+  <ChannelVideos />
   <Contact />
 </BaseLayout>

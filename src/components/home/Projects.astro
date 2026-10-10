@@ -2,9 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 import CaseStudyCard from '../CaseStudyCard.astro';
 import SectionHeading from '../SectionHeading.astro';
+import VideoCard from '../VideoCard.astro';
+import { PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
 
 interface Props { entries: CollectionEntry<'caseStudies'>[] }
 const { entries } = Astro.props;
+
+// Five videos on a six-column grid: two wide cards, then three narrower ones,
+// so the last row is full rather than leaving a gap.
+const span = (i: number) =>
+  i < 2 ? 'lg:col-span-3' : i === PRODUCED_VIDEOS.length - 1 ? 'sm:col-span-2 lg:col-span-2' : 'lg:col-span-2';
 ---
 <section id="projects" class="px-4 py-16">
   <div class="mx-auto max-w-6xl">
@@ -15,6 +22,50 @@ const { entries } = Astro.props;
 
     <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {entries.map((entry) => <CaseStudyCard entry={entry} />)}
+    </div>
+
+    {/* The videos stay inside this section, under a lighter divider heading
+        rather than a SectionHeading, so they read as more of the portfolio. */}
+    <div class="mt-20 flex items-center gap-4 sm:gap-6">
+      <span class="h-px flex-1 bg-gls-ink/15"></span>
+      <h3 class="font-heading text-2xl font-bold sm:text-3xl">Videos we've produced</h3>
+      <span class="h-px flex-1 bg-gls-ink/15"></span>
+    </div>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
+      {
+        PRODUCED_VIDEOS.map((v, i) => (
+          <VideoCard
+            id={v.id}
+            title={v.title}
+            label={v.client}
+            views={v.views}
+            large={i < 2}
+            class={span(i)}
+          />
+        ))
+      }
+    </div>
+
+    <h4 class="mt-14 text-center font-heading text-xl font-bold">Shorts</h4>
+
+    {/* Phones and tablets scroll the row sideways; desktop fits all five. */}
+    <div
+      class="-mx-4 mt-6 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-6 lg:overflow-visible lg:px-0"
+    >
+      {
+        SHORTS.map((v) => (
+          <VideoCard
+            id={v.id}
+            title={v.title}
+            label={v.client}
+            views={v.views}
+            poster={v.poster}
+            vertical
+            class="w-[46%] shrink-0 snap-start sm:w-[30%] lg:w-auto"
+          />
+        ))
+      }
     </div>
   </div>
 </section>
