@@ -28,7 +28,7 @@ const rows = await Promise.all(
 const lightboxData = rows.flat().map(({ full, alt }) => ({ src: full, alt }));
 ---
 
-<div class:list={['photo-marquee space-y-3 sm:space-y-4', className]}>
+<div data-reveal class:list={['photo-marquee space-y-3 sm:space-y-4', className]}>
   {
     rows.map((row, r) => (
       <div class="marquee-window overflow-hidden">

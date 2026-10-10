@@ -30,6 +30,12 @@
 
   --font-heading: 'Rubik Variable', system-ui, sans-serif;
   --font-body: 'Source Sans Pro', system-ui, sans-serif;
+
+  /* Calmer default for every `transition` utility: slower than Tailwind's
+     150ms and easing out, so hovers settle rather than snap. */
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body {
@@ -42,3 +48,85 @@ h1, h2, h3, h4 {
   font-family: var(--font-heading);
   font-weight: 700;
 }
+
+/* ---------------------------------------------------------------------------
+   Scroll reveals. Nothing here applies unless the inline script in BaseLayout
+   has put .motion on <html>, which it skips for reduced-motion visitors and
+   which never happens with JavaScript off, so content is visible by default.
+   Keyframe animations (not transitions) are used so they don't override the
+   hover transitions on the same elements.
+   --------------------------------------------------------------------------- */
+.motion [data-reveal]:not(.is-visible) {
+  opacity: 0;
+}
+.motion [data-reveal].is-visible {
+  animation: reveal-up 0.7s var(--ease-calm) var(--reveal-delay, 0ms) both;
+}
+
+/* The brush stroke under each section heading paints in, left to right. */
+.motion [data-reveal]:not(.is-visible) .reveal-brush {
+  clip-path: inset(0 100% 0 0);
+}
+.motion [data-reveal].is-visible .reveal-brush {
+  animation: wipe-in 0.9s var(--ease-calm) calc(var(--reveal-delay, 0ms) + 250ms) both;
+}
+
+/* Pricing bars fill from $0 once the chart is in view. */
+.motion [data-reveal]:not(.is-visible) [data-bar] {
+  clip-path: inset(0 100% 0 0);
+}
+.motion [data-reveal].is-visible [data-bar] {
+  animation: wipe-in 1s var(--ease-calm) var(--bar-delay, 0ms) both;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media print {
+  .motion [data-reveal],
+  .motion [data-reveal] * {
+    opacity: 1 !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+}
+
+/* Dropdowns ease open instead of snapping, where the browser can animate to
+   height: auto. Elsewhere they keep the native instant toggle. */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      interpolate-size: allow-keywords;
+    }
+    details::details-content {
+      block-size: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition:
+        block-size 0.4s var(--ease-calm),
+        opacity 0.4s var(--ease-calm),
+        content-visibility 0.4s allow-discrete;
+    }
+    details[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+}
+

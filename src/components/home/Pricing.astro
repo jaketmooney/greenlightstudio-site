@@ -24,20 +24,20 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
   <div class="mx-auto max-w-5xl">
     <SectionHeading heading="Pricing" />
 
-    <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed sm:text-center">
+    <p data-reveal class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed sm:text-center">
       A full-time marketing hire in Washington State costs roughly $6,800 to $9,750 a month once
       benefits, payroll tax and equipment are included. Engagements with us start around $3,500 a
       month, and you get an experienced and flexible team with abilities ranging across video,
       design, social, writing, strategy and beyond.
     </p>
 
-    <div class="mt-12 rounded-2xl bg-gls-paper p-6 sm:p-10">
+    <div data-reveal class="mt-12 rounded-2xl bg-gls-paper p-6 sm:p-10">
       <p class="text-sm font-semibold uppercase tracking-wide text-gls-ink/60">Monthly cost</p>
 
       <div class="mt-6">
         <div class="space-y-8">
           {
-            RANGES.map((r) => (
+            RANGES.map((r, i) => (
               <div>
                 <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <p class="font-heading font-bold">
@@ -55,13 +55,16 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
                   aria-label={`${r.label}: ${usd(r.low)} to ${usd(r.high)} a month`}
                 >
                   <span
+                    data-bar
                     class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-ink/45"
-                    style={{ width: pct(r.low) }}
+                    style={{ width: pct(r.low), '--bar-delay': `${400 + i * 200}ms` }}
                   />
                   {/* 2px gap between the solid bar and the range extension. */}
                   <span
+                    data-bar
                     class="absolute inset-y-0 rounded-r-[4px] ring-1 ring-gls-ink/30 ring-inset"
                     style={{
+                      '--bar-delay': `${800 + i * 200}ms`,
                       left: `calc(${pct(r.low)} + 2px)`,
                       width: `calc(${pct(r.high - r.low)} - 2px)`,
                       backgroundImage:
@@ -87,8 +90,9 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
               aria-label={`Green Light Studio: starting around ${usd(GLS)} a month`}
             >
               <span
+                data-bar
                 class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-green"
-                style={{ width: pct(GLS) }}
+                style={{ width: pct(GLS), '--bar-delay': '1300ms' }}
               >
               </span>
             </div>
@@ -179,7 +183,7 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
     <div class="mt-10 text-center">
       <a
         href="#contact-2026"
-        class="inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark"
+        class="inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark hover:shadow-lg motion-safe:hover:-translate-y-0.5"
       >
         Let's Chat
       </a>

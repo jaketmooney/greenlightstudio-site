@@ -2,17 +2,20 @@
 import SectionHeading from '../SectionHeading.astro';
 import VideoCard from '../VideoCard.astro';
 
-// Jake's own videos from the GLS YouTube channel. Titles match YouTube.
+// Jake's own videos, chosen for marketing leads at manufacturers and B2B
+// companies: an overloaded marketing manager, expanding into a new market,
+// and the calm-marketing talk. Titles match YouTube. (Replaced three older
+// videos aimed at small-business owners, October 2026.)
 const videos = [
-  { id: 'zPAM7uoANrk', title: "What is 'Calm Marketing' and Why It Works" },
-  { id: 'x9x9I7G_svo', title: 'The Antidote to Marketing that Goes Nowhere' },
-  { id: '0y06kY-RGow', title: "Run Your Business. We'll Handle the Marketing" },
+  { id: '33677CZ53gc', title: 'Before You Quit Your Marketing Job, Watch This' },
+  { id: 'byRfPLzaK8M', title: 'How NOT to Enter a New Industry' },
+  { id: 'rEODKPDJ4V8', title: 'The “Calm Marketing” Approach Most Businesses Never Try' },
 ];
 ---
 
 <section id="channel" class="bg-gls-paper px-4 py-20">
   <div class="mx-auto max-w-6xl">
-    <SectionHeading eyebrow="from our YouTube channel" heading="Calm marketing, explained" />
+    <SectionHeading eyebrow="from our YouTube channel" heading="Advice for marketing leaders" />
 
     <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {

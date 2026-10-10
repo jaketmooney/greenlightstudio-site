@@ -20,7 +20,7 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
 <section id="projects" class="px-4 py-16">
   <div class="mx-auto max-w-6xl">
     <SectionHeading heading="Our Clients" />
-    <p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-balance">
+    <p data-reveal class="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-balance">
       What we've done for marketing teams like yours.
     </p>
 
@@ -30,13 +30,13 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
 
     {/* The videos stay inside this section, under a lighter divider heading
         rather than a SectionHeading, so they read as more of the portfolio. */}
-    <div class="mt-20 flex items-center gap-4 sm:gap-6">
+    <div data-reveal class="mt-20 flex items-center gap-4 sm:gap-6">
       <span class="h-px flex-1 bg-gls-ink/15"></span>
       <h3 class="font-heading text-2xl font-bold sm:text-3xl">Videos we've produced</h3>
       <span class="h-px flex-1 bg-gls-ink/15"></span>
     </div>
 
-    <div class="-mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-6 lg:gap-8 lg:overflow-visible lg:px-0">
+    <div data-reveal-group class="-mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-6 lg:gap-8 lg:overflow-visible lg:px-0">
       {
         PRODUCED_VIDEOS.map((v, i) => (
           <VideoCard
@@ -51,10 +51,11 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
       }
     </div>
 
-    <h4 class="mt-14 text-center font-heading text-xl font-bold">Shorts</h4>
+    <h4 data-reveal class="mt-14 text-center font-heading text-xl font-bold">Shorts</h4>
 
     {/* Phones and tablets scroll the row sideways; desktop fits all five. */}
     <div
+      data-reveal-group
       class="-mx-4 mt-6 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-6 lg:overflow-visible lg:px-0"
     >
       {
@@ -72,8 +73,8 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
       }
     </div>
 
-    <h4 class="mt-14 text-center font-heading text-xl font-bold">From our shoots</h4>
-    <p class="mt-1 text-center text-sm text-gls-ink/60">
+    <h4 data-reveal class="mt-14 text-center font-heading text-xl font-bold">From our shoots</h4>
+    <p data-reveal class="mt-1 text-center text-sm text-gls-ink/60">
       <span class="sm:hidden">Tap</span><span class="hidden sm:inline">Click</span> any photo to see it
       full size.
     </p>

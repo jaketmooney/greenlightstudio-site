@@ -34,6 +34,18 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {/* Motion: switch on before first paint so revealed content never flashes
+        visible-then-hidden. Skipped for reduced-motion visitors. If the reveal
+        script below hasn't run within 3s, motion is switched back off so
+        nothing can stay hidden. */}
+    <script is:inline>
+      if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('motion');
+        setTimeout(function () {
+          if (!document.documentElement.dataset.motionReady) document.documentElement.classList.remove('motion');
+        }, 3000);
+      }
+    </script>
     {/* Cloudflare Web Analytics: free, cookieless, so no consent banner is
         needed. The token is issued when the Pages project exists (Task 10)
         and is supplied as a build-time env var, so no placeholder ships. */}
@@ -51,5 +63,52 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
     <SiteHeader transparent={transparentHeader} />
     <main><slot /></main>
     <SiteFooter />
+    {/* Scroll reveals (styles in global.css). [data-reveal] elements fade up
+        the first time they enter view; ones that arrive together are staggered.
+        A [data-reveal-group] reveals all its [data-reveal] children at once,
+        used for sideways-scrolling rows whose off-screen cards would otherwise
+        wait until swiped. [data-count] numbers count up from zero. Inline, so
+        it can't fail to load. */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        if (!root.classList.contains('motion')) return;
+        var STEP = 90, MAX_STEPS = 6;
+
+        function countUp(el) {
+          var target = Number(el.dataset.count), start = performance.now(), dur = 1200;
+          (function tick(now) {
+            var t = Math.min(1, (now - start) / dur);
+            el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+            if (t < 1) requestAnimationFrame(tick);
+          })(start);
+        }
+        function reveal(el, i) {
+          el.style.setProperty('--reveal-delay', Math.min(i, MAX_STEPS) * STEP + 'ms');
+          el.classList.add('is-visible');
+          el.querySelectorAll('[data-count]').forEach(countUp);
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          var i = 0;
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            io.unobserve(e.target);
+            if (e.target.hasAttribute('data-reveal-group')) {
+              e.target.querySelectorAll('[data-reveal]').forEach(function (child, j) { reveal(child, j); });
+            } else {
+              reveal(e.target, i++);
+            }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+        document.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = '0'; });
+        document.querySelectorAll('[data-reveal-group]').forEach(function (g) { io.observe(g); });
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+          if (!el.closest('[data-reveal-group]')) io.observe(el);
+        });
+        root.dataset.motionReady = '1';
+      })();
+    </script>
   </body>
 </html>

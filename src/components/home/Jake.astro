@@ -17,7 +17,7 @@ const points = [
 
 <section class="bg-white px-4 py-20">
   <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
-    <div>
+    <div data-reveal>
       <p class="text-lg text-gls-ink/60">For marketing leaders who need more support</p>
       <h2 class="mt-2 font-heading text-3xl font-bold leading-tight text-gls-green-dark sm:text-4xl">
         Get more done without growing your team.
@@ -57,13 +57,13 @@ const points = [
 
       <a
         href="#contact-2026"
-        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90"
+        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5"
       >
         Let's Talk
       </a>
     </div>
 
-    <figure>
+    <figure data-reveal>
       {/* The offset brand-colour panel behind the frame echoes the brush
           stroke in the video's own thumbnail. */}
       <div class="relative">
@@ -90,15 +90,15 @@ const points = [
   {/* Both lines are from the GLS portfolio deck. The team photo is older
       than the current team; the site owner chose to use it anyway. */}
   <div class="mx-auto mt-16 grid max-w-6xl gap-6 lg:grid-cols-[2fr_3fr]">
-    <div class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-8 text-white sm:p-10">
+    <div data-reveal class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-8 text-white sm:p-10">
       <p class="text-sm font-semibold uppercase tracking-wide text-white/60">Jake Mooney, founder</p>
-      <p class="mt-3 font-heading text-6xl font-bold text-gls-yellow">15 years</p>
+      <p class="mt-3 font-heading text-6xl font-bold text-gls-yellow"><span data-count="15">15</span> years</p>
       <p class="mt-4 text-lg leading-relaxed">
         Leading marketing and media teams across three continents for manufacturing and "boring"
         industries.
       </p>
     </div>
-    <figure class="relative overflow-hidden rounded-2xl">
+    <figure data-reveal class="relative overflow-hidden rounded-2xl">
       <Image
         src={teamPhoto}
         alt="The Green Light Studio team in a timber warehouse"

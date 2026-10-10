@@ -43,7 +43,7 @@ const examples = [
     <SectionHeading heading="Services" />
 
     <div class="mt-14 grid gap-8 lg:grid-cols-3">
-      <article class="rounded-2xl border-t-4 border-gls-green bg-white p-6 shadow-lg sm:p-10 lg:col-span-2">
+      <article data-reveal class="rounded-2xl border-t-4 border-gls-green bg-white p-6 shadow-lg sm:p-10 lg:col-span-2">
         <div class="flex items-start justify-between gap-6">
           <div>
             <p class="inline-block rounded-full bg-gls-green/15 px-3 py-1 text-sm font-semibold text-gls-green-dark">
@@ -120,7 +120,7 @@ const examples = [
       </article>
 
       <div class="grid gap-8 sm:grid-cols-2 lg:flex lg:flex-col">
-        <article class="rounded-2xl bg-white p-6 shadow sm:p-8">
+        <article data-reveal class="rounded-2xl bg-white p-6 shadow sm:p-8">
           <div class="flex items-start justify-between gap-4">
             <p class="inline-block rounded-full bg-gls-yellow/30 px-3 py-1 text-sm font-semibold text-gls-green-dark">
               Phase one
@@ -135,7 +135,7 @@ const examples = [
           </p>
         </article>
 
-        <article class="rounded-2xl bg-white p-6 shadow sm:p-8">
+        <article data-reveal class="rounded-2xl bg-white p-6 shadow sm:p-8">
           <div class="flex justify-end">
             <Image src={iconCoaching} alt="" width={260} height={180} class="-mt-2 h-20 w-auto" />
           </div>
@@ -147,14 +147,14 @@ const examples = [
           </p>
         </article>
 
-        <div class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-6 text-white sm:col-span-2 sm:p-8 lg:flex-1">
+        <div data-reveal class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-6 text-white sm:col-span-2 sm:p-8 lg:flex-1">
           <h3 class="text-2xl">Not sure what you need?</h3>
           <p class="mt-2 leading-relaxed text-white/85">
             Tell us what you're trying to get done and we'll suggest where to start.
           </p>
           <a
             href="#contact-2026"
-            class="mt-6 self-start rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-6 py-2.5 font-heading font-bold text-white shadow transition hover:opacity-90"
+            class="mt-6 self-start rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-6 py-2.5 font-heading font-bold text-white shadow transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5"
           >
             Let's Talk
           </a>

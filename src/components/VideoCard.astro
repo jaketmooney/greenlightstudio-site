@@ -24,7 +24,7 @@ const { id, title, label, views, poster, vertical = false, large = false, class:
 const posterUrl = poster ? (await getImage({ src: poster, width: 480, format: 'webp' })).src : undefined;
 ---
 
-<article class:list={['flex flex-col overflow-hidden rounded-lg bg-white shadow', className]}>
+<article data-reveal class:list={['flex flex-col overflow-hidden rounded-lg bg-white shadow transition hover:shadow-xl motion-safe:hover:-translate-y-1', className]}>
   <YouTube id={id} title={title} poster={posterUrl} vertical={vertical} />
   <div class:list={['flex flex-1 flex-col', vertical ? 'p-4' : 'p-5']}>
     {
