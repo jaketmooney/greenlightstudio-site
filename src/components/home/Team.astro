@@ -3,9 +3,10 @@ import { Image } from 'astro:assets';
 import SectionHeading from '../SectionHeading.astro';
 import teamMeeting from '../../assets/home/team-meeting.jpg';
 
-// On the live site these seven items are an accordion inside a white card
-// overlaid on the team photo. Built with native <details>/<summary> so it
-// needs no JavaScript and stays keyboard accessible.
+// An accordion inside a white card overlaid on the team photo. Built with
+// native <details>/<summary> so it needs no JavaScript and stays keyboard
+// accessible. The four "working with us" points (work done on time, team
+// inclusion, Market Pulse, AI) come from the GLS portfolio deck.
 const items = [
   {
     q: 'Who we work with',
@@ -20,6 +21,14 @@ const items = [
       'We work best alongside an in-house marketing lead or small internal team. Your team owns marketing internally—we provide dependable backup.',
       'That includes strategic thinking, execution support, and day-to-day help that reduces pressure instead of creating more work to manage.',
     ],
+  },
+  {
+    q: 'Team inclusion',
+    a: ['We work with your existing team, both sales and marketing.'],
+  },
+  {
+    q: 'Work done well, and on time',
+    a: ["If it's on the plan, it gets done."],
   },
   {
     q: 'What do we actually do?',
@@ -39,6 +48,18 @@ const items = [
       'Website upgrades',
       'Google/Facebook ads',
       'Influencer marketing',
+    ],
+  },
+  {
+    q: 'Market Pulse',
+    a: [
+      'Every four months we look at what competitors are doing and bring new ideas to the table.',
+    ],
+  },
+  {
+    q: 'How we use AI',
+    a: [
+      "We use pro versions of Claude, ChatGPT and Google Gemini, trained on your brand, your audience and your market. They make us more efficient; they don't do the work for us.",
     ],
   },
   {
@@ -85,8 +106,8 @@ const items = [
 
   <SectionHeading heading="How we work" />
 
-  <div class="mx-auto mt-12 max-w-2xl rounded-xl bg-white/95 p-8 shadow-xl backdrop-blur-sm lg:mx-0 lg:ml-[8%]">
-    <p class="leading-relaxed">
+  <div class="mx-auto mt-12 max-w-3xl rounded-xl bg-white/95 p-6 shadow-xl backdrop-blur-sm sm:p-10 lg:mx-0 lg:ml-[8%]">
+    <p class="text-lg leading-relaxed">
       You get experienced people across strategy, web, design, video, and content, without having
       to build and manage all of those capabilities internally.
     </p>
@@ -94,21 +115,23 @@ const items = [
     <div class="mt-6 divide-y divide-gls-ink/10 border-y border-gls-ink/10">
       {
         items.map((item) => (
-          <details class="group py-3">
-            <summary class="flex cursor-pointer list-none items-center gap-3 font-semibold">
-              <svg
-                viewBox="0 0 24 24"
-                class="h-4 w-4 shrink-0 text-gls-yellow transition-transform group-open:rotate-90"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                aria-hidden="true"
-              >
-                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+          <details class="group">
+            <summary class="flex cursor-pointer list-none items-center gap-4 py-4 font-heading text-lg font-semibold transition hover:text-gls-green-dark sm:text-xl [&::-webkit-details-marker]:hidden">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gls-yellow/25 text-gls-green-dark transition group-open:rotate-90 group-open:bg-gls-yellow">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  aria-hidden="true"
+                >
+                  <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
               {item.q}
             </summary>
-            <div class="mt-3 pl-7 text-sm leading-relaxed">
+            <div class="pb-5 pl-12 text-base leading-relaxed text-gls-ink/85">
               {item.a?.map((p) => <p class="mt-2 first:mt-0">{p}</p>)}
               {item.list && (
                 <ul class="mt-2 grid list-disc gap-x-6 gap-y-1 pl-5 sm:grid-cols-2">

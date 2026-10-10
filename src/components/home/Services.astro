@@ -2,50 +2,38 @@
 import { Image } from 'astro:assets';
 import SectionHeading from '../SectionHeading.astro';
 import iconStrategy from '../../assets/home/icon-strategy.png';
-import iconCopilot from '../../assets/home/icon-copilot.png';
 import iconFulfillment from '../../assets/home/icon-fulfillment.png';
 import iconMedia from '../../assets/home/icon-media.png';
 import iconCoaching from '../../assets/home/icon-coaching.png';
 
-// Copy taken verbatim from the live site. `strong` marks the phrases the live
-// page sets in bold within each description.
-const services = [
+// Retainers are the core product and get the large card; strategy and
+// coaching are smaller services and sit beside it. The old five-card grid
+// (strategy, co-pilot, fulfillment, media retainer, coaching) folded into this.
+//
+// The example mixes are illustrations of typical retainers, drawn from the
+// "What do we actually do?" list in Team.astro, not specific clients.
+const examples = [
   {
-    icon: iconStrategy,
-    title: 'Marketing Strategy',
-    before: 'Start with a ',
-    strong: 'sensible and achievable marketing strategy',
-    after:
-      ' that shows what to stop, what to keep doing, and how to focus over the next 3, 9, and 15 months. Practical and not over-complicated.',
+    title: 'Industrial manufacturer',
+    items: [
+      'LinkedIn and social media',
+      'Video case studies, filmed on site',
+      '3D product renders',
+      'Dealer marketing support',
+    ],
   },
   {
-    icon: iconCopilot,
-    title: 'Marketing Co-Pilot',
-    before: 'We bolt onto your team with ',
-    strong: 'high level strategy support',
-    after:
-      ', while also clearing your backlog, and handle execution so you can lead strategy instead of drowning in to-dos.',
+    title: 'Brand selling direct',
+    items: ['Social media', 'Google and Facebook ads', 'Newsletters', 'Website upgrades'],
   },
   {
-    icon: iconFulfillment,
-    title: 'Marketing Fulfillment',
-    before: 'You know what needs to be done and just need a partner to action it! ',
-    strong: 'We handle the ongoing and ad hoc work',
-    after: " your team doesn't have capacity for - at less than cost of one local hire.",
-  },
-  {
-    icon: iconMedia,
-    title: 'Media Retainer',
-    before: 'Consistent, on-brand video and podcast ',
-    strong: 'editing and publishing',
-    after: ' without managing freelancers or chasing unfinished footage.',
-  },
-  {
-    icon: iconCoaching,
-    title: 'Coaching',
-    before: '1:1 support for marketing leaders and CEOs who need a ',
-    strong: 'sensible sounding board',
-    after: ' with an experienced and empathetic marketing leader.',
+    title: 'Video-first brand',
+    items: [
+      'YouTube video editing',
+      'Shorts and social clips',
+      'Podcast editing',
+      'YouTube channel management',
+    ],
   },
 ];
 ---
@@ -54,20 +42,124 @@ const services = [
   <div class="mx-auto max-w-6xl">
     <SectionHeading heading="Services" />
 
-    <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        services.map((service) => (
+    <div class="mt-14 grid gap-8 lg:grid-cols-3">
+      <article class="rounded-2xl border-t-4 border-gls-green bg-white p-6 shadow-lg sm:p-10 lg:col-span-2">
+        <div class="flex items-start justify-between gap-6">
           <div>
-            <Image src={service.icon} alt="" width={260} height={180} class="h-32 w-auto" />
-            <h3 class="mt-4 font-heading text-xl font-bold">{service.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed">
-              {service.before}
-              <strong class="font-semibold">{service.strong}</strong>
-              {service.after}
+            <p class="inline-block rounded-full bg-gls-green/15 px-3 py-1 text-sm font-semibold text-gls-green-dark">
+              Our core service
             </p>
+            <h3 class="mt-4 text-3xl sm:text-4xl">Marketing &amp; media retainers</h3>
           </div>
-        ))
-      }
+          <div class="hidden shrink-0 items-end gap-2 sm:flex" aria-hidden="true">
+            <Image src={iconFulfillment} alt="" width={260} height={180} class="h-20 w-auto" />
+            <Image src={iconMedia} alt="" width={260} height={180} class="h-20 w-auto" />
+          </div>
+        </div>
+
+        <p class="mt-6 text-lg leading-relaxed">
+          <strong class="font-semibold">We handle the ongoing and ad hoc work</strong> your team doesn't
+          have capacity for, from consistent, on-brand content to video and podcast editing and
+          publishing. No managing freelancers or chasing unfinished work, at less than the cost of
+          one local hire.
+        </p>
+        <p class="mt-4 leading-relaxed text-gls-ink/80">
+          Every retainer is flexible and built around what your company needs, so no two look the
+          same. Here are a few examples:
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          {
+            examples.map((ex) => (
+              <div class="rounded-xl bg-gls-paper p-5">
+                <p class="text-xs font-semibold uppercase tracking-wide text-gls-ink/50">Example</p>
+                <h4 class="mt-1 font-heading text-lg font-bold">{ex.title}</h4>
+                <ul class="mt-3 space-y-2 text-sm">
+                  {ex.items.map((item) => (
+                    <li class="flex items-start gap-2">
+                      <svg
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        class="mt-0.5 h-4 w-4 shrink-0 text-gls-green"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0l-3.5-3.5a1 1 0 1 1 1.4-1.4l2.8 2.79 6.8-6.79a1 1 0 0 1 1.4 0Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                  <li class="flex items-start gap-2 font-semibold text-gls-green-dark">
+                    <span class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gls-yellow text-[11px] leading-none">
+                      +
+                    </span>
+                    <span>Flex time</span>
+                  </li>
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="mt-6 flex items-start gap-4 rounded-xl bg-gls-yellow/20 p-5">
+          <span
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gls-yellow font-heading text-xl font-bold text-gls-green-dark"
+            aria-hidden="true"
+          >
+            +
+          </span>
+          <p class="leading-relaxed">
+            <strong class="font-heading font-bold">Every retainer includes flex time</strong>, so
+            there's always room for the little things that come up and you just need help with: a
+            catalog update, a website edit, sales materials, event prep.
+          </p>
+        </div>
+      </article>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:flex lg:flex-col">
+        <article class="rounded-2xl bg-white p-6 shadow sm:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <p class="inline-block rounded-full bg-gls-yellow/30 px-3 py-1 text-sm font-semibold text-gls-green-dark">
+              Phase one
+            </p>
+            <Image src={iconStrategy} alt="" width={260} height={180} class="-mt-2 h-20 w-auto" />
+          </div>
+          <h3 class="mt-3 text-2xl">Marketing strategy</h3>
+          <p class="mt-2 leading-relaxed">
+            Start with a <strong class="font-semibold">sensible and achievable marketing strategy</strong>
+            that shows what to stop, what to keep doing, and how to focus over the next 3, 9, and 15 months.
+            Practical and not over-complicated.
+          </p>
+        </article>
+
+        <article class="rounded-2xl bg-white p-6 shadow sm:p-8">
+          <div class="flex justify-end">
+            <Image src={iconCoaching} alt="" width={260} height={180} class="-mt-2 h-20 w-auto" />
+          </div>
+          <h3 class="mt-3 text-2xl">Coaching</h3>
+          <p class="mt-2 leading-relaxed">
+            1:1 support for marketing leaders and CEOs who need a <strong class="font-semibold"
+              >sensible sounding board</strong
+            > with an experienced and empathetic marketing leader.
+          </p>
+        </article>
+
+        <div class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-6 text-white sm:col-span-2 sm:p-8 lg:flex-1">
+          <h3 class="text-2xl">Not sure what you need?</h3>
+          <p class="mt-2 leading-relaxed text-white/85">
+            Tell us what you're trying to get done and we'll suggest where to start.
+          </p>
+          <a
+            href="#contact-2026"
+            class="mt-6 self-start rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-6 py-2.5 font-heading font-bold text-white shadow transition hover:opacity-90"
+          >
+            Let's Talk
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
