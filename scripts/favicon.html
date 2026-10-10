@@ -1,0 +1,21 @@
+<!doctype html>
+<!--
+  Favicon source: the old Duda site's "gls" tile, redrawn in Rubik so it is
+  sharp at every size. To re-render, open this file in Chrome at a 512x512
+  viewport, screenshot #tile, then resize that PNG to public/favicon.ico
+  (16, 32 and 48px in one file), public/icon-192.png and
+  public/apple-touch-icon.png (180px).
+-->
+<html><head><meta charset="utf-8"><style>
+@font-face { font-family: Rubik; font-weight: 300 900; src: url('../node_modules/@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2') format('woff2'); }
+html, body { margin: 0; background: #000; }
+#tile { position: relative; width: 512px; height: 512px; overflow: hidden;
+  background: linear-gradient(70deg, #59b062 8%, #ffc421 96%); }
+#txt { position: absolute; left: 40px; top: 108px; font: 600 250px/1 Rubik; color: #fff; letter-spacing: -6px; }
+#arrow { position: absolute; left: 390px; top: 154px; width: 78px; height: 80px; }
+</style></head><body>
+<div id="tile">
+  <div id="txt">gls</div>
+  <svg id="arrow" viewBox="-4 -4 43 44"><path d="M0 0 L35 14 L6 36 Z" fill="#fff" stroke="#fff" stroke-width="6" stroke-linejoin="round"/></svg>
+</div>
+</body></html>

@@ -3,13 +3,15 @@ import type { CollectionEntry } from 'astro:content';
 import CaseStudyCard from '../CaseStudyCard.astro';
 import SectionHeading from '../SectionHeading.astro';
 import VideoCard from '../VideoCard.astro';
-import { PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
+import { MIN_VIEWS_SHOWN, PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
 
 interface Props { entries: CollectionEntry<'caseStudies'>[] }
 const { entries } = Astro.props;
 
 // Five videos on a six-column grid: two wide cards, then three narrower ones,
 // so the last row is full rather than leaving a gap.
+const shownViews = (n: number) => (n >= MIN_VIEWS_SHOWN ? n : undefined);
+
 const span = (i: number) =>
   i < 2 ? 'lg:col-span-3' : i === PRODUCED_VIDEOS.length - 1 ? 'sm:col-span-2 lg:col-span-2' : 'lg:col-span-2';
 ---
@@ -39,7 +41,7 @@ const span = (i: number) =>
             id={v.id}
             title={v.title}
             label={v.client}
-            views={v.views}
+            views={shownViews(v.views)}
             large={i < 2}
             class={span(i)}
           />
@@ -59,7 +61,7 @@ const span = (i: number) =>
             id={v.id}
             title={v.title}
             label={v.client}
-            views={v.views}
+            views={shownViews(v.views)}
             poster={v.poster}
             vertical
             class="w-[46%] shrink-0 snap-start sm:w-[30%] lg:w-auto"

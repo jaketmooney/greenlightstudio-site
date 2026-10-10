@@ -91,6 +91,10 @@ export const SHORTS: Video[] = [
   },
 ];
 
+/** Counts below this are left off the cards: a few hundred views reads as weak
+    next to six figures, so those videos show their title and client only. */
+export const MIN_VIEWS_SHOWN = 10_000;
+
 /** YouTube-style short count, rounded down so it never overstates: 241K, 1.9M. */
 export function formatViews(n: number): string {
   if (n >= 1_000_000) return `${Math.floor(n / 100_000) / 10}M views`;
