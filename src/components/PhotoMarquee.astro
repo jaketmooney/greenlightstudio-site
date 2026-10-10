@@ -1,0 +1,198 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { PHOTO_ROWS } from '../data/photos';
+
+// Two rows of photos drifting in opposite directions; clicking one opens a
+// lightbox that steps through all of them. Each row is rendered twice and the
+// track slides by exactly half its width, so the loop has no visible seam.
+// Every item carries its own right margin (not flex gap) for the same reason.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+
+let next = 0;
+const rows = await Promise.all(
+  PHOTO_ROWS.map((row) =>
+    Promise.all(
+      row.map(async (photo) => ({
+        ...photo,
+        index: next++,
+        // Lightbox size: capped at 1800px wide and never upscaled.
+        full: (await getImage({ src: photo.src, width: Math.min(1800, photo.src.width), format: 'webp' }))
+          .src,
+      }))
+    )
+  )
+);
+const lightboxData = rows.flat().map(({ full, alt }) => ({ src: full, alt }));
+---
+
+<div class:list={['photo-marquee space-y-3 sm:space-y-4', className]}>
+  {
+    rows.map((row, r) => (
+      <div class="marquee-window overflow-hidden">
+        <div class:list={['marquee-track flex w-max', { 'marquee-reverse': r % 2 === 1 }]}>
+          {[false, true].map((duplicate) =>
+            row.map((photo) => (
+              <button
+                type="button"
+                data-photo={photo.index}
+                aria-label={duplicate ? undefined : `View photo: ${photo.alt}`}
+                aria-hidden={duplicate ? 'true' : undefined}
+                tabindex={duplicate ? -1 : undefined}
+                class:list={[{ 'marquee-duplicate': duplicate }, 'group mr-3 shrink-0 cursor-zoom-in overflow-hidden rounded-lg bg-gls-ink/10 shadow focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-gls-green sm:mr-4']}
+              >
+                <Image
+                  src={photo.src}
+                  alt=""
+                  height={480}
+                  class="h-[150px] w-auto transition duration-300 group-hover:scale-105 sm:h-[200px] lg:h-[240px]"
+                />
+              </button>
+            ))
+          )}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<dialog
+  id="photo-lightbox"
+  aria-label="Photo viewer"
+  class="fixed inset-0 m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-black/95"
+>
+  <div data-lightbox-backdrop class="relative flex h-full w-full items-center justify-center px-4 py-14 sm:px-20">
+    <img
+      data-lightbox-img
+      alt=""
+      class="max-h-full max-w-full cursor-pointer rounded-lg object-contain shadow-2xl select-none"
+    />
+
+    <button
+      type="button"
+      data-lightbox-prev
+      aria-label="Previous photo"
+      class="absolute top-1/2 left-2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/30 sm:left-5"
+    >
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <button
+      type="button"
+      data-lightbox-next
+      aria-label="Next photo"
+      class="absolute top-1/2 right-2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/30 sm:right-5"
+    >
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Close"
+      class="absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/30 sm:top-5 sm:right-5"
+    >
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
+      </svg>
+    </button>
+    <p data-lightbox-count class="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm font-semibold text-white/80"></p>
+  </div>
+</dialog>
+
+<script type="application/json" id="photo-lightbox-data" set:html={JSON.stringify(lightboxData)} />
+
+<script>
+  const dialog = document.getElementById('photo-lightbox') as HTMLDialogElement;
+  const img = dialog.querySelector<HTMLImageElement>('[data-lightbox-img]')!;
+  const count = dialog.querySelector<HTMLElement>('[data-lightbox-count]')!;
+  const photos: { src: string; alt: string }[] = JSON.parse(
+    document.getElementById('photo-lightbox-data')!.textContent!
+  );
+  let current = 0;
+
+  const wrap = (i: number) => (i + photos.length) % photos.length;
+
+  function show(i: number) {
+    current = wrap(i);
+    img.src = photos[current].src;
+    img.alt = photos[current].alt;
+    count.textContent = `${current + 1} / ${photos.length}`;
+    // Warm the cache for the neighbours so stepping feels instant.
+    for (const d of [1, -1]) new Image().src = photos[wrap(current + d)].src;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-photo]').forEach((button) =>
+    button.addEventListener('click', () => {
+      show(Number(button.dataset.photo));
+      dialog.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    })
+  );
+  dialog.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+  });
+
+  dialog.querySelector('[data-lightbox-prev]')!.addEventListener('click', () => show(current - 1));
+  dialog.querySelector('[data-lightbox-next]')!.addEventListener('click', () => show(current + 1));
+  dialog.querySelector('[data-lightbox-close]')!.addEventListener('click', () => dialog.close());
+  img.addEventListener('click', () => show(current + 1));
+
+  // Clicking the dark area around the photo closes the viewer.
+  dialog.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t === dialog || t.hasAttribute('data-lightbox-backdrop')) dialog.close();
+  });
+
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'ArrowLeft') show(current - 1);
+  });
+
+  // Swipe left/right on touch screens.
+  let touchX: number | null = null;
+  dialog.addEventListener('touchstart', (e) => (touchX = e.touches[0].clientX), { passive: true });
+  dialog.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+</script>
+
+<style>
+  .marquee-window {
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+  .marquee-track {
+    animation: gls-marquee 90s linear infinite;
+  }
+  .marquee-reverse {
+    animation-direction: reverse;
+  }
+  /* Hold still while someone is looking at or tabbing through the photos. */
+  .photo-marquee:hover .marquee-track,
+  .photo-marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes gls-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    .marquee-window {
+      overflow-x: auto;
+    }
+    .marquee-duplicate {
+      display: none;
+    }
+  }
+</style>

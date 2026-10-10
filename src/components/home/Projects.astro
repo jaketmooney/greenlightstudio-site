@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import CaseStudyCard from '../CaseStudyCard.astro';
 import SectionHeading from '../SectionHeading.astro';
 import VideoCard from '../VideoCard.astro';
+import PhotoMarquee from '../PhotoMarquee.astro';
 import { MIN_VIEWS_SHOWN, PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
 
 interface Props { entries: CollectionEntry<'caseStudies'>[] }
@@ -70,5 +71,14 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
         ))
       }
     </div>
+
+    <h4 class="mt-14 text-center font-heading text-xl font-bold">From our shoots</h4>
+    <p class="mt-1 text-center text-sm text-gls-ink/60">
+      <span class="sm:hidden">Tap</span><span class="hidden sm:inline">Click</span> any photo to see it
+      full size.
+    </p>
   </div>
+
+  {/* Full-bleed: -mx-4 cancels the section's side padding. */}
+  <PhotoMarquee class="-mx-4 mt-6" />
 </section>
