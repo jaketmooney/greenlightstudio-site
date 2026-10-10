@@ -24,7 +24,7 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
   <div class="mx-auto max-w-5xl">
     <SectionHeading heading="Pricing" />
 
-    <p class="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed">
+    <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed sm:text-center">
       A full-time marketing hire in Washington State costs roughly $6,800 to $9,750 a month once
       benefits, payroll tax and equipment are included. Engagements with us start around $3,500 a
       month, and you get an experienced and flexible team with abilities ranging across video,
@@ -42,7 +42,7 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
                 <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <p class="font-heading font-bold">
                     {r.label}
-                    <span class="font-body font-normal text-gls-ink/60">· {r.note}</span>
+                    <span class="block font-body font-normal text-gls-ink/60 sm:inline"><span class="hidden sm:inline">· </span>{r.note}</span>
                   </p>
                   <p class="font-heading text-xl font-bold sm:text-2xl">
                     <span class="font-body text-sm font-normal text-gls-ink/60">roughly</span>

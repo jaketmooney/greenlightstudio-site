@@ -8,17 +8,18 @@ import { MIN_VIEWS_SHOWN, PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
 interface Props { entries: CollectionEntry<'caseStudies'>[] }
 const { entries } = Astro.props;
 
-// Five videos on a six-column grid: two wide cards, then three narrower ones,
-// so the last row is full rather than leaving a gap.
 const shownViews = (n: number) => (n >= MIN_VIEWS_SHOWN ? n : undefined);
 
-const span = (i: number) =>
-  i < 2 ? 'lg:col-span-3' : i === PRODUCED_VIDEOS.length - 1 ? 'sm:col-span-2 lg:col-span-2' : 'lg:col-span-2';
+// Desktop: five videos on a six-column grid, two wide cards then three
+// narrower ones, so the last row is full rather than leaving a gap. Below lg
+// they swipe sideways like the Shorts, which keeps a phone from scrolling
+// through five full-width videos.
+const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
 ---
 <section id="projects" class="px-4 py-16">
   <div class="mx-auto max-w-6xl">
     <SectionHeading heading="Our Clients" />
-    <p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed">
+    <p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-relaxed text-balance">
       What we've done for marketing teams like yours.
     </p>
 
@@ -34,7 +35,7 @@ const span = (i: number) =>
       <span class="h-px flex-1 bg-gls-ink/15"></span>
     </div>
 
-    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
+    <div class="-mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-6 lg:gap-8 lg:overflow-visible lg:px-0">
       {
         PRODUCED_VIDEOS.map((v, i) => (
           <VideoCard
@@ -43,7 +44,7 @@ const span = (i: number) =>
             label={v.client}
             views={shownViews(v.views)}
             large={i < 2}
-            class={span(i)}
+            class={`w-[85%] shrink-0 snap-start sm:w-[46%] lg:w-auto ${span(i)}`}
           />
         ))
       }
