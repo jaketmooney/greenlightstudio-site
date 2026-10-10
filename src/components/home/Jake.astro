@@ -1,7 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import jake from '../../assets/home/jake-portrait.jpg';
+import YouTube from '../YouTube.astro';
 
+// This section absorbs the old "For marketing leaders who need more support"
+// block that used to sit between it and the hero; that line survives as the
+// eyebrow. The heading names the result rather than introducing Jake, and the
+// video (which features him) replaces his portrait.
 const points = [
   'A team that gets to know your business',
   "Strategy that's practical for your industry",
@@ -11,17 +14,21 @@ const points = [
 ---
 
 <section class="bg-white px-4 py-20">
-  <div class="mx-auto grid max-w-5xl items-center gap-10 sm:grid-cols-2">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
     <div>
-      <h2 class="font-heading text-3xl font-bold leading-tight text-gls-green-dark sm:text-4xl">
-        I'm Jake.<br />I've been there.
+      <p class="text-lg text-gls-ink/60">For marketing leaders who need more support</p>
+      <h2 class="mt-2 font-heading text-3xl font-bold leading-tight text-gls-green-dark sm:text-4xl">
+        Get more done without growing your team.
       </h2>
       <p class="mt-6 leading-relaxed">
-        Small marketing teams are often expected to support a surprisingly large organization.
+        You have a lot to get done, but a small internal team to do it. I'm Jake, and I've been
+        there: small marketing teams are often expected to support a surprisingly large
+        organization.
       </p>
       <p class="mt-4 leading-relaxed">
         We built Green Light Studio to give those teams the kind of flexible, reliable support
-        that's hard to hire for internally.
+        that's hard to hire for internally. We plug in as an extension of your team, helping with
+        strategy and consistently getting the work done.
       </p>
 
       <ul class="mt-6 space-y-3">
@@ -54,18 +61,27 @@ const points = [
       </a>
     </div>
 
-    <div class="text-center">
-      {/* 3:2 source cropped square, so object-right centres the subject.
-          See the gls-website skill for the reasoning. */}
-      <Image
-        src={jake}
-        alt="Jake Mooney, founder of Green Light Studio"
-        width={600}
-        height={600}
-        class="mx-auto aspect-square w-full max-w-[600px] rounded-2xl object-cover object-right shadow-lg"
-      />
-      <p class="mt-4 font-heading font-bold">Jake Mooney</p>
-      <p class="text-sm text-gls-ink/70">Founder &middot; Green Light Studio</p>
-    </div>
+    <figure>
+      {/* The offset brand-colour panel behind the frame echoes the brush
+          stroke in the video's own thumbnail. */}
+      <div class="relative">
+        <div
+          class="absolute -right-2 -bottom-2 left-4 top-4 rounded-2xl bg-gradient-to-br from-gls-yellow to-gls-green sm:-right-4 sm:-bottom-4 sm:left-6 sm:top-6"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5 [&_lite-youtube]:max-w-none">
+          <YouTube
+            id="Txas4ESKQ5I"
+            title="Extending Your Marketing Team with Green Light Studio"
+            hd
+          />
+        </div>
+      </div>
+      <figcaption class="mt-8 text-center">
+        <span class="block font-heading font-bold">Jake Mooney</span>
+        <span class="text-sm text-gls-ink/70">Founder &middot; Green Light Studio</span>
+      </figcaption>
+    </figure>
   </div>
 </section>

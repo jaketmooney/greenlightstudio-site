@@ -1,7 +1,16 @@
 ---
 import 'lite-youtube-embed/src/lite-yt-embed.css';
-interface Props { id: string; title: string }
-const { id, title } = Astro.props;
+interface Props {
+  id: string;
+  title: string;
+  /** Use the 1280px thumbnail instead of the 640px default, for embeds shown
+      large. Only set it on videos that have one: YouTube serves a grey
+      placeholder, not an error, when maxresdefault is missing. */
+  hd?: boolean;
+}
+const { id, title, hd = false } = Astro.props;
+// lite-youtube only picks its own poster when no background-image is set.
+const style = hd ? `background-image: url('https://i.ytimg.com/vi/${id}/maxresdefault.jpg')` : undefined;
 ---
-<lite-youtube videoid={id} playlabel={title}></lite-youtube>
+<lite-youtube videoid={id} playlabel={title} style={style}></lite-youtube>
 <script>import 'lite-youtube-embed';</script>

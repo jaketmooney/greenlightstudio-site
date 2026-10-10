@@ -1,0 +1,182 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+// Monthly costs as the site owner states them. The hire is a range, drawn as a
+// solid bar to the low end and a hatched extension to the high end. The scale
+// stops at $10,000 so the top of that range sits just inside the edge.
+const SCALE = 10_000;
+const HIRE = { low: 6_800, high: 9_750 };
+const GLS = 3_500;
+const TICKS = [0, 2_500, 5_000, 7_500, 10_000];
+
+const pct = (n: number) => `${(n / SCALE) * 100}%`;
+const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
+
+const hireCosts = ['Salary', 'Benefits', 'Payroll tax', 'Equipment'];
+const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
+---
+
+<section id="pricing" class="bg-white px-4 py-20">
+  <div class="mx-auto max-w-5xl">
+    <SectionHeading heading="Pricing" />
+
+    <p class="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed">
+      A full-time marketing hire in Washington State costs roughly $6,800 to $9,750 a month once
+      benefits, payroll tax and equipment are included. Engagements with us start around $3,500 a
+      month, and you get an experienced and flexible team with abilities ranging across video,
+      design, social, writing, strategy and beyond.
+    </p>
+
+    <div class="mt-12 rounded-2xl bg-gls-paper p-6 sm:p-10">
+      <p class="text-sm font-semibold uppercase tracking-wide text-gls-ink/60">Monthly cost</p>
+
+      <div class="mt-6">
+        <div class="space-y-8">
+          <div>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p class="font-heading font-bold">
+                Full-time marketing hire
+                <span class="font-body font-normal text-gls-ink/60">· Washington State</span>
+              </p>
+              <p class="font-heading text-xl font-bold sm:text-2xl">
+                <span class="font-body text-sm font-normal text-gls-ink/60">roughly</span>
+                {usd(HIRE.low)}–{usd(HIRE.high)}
+              </p>
+            </div>
+            <div
+              class="relative mt-3 h-5"
+              role="img"
+              aria-label={`Full-time hire: ${usd(HIRE.low)} to ${usd(HIRE.high)} a month`}
+            >
+              <span
+                class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-ink/45"
+                style={{ width: pct(HIRE.low) }}
+              >
+              </span>
+              {/* 2px gap between the solid bar and the range extension. */}
+              <span
+                class="absolute inset-y-0 rounded-r-[4px] ring-1 ring-gls-ink/30 ring-inset"
+                style={{
+                  left: `calc(${pct(HIRE.low)} + 2px)`,
+                  width: `calc(${pct(HIRE.high - HIRE.low)} - 2px)`,
+                  backgroundImage:
+                    'repeating-linear-gradient(135deg, rgb(36 41 37 / 0.28) 0 2px, transparent 2px 7px)',
+                }}
+              >
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p class="font-heading font-bold text-gls-green-dark">Green Light Studio</p>
+              <p class="font-heading text-xl font-bold text-gls-green-dark sm:text-2xl">
+                <span class="font-body text-sm font-normal text-gls-ink/60">starting around</span>
+                {usd(GLS)}
+              </p>
+            </div>
+            <div
+              class="relative mt-3 h-5"
+              role="img"
+              aria-label={`Green Light Studio: starting around ${usd(GLS)} a month`}
+            >
+              <span
+                class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-green"
+                style={{ width: pct(GLS) }}
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative mt-6 h-6 border-t border-gls-ink/15 pt-2 text-xs text-gls-ink/50" aria-hidden="true">
+          {
+            TICKS.map((t, i) => (
+              <span
+                class:list={[
+                  'absolute top-2',
+                  i === 0 ? '' : i === TICKS.length - 1 ? '-translate-x-full' : '-translate-x-1/2',
+                ]}
+                style={{ left: pct(t) }}
+              >
+                {t === 0 ? '$0' : `$${t / 1000}k`}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div class="rounded-xl bg-white p-6">
+          <div class="flex items-center gap-3">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-6 w-6 text-gls-ink/50"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke-linecap="round"></path>
+            </svg>
+            <h3 class="font-heading text-lg font-bold">One full-time hire</h3>
+          </div>
+          <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-gls-ink/50">
+            Monthly cost includes
+          </p>
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {
+              hireCosts.map((c) => (
+                <li class="rounded-full bg-gls-ink/[0.07] px-3 py-1 text-sm font-semibold text-gls-ink/80">
+                  {c}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="rounded-xl bg-gls-green-dark p-6 text-white shadow-lg">
+          <div class="flex items-center gap-3">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-6 w-6 text-gls-yellow"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="8" r="3.5"></circle>
+              <path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" stroke-linecap="round"></path>
+              <circle cx="17" cy="7" r="2.5"></circle>
+              <path d="M17.5 12.5c2.5.3 4 2.6 4 5.5" stroke-linecap="round"></path>
+            </svg>
+            <h3 class="font-heading text-lg font-bold">An experienced, flexible team</h3>
+          </div>
+          <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-white/60">
+            Abilities across
+          </p>
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {
+              skills.map((s) => (
+                <li class="rounded-full bg-white/10 px-3 py-1 text-sm font-semibold">{s}</li>
+              ))
+            }
+            <li class="rounded-full bg-gls-yellow px-3 py-1 text-sm font-semibold text-gls-green-dark">
+              and beyond
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a
+        href="#contact-2026"
+        class="inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark"
+      >
+        Let's Chat
+      </a>
+    </div>
+  </div>
+</section>

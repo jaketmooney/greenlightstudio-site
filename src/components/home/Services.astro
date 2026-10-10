@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import SectionHeading from '../SectionHeading.astro';
-import YouTube from '../YouTube.astro';
 import iconStrategy from '../../assets/home/icon-strategy.png';
 import iconCopilot from '../../assets/home/icon-copilot.png';
 import iconFulfillment from '../../assets/home/icon-fulfillment.png';
@@ -53,7 +52,7 @@ const services = [
 
 <section id="services" class="bg-gls-paper px-4 py-20">
   <div class="mx-auto max-w-6xl">
-    <SectionHeading eyebrow="let's get to work!" heading="Services" />
+    <SectionHeading heading="Services" />
 
     <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {
@@ -69,21 +68,6 @@ const services = [
           </div>
         ))
       }
-    </div>
-
-    <SectionHeading heading="See How We Work" class="mt-20" />
-
-    <div class="mx-auto mt-10 max-w-3xl">
-      <YouTube id="Txas4ESKQ5I" title="Extending Your Marketing Team with Green Light Studio" />
-    </div>
-
-    <div class="mt-10 text-center">
-      <a
-        href="#contact-2026"
-        class="inline-block rounded-md bg-gls-green px-8 py-3 font-heading font-bold text-white shadow transition hover:bg-gls-green-dark"
-      >
-        Let's Chat
-      </a>
     </div>
   </div>
 </section>

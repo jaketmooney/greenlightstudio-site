@@ -1,9 +1,9 @@
 ---
-title: "Luxogear"
+title: "Ecommerce Videos for Camping Gear Brand Filmed in Thailand"
 client: "LuxoGear"
 summary: "Four Amazon product videos shot and delivered in a single day, ready to run as ads."
 heroImage: "./6012f941.png"
-heroAlt: "Luxogear"
+heroAlt: "Ecommerce Videos for Camping Gear Brand Filmed in Thailand"
 services: ["Video Production", "Amazon Ad Videos"]
 results: []
 publishDate: 2025-09-16

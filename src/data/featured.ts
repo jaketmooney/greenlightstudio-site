@@ -5,14 +5,14 @@
 // derived from dates or flags — so it lives here rather than in frontmatter,
 // where the ordering would be invisible and easy to break.
 export const FEATURED_SLUGS = [
-  'forestnet-1-9m-views', // 1.9M Views in 6 Months For Forestry Media Company
-  'ziegler-global-marketing', // A Corporate Marketing Team with Global Goals
-  'machinery-manufacturer-5-years', // Fully (Remote) Managed Marketing for USA CNC Manufacturer
-  'bike-tour-asia-marketing', // Boosting Internal Marketing Team for SE Asia Premium Tour Brand
+  'forestnet-1-9m-views', // ForestNet Media
+  'machinery-manufacturer-5-years', // Digital Wood Carver
+  'ziegler-global-marketing', // Ziegler Group
   'peterson-timber-seo', // Peterson Timber
-  'alger-consulting-coaching-brand', // How We Helped Alger Coaching Build Its Brand the Calm Way
-  'luxogear-amazon-ad-videos', // Luxogear
+  'luxogear-amazon-ad-videos', // LuxoGear
   'echo-asia-video', // ECHO Asia
+  'bike-tour-asia-marketing', // Bike Tour Asia
+  'alger-consulting-coaching-brand', // Alger Coaching
 ] as const;
 
 type Entry = { id: string };

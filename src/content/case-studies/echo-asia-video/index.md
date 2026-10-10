@@ -1,9 +1,9 @@
 ---
-title: "ECHO Asia"
+title: "Brand video for Agricultural NGO"
 client: "ECHO Asia"
 summary: "A corporate video that captured the impact of the organization in SE Asia, made on a tight schedule."
 heroImage: "./35ed0f99.jpg"
-heroAlt: "ECHO Asia"
+heroAlt: "Brand video for Agricultural NGO"
 services: ["Video Production"]
 results: []
 publishDate: 2025-03-26

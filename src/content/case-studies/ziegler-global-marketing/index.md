@@ -1,9 +1,9 @@
 ---
-title: "A Corporate Marketing Team with Global Goals"
+title: "Global Marketing Support for a 100-Year-Old Logistics Brand in 15+ Countries"
 client: "Ziegler Group"
 summary: "Four years of consistent marketing across multiple markets, without Ziegler having to manage an agency or chase deliverables."
 heroImage: "./fed8855d.png"
-heroAlt: "A Corporate Marketing Team with Global Goals"
+heroAlt: "Global Marketing Support for a 100-Year-Old Logistics Brand in 15+ Countries"
 services: ["Marketing Management", "Video Production", "Social Media Content", "Graphic Design"]
 results: []
 publishDate: 2026-03-01

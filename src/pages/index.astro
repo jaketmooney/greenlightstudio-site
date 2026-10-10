@@ -3,10 +3,11 @@ import { getCollection } from 'astro:content';
 import { featuredInOrder } from '../data/featured';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import Problem from '../components/home/Problem.astro';
 import Jake from '../components/home/Jake.astro';
 import Projects from '../components/home/Projects.astro';
+import Testimonials from '../components/home/Testimonials.astro';
 import Services from '../components/home/Services.astro';
+import Pricing from '../components/home/Pricing.astro';
 import Team from '../components/home/Team.astro';
 import Contact from '../components/home/Contact.astro';
 
@@ -18,14 +19,15 @@ const featured = featuredInOrder(await getCollection('caseStudies'));
 
 <BaseLayout
   title="Green Light Studio | Calm Marketing"
-  description="Custom marketing support for small, ambitious marketing teams that need more capacity without building a bigger internal team."
+  description="Video and marketing support for marketing teams. We work alongside your marketing lead to achieve their goals every month."
   transparentHeader
 >
   <Hero />
-  <Problem />
   <Jake />
   <Projects entries={featured} />
+  <Testimonials />
   <Services />
+  <Pricing />
   <Team />
   <Contact />
 </BaseLayout>

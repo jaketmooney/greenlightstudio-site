@@ -1,9 +1,9 @@
 ---
-title: "1.9M Views in 6 Months For Forestry Media Company"
+title: "1.9M Views in 6 Months"
 client: "ForestNet Media"
 summary: "They knew video mattered, but couldn’t maintain the consistency needed to make it work. We became their flexible production team, helping them turn raw footage into a steady YouTube workflow that didn't fall behind and reached 1.9M views in six months."
 heroImage: "./021b54e9.jpg"
-heroAlt: "1.9M Views in 6 Months For Forestry Media Company"
+heroAlt: "1.9M Views in 6 Months"
 services: ["Video Editing", "YouTube Channel Management", "Podcast Production", "Thumbnail Design"]
 results:
   - { value: "1.9M", label: "total views", delta: "+539%" }

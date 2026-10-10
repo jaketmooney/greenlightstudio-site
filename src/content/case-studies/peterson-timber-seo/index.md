@@ -1,9 +1,9 @@
 ---
-title: "Peterson Timber"
+title: "#1 on Google in Weeks for a Logging Company"
 client: "Peterson Timber"
 summary: "From no online presence to ranking #1 on Google without a complicated website or a long build process."
 heroImage: "./67925981.jpg"
-heroAlt: "Peterson Timber"
+heroAlt: "#1 on Google in Weeks for a Logging Company"
 services: ["Website Design", "SEO"]
 results:
   - { value: "#1", label: "Google search ranking", delta: "from zero online presence" }

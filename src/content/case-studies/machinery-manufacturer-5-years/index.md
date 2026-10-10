@@ -1,9 +1,9 @@
 ---
-title: "Fully (Remote) Managed Marketing for USA CNC Manufacturer"
+title: "800+ Leads From One Ebook for a USA CNC Manufacturer"
 client: "Digital Wood Carver"
 summary: "Six years without having to think about day-to-day marketing. Their team focuses on sales and production; we manage their online marketing."
 heroImage: "./afaf5000.jpg"
-heroAlt: "Fully (Remote) Managed Marketing for USA CNC Manufacturer"
+heroAlt: "800+ Leads From One Ebook for a USA CNC Manufacturer"
 services: ["Marketing Management", "Website Design", "Product Photography", "Video Production"]
 results:
   - { value: "800+", label: "leads from lead-gen ebook" }
