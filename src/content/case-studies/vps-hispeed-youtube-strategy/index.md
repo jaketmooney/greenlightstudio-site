@@ -7,6 +7,8 @@ heroAlt: "Building a Scalable YouTube Strategy for VPS HiSpeed"
 services: ["YouTube Channel Management", "Video Production", "SEO"]
 results:
   - { value: "81,000+", label: "YouTube views" }
+videos:
+  - { id: "CXdH5fqfV2M" }
 publishDate: 2025-06-16
 featured: true
 legacyPath: "/building-a-scalable-youtube-strategy-for-vps-hispeed"

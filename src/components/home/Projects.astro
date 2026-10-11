@@ -5,6 +5,7 @@ import SectionHeading from '../SectionHeading.astro';
 import VideoCard from '../VideoCard.astro';
 import PhotoMarquee from '../PhotoMarquee.astro';
 import ShortsCarousel from '../ShortsCarousel.astro';
+import ScrollRow from '../ScrollRow.astro';
 import { MIN_VIEWS_SHOWN, PRODUCED_VIDEOS } from '../../data/videos';
 
 interface Props { entries: CollectionEntry<'caseStudies'>[] }
@@ -12,11 +13,22 @@ const { entries } = Astro.props;
 
 const shownViews = (n: number) => (n >= MIN_VIEWS_SHOWN ? n : undefined);
 
-// Desktop: five videos on a six-column grid, two wide cards then three
-// narrower ones, so the last row is full rather than leaving a gap. Below lg
-// they swipe sideways like the Shorts, which keeps a phone from scrolling
-// through five full-width videos.
-const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
+// A two-row scroller naturally fills top-to-bottom, which would scramble the
+// editorial order. Instead each card is placed so every screenful of three
+// columns reads left to right, top row first (1 2 3 / 4 5 6, then 7 8 9 /
+// 10 11 12). A short last page of three or fewer fills column by column so it
+// doesn't leave a hole. Applied from sm up; phones keep the plain order.
+function place(i: number, n: number) {
+  const page = Math.floor(i / 6);
+  const j = i % 6;
+  const rest = n - page * 6;
+  const { r, c } =
+    rest <= 3
+      ? { r: (j % 2) + 1, c: Math.floor(j / 2) + 1 }
+      : { r: j < 3 ? 1 : 2, c: (j % 3) + 1 };
+  return `--r: ${r}; --c: ${page * 3 + c}`;
+}
+const placed = 'sm:[grid-row:var(--r)] sm:[grid-column:var(--c)]';
 ---
 <section id="projects" class="px-4 py-16">
   <div class="mx-auto max-w-6xl">
@@ -25,17 +37,17 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
       What we've done for marketing teams like yours.
     </p>
 
-    {/* Phones swipe the case studies sideways, like the videos, to save scrolling. */}
-    <div
-      data-reveal-group
-      class="-mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
-    >
+    {/* Case studies and videos each show at most two rows; the rest scroll
+        sideways (one swipeable row on phones). See ScrollRow. */}
+    <ScrollRow label="case studies" class="mt-10">
       {
-        entries.map((entry) => (
-          <CaseStudyCard entry={entry} class="w-[85%] shrink-0 snap-start sm:w-auto" />
+        entries.map((entry, i) => (
+          <div style={place(i, entries.length)} class={placed}>
+            <CaseStudyCard entry={entry} class="h-full" />
+          </div>
         ))
       }
-    </div>
+    </ScrollRow>
 
     {/* The videos stay inside this section, under a lighter divider heading
         rather than a SectionHeading, so they read as more of the portfolio. */}
@@ -45,20 +57,22 @@ const span = (i: number) => (i < 2 ? 'lg:col-span-3' : 'lg:col-span-2');
       <span class="h-px flex-1 bg-gls-ink/15"></span>
     </div>
 
-    <div data-reveal-group class="-mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:grid lg:grid-cols-6 lg:gap-8 lg:overflow-visible lg:px-0">
+    <ScrollRow label="videos" class="mt-8">
       {
         PRODUCED_VIDEOS.map((v, i) => (
-          <VideoCard
-            id={v.id}
-            title={v.title}
-            label={v.client}
-            views={shownViews(v.views)}
-            large={i < 2}
-            class={`w-[85%] shrink-0 snap-start sm:w-[46%] lg:w-auto ${span(i)}`}
-          />
+          <div style={place(i, PRODUCED_VIDEOS.length)} class={placed}>
+            <VideoCard
+              id={v.id}
+              title={v.title}
+              label={v.client}
+              views={shownViews(v.views)}
+              poster={v.poster}
+              class="h-full"
+            />
+          </div>
         ))
       }
-    </div>
+    </ScrollRow>
 
     <h4 data-reveal class="mt-14 text-center font-heading text-xl font-bold">Shorts</h4>
 

@@ -12,7 +12,7 @@ interface Props {
   /** Small green line above the title, like a case study's client. */
   label?: string;
   views?: number;
-  /** Local thumbnail; Shorts need one because YouTube's defaults are 4:3. */
+  /** Local thumbnail: Shorts need one (YouTube's are 4:3); others may replace YouTube's. */
   poster?: ImageMetadata;
   vertical?: boolean;
   /** Larger title for the wider cards. */
@@ -21,7 +21,9 @@ interface Props {
 }
 const { id, title, label, views, poster, vertical = false, large = false, class: className } =
   Astro.props;
-const posterUrl = poster ? (await getImage({ src: poster, width: 480, format: 'webp' })).src : undefined;
+const posterUrl = poster
+  ? (await getImage({ src: poster, width: Math.min(vertical ? 480 : 800, poster.width), format: 'webp' })).src
+  : undefined;
 ---
 
 <article data-reveal class:list={['flex flex-col overflow-hidden rounded-lg bg-white shadow transition hover:shadow-xl motion-safe:hover:-translate-y-1', className]}>

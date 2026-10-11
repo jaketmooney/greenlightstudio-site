@@ -7,6 +7,10 @@ heroAlt: "The Cost Advantage of Filming Abroad: Shil’s One-Day Content Sprint 
 services: ["Video Production", "Short-Form Video Content"]
 results:
   - { value: "15", label: "Reels delivered", delta: "in one day" }
+videos:
+  - { id: "7VVanL_csyI" }
+  - { id: "T4rr44uMBpY" }
+  - { id: "gX3S3UgMwNo" }
 publishDate: 2025-11-12
 featured: false
 legacyPath: "/case-studies/shils-one-day-cost-advantage-filming-abroad-chiang-mai-thailand"

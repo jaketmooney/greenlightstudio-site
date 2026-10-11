@@ -7,6 +7,8 @@ heroAlt: "Marketing Management for VPS HiSpeed: A 2+ Year Partnership"
 services: ["Marketing Management", "Content Strategy", "Branding", "Video Production"]
 results:
   - { value: "81,000+", label: "YouTube views" }
+videos:
+  - { id: "443sdalkpfo" }
 publishDate: 2025-05-16
 featured: false
 legacyPath: "/marketing-management-for-vps-hispeed-a-2-year-partnership"

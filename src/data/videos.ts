@@ -4,6 +4,10 @@ import yP4WlnHbyW0 from '../assets/videos/yP4WlnHbyW0.jpg';
 import MwYFm8C0o4 from '../assets/videos/MwYFm8C-0o4.jpg';
 import jnauXp4RTY from '../assets/videos/2jnauXp4RTY.jpg';
 import NWtB6emBoJw from '../assets/videos/NWtB6emBoJw.jpg';
+// Custom thumbnails Jake supplied, used instead of YouTube's.
+import thumbCleanerRegrind from '../assets/videos/thumbs/wMI4EIHFSyA.jpg';
+import thumbEchoAsia from '../assets/videos/thumbs/9cRRwpBZTJA.jpg';
+import thumbLuxoGearChainsaw from '../assets/videos/thumbs/kdsfts3mblg.jpg';
 import pQvQ4EBncJg from '../assets/videos/pQvQ4EBncJg.jpg';
 import VVanL_csyI from '../assets/videos/7VVanL_csyI.jpg';
 import T4rr44uMBpY from '../assets/videos/T4rr44uMBpY.jpg';
@@ -22,7 +26,8 @@ export interface Video {
   /** Optional: a few of Jake's own uploads have no client to name. */
   client?: string;
   views: number;
-  /** Shorts only: the vertical thumbnail, saved locally so it can be resized. */
+  /** A local thumbnail: required for Shorts (YouTube's are 4:3), optional
+      elsewhere to replace YouTube's own. */
   poster?: ImageMetadata;
 }
 
@@ -38,6 +43,7 @@ export const PRODUCED_VIDEOS: Video[] = [
     title: 'Cleaner Regrind Recycling: Kongskilde AirWash System at Highline Polycarbonate',
     client: 'Kongskilde Industries',
     views: 466,
+    poster: thumbCleanerRegrind,
   },
   {
     id: 'DCeuQ6CaUts',
@@ -58,8 +64,14 @@ export const PRODUCED_VIDEOS: Video[] = [
     views: 261,
   },
   // Added 11 October 2026 (views read the same day).
-  { id: 'kdsfts3mblg', title: 'LuxoGear ChainSaw Product Video For Amazon', client: 'LuxoGear', views: 8 },
-  { id: '9cRRwpBZTJA', title: 'An Introduction to ECHO Asia', client: 'ECHO Asia', views: 933 },
+  {
+    id: 'kdsfts3mblg',
+    title: 'LuxoGear ChainSaw Product Video For Amazon',
+    client: 'LuxoGear',
+    views: 8,
+    poster: thumbLuxoGearChainsaw,
+  },
+  { id: '9cRRwpBZTJA', title: 'An Introduction to ECHO Asia', client: 'ECHO Asia', views: 933, poster: thumbEchoAsia },
   {
     id: 'yWfkjQP0JO8',
     title: 'Meet Digital Wood Carver | Making CNC Routers in the Hoosier State',

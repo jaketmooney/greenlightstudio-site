@@ -73,6 +73,7 @@ const tall = videos.filter((v) => v.vertical);
                   id={v.id}
                   title={v.title}
                   views={v.views}
+                  poster={v.poster}
                   class={wide.length % 2 === 1 && i === wide.length - 1 ? 'sm:col-span-2' : ''}
                 />
               ))}

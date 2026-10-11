@@ -1,0 +1,78 @@
+---
+// A sideways-scrolling row of cards with arrow buttons. Phones get one row
+// to swipe; from sm up it's two rows (the grid fills top-to-bottom, then
+// left-to-right) with arrows to page through the rest. Nothing drifts on its
+// own here, unlike the Shorts: with several rows on the page, only one
+// moving row keeps the motion calm.
+interface Props {
+  /** Names the arrow buttons, e.g. "case studies". */
+  label: string;
+  class?: string;
+}
+const { label, class: className } = Astro.props;
+---
+
+<div class:list={['relative', className]} data-scroll-row>
+  <div
+    data-track
+    data-reveal-group
+    class="scroll-row-track -mx-4 grid snap-x snap-mandatory scroll-px-4 auto-cols-[85%] grid-flow-col grid-rows-1 gap-4 overflow-x-auto px-4 py-3 sm:mx-0 sm:auto-cols-[calc((100%_-_2rem)/2)] sm:grid-rows-2 sm:gap-8 sm:scroll-px-0 sm:px-0 lg:auto-cols-[calc((100%_-_4rem)/3)]"
+  >
+    <slot />
+  </div>
+
+  {
+    [
+      { dir: 'prev', text: `Previous ${label}`, side: 'left-1 lg:left-0 lg:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
+      { dir: 'next', text: `More ${label}`, side: 'right-1 lg:right-0 lg:translate-x-1/2', d: 'M9 5l7 7-7 7' },
+    ].map((b) => (
+      <button
+        type="button"
+        data-dir={b.dir}
+        aria-label={b.text}
+        class:list={[
+          'absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gls-green-dark shadow-lg transition hover:bg-gls-yellow disabled:pointer-events-none disabled:opacity-0 sm:flex',
+          b.side,
+        ]}
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d={b.d} stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    ))
+  }
+</div>
+
+<style>
+  .scroll-row-track {
+    scrollbar-width: none;
+  }
+  .scroll-row-track::-webkit-scrollbar {
+    display: none;
+  }
+  /* Each card snaps to the left edge as the row pages along. */
+  .scroll-row-track > :global(*) {
+    scroll-snap-align: start;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-scroll-row]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-dir="prev"]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-dir="next"]')!;
+
+    // Arrows page by a screenful; snapping lines the next card up on the edge.
+    prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
+
+    // Hide an arrow when there's nothing further that way.
+    function update() {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+    track.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  });
+</script>
