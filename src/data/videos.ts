@@ -4,17 +4,23 @@ import yP4WlnHbyW0 from '../assets/videos/yP4WlnHbyW0.jpg';
 import MwYFm8C0o4 from '../assets/videos/MwYFm8C-0o4.jpg';
 import jnauXp4RTY from '../assets/videos/2jnauXp4RTY.jpg';
 import NWtB6emBoJw from '../assets/videos/NWtB6emBoJw.jpg';
+import pQvQ4EBncJg from '../assets/videos/pQvQ4EBncJg.jpg';
+import VVanL_csyI from '../assets/videos/7VVanL_csyI.jpg';
+import T4rr44uMBpY from '../assets/videos/T4rr44uMBpY.jpg';
+import gX3S3UgMwNo from '../assets/videos/gX3S3UgMwNo.jpg';
 
 // Client videos shown under the case studies on the homepage, in the site
 // owner's order. View counts are a snapshot, not live: they were read from
 // YouTube on 10 October 2026 and will only change when edited here.
 //
-// Titles are the YouTube titles with hashtags removed.
+// Titles are the YouTube titles with hashtags removed. One VPS HiSpeed video
+// has a Thai title on YouTube; it is shown here in English, marked "(in Thai)".
 
 export interface Video {
   id: string;
   title: string;
-  client: string;
+  /** Optional: a few of Jake's own uploads have no client to name. */
+  client?: string;
   views: number;
   /** Shorts only: the vertical thumbnail, saved locally so it can be resized. */
   poster?: ImageMetadata;
@@ -51,6 +57,23 @@ export const PRODUCED_VIDEOS: Video[] = [
     client: 'ForestNet Media',
     views: 261,
   },
+  // Added 11 October 2026 (views read the same day).
+  { id: 'kdsfts3mblg', title: 'LuxoGear ChainSaw Product Video For Amazon', client: 'LuxoGear', views: 8 },
+  { id: '9cRRwpBZTJA', title: 'An Introduction to ECHO Asia', client: 'ECHO Asia', views: 933 },
+  {
+    id: 'yWfkjQP0JO8',
+    title: 'Meet Digital Wood Carver | Making CNC Routers in the Hoosier State',
+    client: 'Digital Wood Carver',
+    views: 2_159,
+  },
+  { id: 'rHz5USDszOs', title: 'DWC1824 Hobbyist CNC Router | MADE IN USA', client: 'Digital Wood Carver', views: 3_491 },
+  {
+    id: 'CXdH5fqfV2M',
+    title: 'Build a Free Website for Beginners, No Code Needed (in Thai)',
+    client: 'VPS HiSpeed',
+    views: 63_545,
+  },
+  { id: '443sdalkpfo', title: 'Premium Hosting in Thailand', client: 'VPS HiSpeed', views: 167 },
 ];
 
 export const SHORTS: Video[] = [
@@ -89,6 +112,11 @@ export const SHORTS: Video[] = [
     views: 138_205,
     poster: NWtB6emBoJw,
   },
+  // Added 11 October 2026; uploaded the day before, so no views yet.
+  { id: 'pQvQ4EBncJg', title: 'Sawmill Reel', views: 0, poster: pQvQ4EBncJg },
+  { id: '7VVanL_csyI', title: "What It's Like to Stutter", client: 'Shil Shanghavi', views: 0, poster: VVanL_csyI },
+  { id: 'T4rr44uMBpY', title: 'Are People Listening?', client: 'Shil Shanghavi', views: 0, poster: T4rr44uMBpY },
+  { id: 'gX3S3UgMwNo', title: 'Imposter Syndrome', client: 'Shil Shanghavi', views: 0, poster: gX3S3UgMwNo },
 ];
 
 /** Counts below this are left off the cards: a few hundred views reads as weak

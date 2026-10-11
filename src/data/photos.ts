@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import motorcycleTour from '../assets/photos/motorcycle-tour.jpg';
+import motorcycleTourAerial from '../assets/photos/motorcycle-tour-aerial.jpg';
 import officeInterviewRig from '../assets/photos/office-interview-rig.jpg';
 import warehouseInterviewSet from '../assets/photos/warehouse-interview-set.jpg';
 import customerVideoAnnotated from '../assets/photos/customer-video-annotated.jpg';
@@ -46,5 +47,6 @@ export const PHOTO_ROWS: Photo[][] = [
     { src: echoAsiaPlanting, alt: 'Close-up of a farmer tending plants, from the ECHO Asia video' },
     { src: warehouseInterviewBw, alt: 'Black-and-white wide shot of an interview set in a warehouse' },
     { src: studioSetup, alt: 'Studio lights and a monitor framing an interview' },
+    { src: motorcycleTourAerial, alt: 'Aerial view of motorcycles on a winding mountain road' },
   ],
 ];

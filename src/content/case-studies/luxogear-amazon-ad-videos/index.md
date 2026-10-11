@@ -6,6 +6,10 @@ heroImage: "./6012f941.png"
 heroAlt: "Ecommerce Videos for Camping Gear Brand Filmed in Thailand"
 services: ["Video Production", "Amazon Ad Videos"]
 results: []
+videos:
+  - { id: "kdsfts3mblg" }
+  - { id: "uHmrXjNTiKk", title: "LuxoGear Firestarter Multitool Product Shoot For Amazon Ads" }
+  - { id: "xyIGv-TC894", title: "BTS: Thailand Video Shoot for LuxoGear!" }
 publishDate: 2025-09-16
 featured: false
 legacyPath: "/case-studies/amazon-ad-videos-luxogear"

@@ -15,12 +15,14 @@ const [featured, ...others] = [
     name: 'Burl Tichenor',
     photo: burl,
     company: 'Digital Wood Carver',
+    since: 2020,
   },
   {
     quote: "They're proactive, quick to respond, and always ready for anything.",
     name: 'Paulina Lewandowska',
     photo: paulina,
     company: 'Ziegler Group',
+    since: 2021,
   },
   {
     quote:
@@ -31,6 +33,7 @@ const [featured, ...others] = [
     // Sharp takes keywords here (top, centre, attention…), not percentages.
     position: 'top',
     company: 'Digital Wood Carver',
+    since: 2020,
   },
   {
     quote:
@@ -38,6 +41,7 @@ const [featured, ...others] = [
     name: 'Anthony Robinson',
     photo: anthony,
     company: 'ForestNet Media',
+    since: 2025,
   },
 ];
 
@@ -77,7 +81,7 @@ const quoteMark =
           />
           <span>
             <span class="block font-heading font-bold text-gls-ink">{featured.name}</span>
-            <span class="text-sm text-gls-ink/70">{featured.company}</span>
+            <span class="text-sm text-gls-ink/70">{featured.company} &middot; client since {featured.since}</span>
           </span>
         </figcaption>
       </figure>
@@ -109,7 +113,7 @@ const quoteMark =
               />
               <span>
                 <span class="block font-heading font-bold text-white">{t.name}</span>
-                <span class="text-sm text-white/70">{t.company}</span>
+                <span class="text-sm text-white/70">{t.company} &middot; client since {t.since}</span>
               </span>
             </figcaption>
           </figure>

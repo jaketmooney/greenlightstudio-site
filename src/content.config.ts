@@ -31,6 +31,17 @@ const caseStudies = defineCollection({
           })
         )
         .default([]),
+      // YouTube videos shown under the write-up, in order. Title and vertical
+      // are optional when the video is already in src/data/videos.ts.
+      videos: z
+        .array(
+          z.object({
+            id: z.string(),
+            title: z.string().optional(),
+            vertical: z.boolean().optional(),
+          })
+        )
+        .default([]),
       publishDate: z.coerce.date(),
       featured: z.boolean().default(false),
       legacyPath: z.string(),

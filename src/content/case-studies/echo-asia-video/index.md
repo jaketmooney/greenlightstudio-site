@@ -6,6 +6,8 @@ heroImage: "./35ed0f99.jpg"
 heroAlt: "Brand video for Agricultural NGO"
 services: ["Video Production"]
 results: []
+videos:
+  - { id: "9cRRwpBZTJA" }
 publishDate: 2025-03-26
 featured: false
 legacyPath: "/case-study-the-echo-asia-video-project"

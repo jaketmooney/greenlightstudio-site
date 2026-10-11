@@ -7,6 +7,9 @@ heroAlt: "800+ Leads From One Ebook for a USA CNC Manufacturer"
 services: ["Marketing Management", "Website Design", "Product Photography", "Video Production"]
 results:
   - { value: "800+", label: "leads from lead-gen ebook" }
+videos:
+  - { id: "yWfkjQP0JO8" }
+  - { id: "rHz5USDszOs" }
 publishDate: 2026-03-01
 featured: true
 legacyPath: "/case-study/5-years-of-remote-marketing-support-for-a-machinery-manufacturer"

@@ -65,9 +65,9 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
     <SiteFooter />
     {/* Scroll reveals (styles in global.css). [data-reveal] elements fade up
         the first time they enter view; ones that arrive together are staggered.
-        A [data-reveal-group] reveals all its [data-reveal] children at once,
-        used for sideways-scrolling rows whose off-screen cards would otherwise
-        wait until swiped. [data-count] numbers count up from zero. Inline, so
+        A [data-reveal-group] reveals all its [data-reveal] children at once
+        while it is a sideways-scrolling row (off-screen cards would otherwise
+        wait until swiped); laid out as a grid, its children reveal one by one. [data-count] numbers count up from zero. Inline, so
         it can't fail to load. */}
     <script is:inline>
       (function () {
@@ -103,7 +103,10 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
         }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
 
         document.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = '0'; });
-        document.querySelectorAll('[data-reveal-group]').forEach(function (g) { io.observe(g); });
+        document.querySelectorAll('[data-reveal-group]').forEach(function (g) {
+          if (g.scrollWidth > g.clientWidth + 1) io.observe(g);
+          else g.removeAttribute('data-reveal-group');
+        });
         document.querySelectorAll('[data-reveal]').forEach(function (el) {
           if (!el.closest('[data-reveal-group]')) io.observe(el);
         });

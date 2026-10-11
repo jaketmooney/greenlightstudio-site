@@ -9,6 +9,13 @@ results:
   - { value: "1.9M", label: "total views", delta: "+539%" }
   - { value: "369.2K", label: "long-form views", delta: "+31%" }
   - { value: "+2.4K", label: "new subscribers" }
+videos:
+  - { id: "SnTS2dSxKzM" }
+  - { id: "DCeuQ6CaUts" }
+  - { id: "Fdqrz5BNnpc" }
+  - { id: "orv8pXcEvXU" }
+  - { id: "MwYFm8C-0o4" }
+  - { id: "NWtB6emBoJw" }
 publishDate: 2026-06-16
 featured: true
 legacyPath: "/1-9m-views-in-6-months-for-forestry-media-company"

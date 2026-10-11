@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ResultStat from '../../components/ResultStat.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import { MIN_VIEWS_SHOWN, PRODUCED_VIDEOS, SHORTS } from '../../data/videos';
 
 export async function getStaticPaths() {
   const entries = await getCollection('caseStudies');
@@ -12,6 +14,25 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, client, summary, heroImage, heroAlt, services, results } = entry.data;
+
+// Fill in each video from the homepage list when it's there (title, views,
+// the Shorts' vertical posters); frontmatter supplies the rest.
+const known = new Map([
+  ...PRODUCED_VIDEOS.map((v) => [v.id, { ...v, vertical: false }] as const),
+  ...SHORTS.map((v) => [v.id, { ...v, vertical: true }] as const),
+]);
+const videos = entry.data.videos.map((v) => {
+  const k = known.get(v.id);
+  return {
+    id: v.id,
+    title: v.title ?? k?.title ?? title,
+    vertical: v.vertical ?? k?.vertical ?? false,
+    poster: k?.poster,
+    views: k && k.views >= MIN_VIEWS_SHOWN ? k.views : undefined,
+  };
+});
+const wide = videos.filter((v) => !v.vertical);
+const tall = videos.filter((v) => v.vertical);
 ---
 
 <BaseLayout title={`${title} | Green Light Studio`} description={summary}>
@@ -40,6 +61,33 @@ const { title, client, summary, heroImage, heroAlt, services, results } = entry.
     <div class="prose prose-lg mt-10 max-w-none prose-headings:font-heading prose-headings:text-gls-green-dark prose-a:text-gls-green">
       <Content />
     </div>
+
+    {
+      videos.length > 0 && (
+        <section class="mt-14">
+          <h2 class="font-heading text-2xl text-gls-green-dark sm:text-3xl">Watch the work</h2>
+          {wide.length > 0 && (
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              {wide.map((v, i) => (
+                <VideoCard
+                  id={v.id}
+                  title={v.title}
+                  views={v.views}
+                  class={wide.length % 2 === 1 && i === wide.length - 1 ? 'sm:col-span-2' : ''}
+                />
+              ))}
+            </div>
+          )}
+          {tall.length > 0 && (
+            <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {tall.map((v) => (
+                <VideoCard id={v.id} title={v.title} views={v.views} poster={v.poster} vertical />
+              ))}
+            </div>
+          )}
+        </section>
+      )
+    }
 
     {
       services.length > 0 && (
