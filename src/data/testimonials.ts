@@ -8,7 +8,6 @@ import anthony from '../assets/home/testimonials/anthony-robinson.webp';
 import jennifer from '../assets/home/testimonials/jennifer-alger.jpg';
 import stefan from '../assets/home/testimonials/stefan-king.jpg';
 import luxogearWork from '../content/case-studies/luxogear-amazon-ad-videos/6012f941.png';
-import beth from '../assets/home/testimonials/beth-tichenor.jpg';
 import daniel from '../assets/home/testimonials/daniel-senicar.webp';
 import josh from '../assets/home/testimonials/josh-summers.jpg';
 import luuk from '../assets/home/testimonials/luuk-van-de-weghe.jpg';
@@ -21,7 +20,7 @@ import shil from '../assets/home/testimonials/shil-shanghavi.jpg';
 // are verbatim excerpts from the full testimonials in Jake's "Client
 // Testimonials" doc; "…" marks where a passage was cut. Each stays under 80
 // words. Skipped at Jake's request: James Wong, Allsteel, Greg Bacon, Janna
-// Hanover, Steve Krupp, Scott Stoodley.
+// Hanover, Steve Krupp, Scott Stoodley, and (on the homepage) Beth Tichenor.
 
 export interface Testimonial {
   name: string;
@@ -74,7 +73,8 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: 'Mareks Lomako',
-    company: 'IT product showcase video',
+    company: 'Ziegler Group',
+    since: 2021,
     photo: mareks,
     focus: '50% 30%',
     quote:
@@ -115,15 +115,6 @@ export const TESTIMONIALS: Testimonial[] = [
       'Terrific, the collaboration with Jake immediately clicked; straightforward communication, action-oriented and great execution; quick turnaround, solid team on and behind the scenes. … Our Product Listing now has great video content showcasing the use of the gear and problem it solves for the customer in real-life situation, with improved conversion.',
   },
   {
-    name: 'Beth Tichenor',
-    company: 'Digital Wood Carver',
-    since: 2020,
-    photo: beth,
-    focus: '50% 30%',
-    quote:
-      "I found Green Light Studio's staff to be friendly, knowledgeable, and efficient. Working with them is always great. I'd recommend them for their friendly staff who keep you in the loop and work quickly and efficiently.",
-  },
-  {
     name: 'Daniel Senicar',
     company: 'Bike Tour Asia',
     photo: daniel,
@@ -134,6 +125,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     name: 'Josh Summers',
     company: 'Go West Ventures',
+    since: 2023,
     photo: josh,
     focus: '50% 25%',
     quote:
@@ -141,7 +133,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: 'Luuk van de Weghe',
-    company: 'Managed marketing',
+    company: 'Author and historian · video projects',
     photo: luuk,
     focus: '50% 25%',
     quote:
@@ -157,7 +149,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: 'Sallo Pollak',
-    company: 'Philanthropy Connections',
+    company: 'Philanthropy Connections Foundation',
     photo: sallo,
     focus: '60% 20%',
     quote:
