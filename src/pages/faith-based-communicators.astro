@@ -21,6 +21,7 @@ import {
 } from '../data/faith';
 import { FAITH_TESTIMONIALS } from '../data/testimonials';
 import { MIN_VIEWS_SHOWN } from '../data/videos';
+import jakePortrait from '../assets/faith/jake-mooney.jpg';
 
 // A page for a second audience: faith-based communicators on YouTube. It is
 // linked from a slim band on the homepage and from the footer, but kept out
@@ -322,22 +323,37 @@ const stats = [
     </div>
   </section>
 
-  {/* Contact */}
+  {/* Contact: Jake's own address here, at his request (the rest of the
+      site links hello@). */}
   <section id="contact" class="bg-white px-4 py-20">
     <div class="mx-auto max-w-3xl text-center">
       <SectionHeading heading="Have a message worth sharing?" />
       <p data-reveal class="mt-6 text-lg leading-relaxed">
         Tell us about your channel or project and who you're hoping to reach.
       </p>
-      <a
-        href="mailto:hello@greenlightstudio.co?subject=Faith-based%20video"
-        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5"
-      >
-        Let's Talk
-      </a>
-      <p class="mt-4 text-sm text-gls-ink/60">
-        or email <a href="mailto:hello@greenlightstudio.co" class="text-gls-green underline">hello@greenlightstudio.co</a>
-      </p>
+    </div>
+
+    <div
+      data-reveal
+      class="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-6 rounded-2xl bg-gls-paper p-6 text-center sm:flex-row sm:p-8 sm:text-left"
+    >
+      <Image
+        src={jakePortrait}
+        alt="Jake Mooney, founder of Green Light Studio"
+        width={400}
+        height={400}
+        class="h-36 w-36 shrink-0 rounded-full object-cover object-[50%_35%] ring-4 ring-white shadow-lg sm:h-40 sm:w-40"
+      />
+      <div>
+        <p class="font-heading text-xl font-bold">Jake Mooney</p>
+        <p class="text-gls-ink/70">Founder, Green Light Studio</p>
+        <a
+          href="mailto:jacob@greenlightstudio.co"
+          class="mt-4 inline-block font-heading text-lg font-bold break-all text-gls-green-dark underline decoration-gls-yellow decoration-2 underline-offset-4 transition hover:text-gls-green sm:text-xl"
+        >
+          jacob@greenlightstudio.co
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
