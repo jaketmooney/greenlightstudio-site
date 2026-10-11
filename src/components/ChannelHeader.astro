@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import type { Channel } from '../data/faith';
+
+// A channel's logo, name, link, description and optional pull quote, used by
+// both channel layouts on the faith page. `wide` puts the quote beside the
+// text instead of under it.
+interface Props {
+  ch: Channel;
+  wide?: boolean;
+}
+const { ch, wide = false } = Astro.props;
+---
+
+<div data-reveal class:list={[wide && ch.pullQuote && 'grid gap-6 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-12']}>
+  <div class:list={[wide && !ch.pullQuote && 'max-w-3xl']}>
+    <div class="flex items-center gap-4">
+      <Image
+        src={ch.logo}
+        alt={`${ch.name} logo`}
+        width={112}
+        height={112}
+        class="h-14 w-14 rounded-full object-cover ring-2 ring-gls-yellow ring-offset-2"
+      />
+      <div>
+        <h3 class="text-2xl">{ch.name}</h3>
+        <a href={ch.url} target="_blank" rel="noopener noreferrer" class="text-sm text-gls-green underline-offset-4 hover:underline">
+          YouTube channel ↗
+        </a>
+      </div>
+    </div>
+    <p class="mt-5 leading-relaxed">{ch.about}</p>
+  </div>
+  {
+    ch.pullQuote && (
+      <blockquote class:list={['border-l-4 border-gls-yellow pl-4', !wide && 'mt-6']}>
+        <p class="leading-relaxed italic">“{ch.pullQuote.text}”</p>
+        <footer class="mt-2 text-sm font-semibold text-gls-ink/70">{ch.pullQuote.by}</footer>
+      </blockquote>
+    )
+  }
+</div>

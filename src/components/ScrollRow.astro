@@ -7,24 +7,37 @@
 interface Props {
   /** Names the arrow buttons, e.g. "case studies". */
   label: string;
+  /** 'cards' (default): two rows of landscape cards. 'shorts': one row of
+      vertical cards, six to a screen on desktop. */
+  variant?: 'cards' | 'shorts';
   class?: string;
 }
-const { label, class: className } = Astro.props;
+const { label, variant = 'cards', class: className } = Astro.props;
+// Static strings so Tailwind can see every class.
+const layout = {
+  cards:
+    'auto-cols-[85%] sm:auto-cols-[calc((100%_-_2rem)/2)] sm:grid-rows-2 sm:gap-8 lg:auto-cols-[calc((100%_-_4rem)/3)]',
+  shorts:
+    'auto-cols-[46%] sm:auto-cols-[calc((100%_-_3rem)/4)] sm:gap-4 lg:auto-cols-[calc((100%_-_5rem)/6)]',
+}[variant];
 ---
 
 <div class:list={['relative', className]} data-scroll-row>
   <div
     data-track
     data-reveal-group
-    class="scroll-row-track -mx-4 grid snap-x snap-mandatory scroll-px-4 auto-cols-[85%] grid-flow-col grid-rows-1 gap-4 overflow-x-auto px-4 py-3 sm:mx-0 sm:auto-cols-[calc((100%_-_2rem)/2)] sm:grid-rows-2 sm:gap-8 sm:scroll-px-0 sm:px-0 lg:auto-cols-[calc((100%_-_4rem)/3)]"
+    class:list={[
+      'scroll-row-track -mx-4 grid snap-x snap-mandatory scroll-px-4 grid-flow-col grid-rows-1 gap-4 overflow-x-auto px-4 py-3 sm:mx-0 sm:scroll-px-0 sm:px-0',
+      layout,
+    ]}
   >
     <slot />
   </div>
 
   {
     [
-      { dir: 'prev', text: `Previous ${label}`, side: 'left-1 lg:left-0 lg:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
-      { dir: 'next', text: `More ${label}`, side: 'right-1 lg:right-0 lg:translate-x-1/2', d: 'M9 5l7 7-7 7' },
+      { dir: 'prev', text: `Previous ${label}`, side: 'left-1 xl:left-0 xl:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
+      { dir: 'next', text: `More ${label}`, side: 'right-1 xl:right-0 xl:translate-x-1/2', d: 'M9 5l7 7-7 7' },
     ].map((b) => (
       <button
         type="button"

@@ -31,8 +31,8 @@ const items = await Astro.slots.render('default');
 
   {
     [
-      { dir: 'prev', text: `Previous ${label}`, side: 'left-0 -translate-x-1/2', d: 'M15 5l-7 7 7 7' },
-      { dir: 'next', text: `More ${label}`, side: 'right-0 translate-x-1/2', d: 'M9 5l7 7-7 7' },
+      { dir: 'prev', text: `Previous ${label}`, side: 'left-1 xl:left-0 xl:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
+      { dir: 'next', text: `More ${label}`, side: 'right-1 xl:right-0 xl:translate-x-1/2', d: 'M9 5l7 7-7 7' },
     ].map((b) => (
       <button
         type="button"

@@ -4,7 +4,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import VideoCard from '../components/VideoCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
-import { CHANNELS, HERO_THUMBS, SERVICES } from '../data/faith';
+import CompareSlider from '../components/CompareSlider.astro';
+import PhotoMarquee from '../components/PhotoMarquee.astro';
+import ChannelHeader from '../components/ChannelHeader.astro';
+import ScrollRow from '../components/ScrollRow.astro';
+import { place, placed } from '../lib/scroll-row';
+import {
+  CHANNELS,
+  COMPARISONS,
+  GALLERY_ROWS,
+  GOSPELS_VIDEO,
+  HERO_THUMBS,
+  PROCESS,
+  SERVICES,
+  THUMBNAIL_CONCEPTS,
+} from '../data/faith';
 import { FAITH_TESTIMONIALS } from '../data/testimonials';
 import { MIN_VIEWS_SHOWN } from '../data/videos';
 
@@ -17,6 +31,7 @@ const stats = [
   { value: 'Millions', label: "of views on videos we've worked on" },
   { value: '50+', label: 'interviews edited for Bible Memory Goal' },
   { value: '5', label: 'documentary episodes for The Historical Tell' },
+  { value: '22', label: 'custom visuals designed for a single video' },
 ];
 ---
 
@@ -70,7 +85,7 @@ const stats = [
 
   {/* Proof */}
   <section class="bg-white px-4 py-14">
-    <div class="mx-auto grid max-w-5xl gap-8 text-center sm:grid-cols-3">
+    <div class="mx-auto grid max-w-6xl gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
       {
         stats.map((s) => (
           <div data-reveal>
@@ -114,54 +129,181 @@ const stats = [
       <SectionHeading heading="Work we've been part of" />
 
       {
-        CHANNELS.map((ch) => (
-          <article class="mt-14 grid gap-8 border-t border-gls-ink/10 pt-12 lg:grid-cols-[1fr_2fr] lg:gap-12">
-            <div data-reveal>
-              <div class="flex items-center gap-4">
-                <Image
-                  src={ch.logo}
-                  alt={`${ch.name} logo`}
-                  width={112}
-                  height={112}
-                  class="h-14 w-14 rounded-full object-cover ring-2 ring-gls-yellow ring-offset-2"
-                />
-                <div>
-                  <h3 class="text-2xl">{ch.name}</h3>
-                  <a
-                    href={ch.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm text-gls-green underline-offset-4 hover:underline"
-                  >
-                    YouTube channel ↗
-                  </a>
-                </div>
-              </div>
-              <p class="mt-5 leading-relaxed">{ch.about}</p>
-              {ch.pullQuote && (
-                <blockquote class="mt-6 border-l-4 border-gls-yellow pl-4">
-                  <p class="leading-relaxed italic">“{ch.pullQuote.text}”</p>
-                  <footer class="mt-2 text-sm font-semibold text-gls-ink/70">{ch.pullQuote.by}</footer>
-                </blockquote>
+        CHANNELS.map((ch) =>
+          ch.layout === 'wide' ? (
+            <article class="mt-14 border-t border-gls-ink/10 pt-12">
+              <ChannelHeader ch={ch} wide />
+              <ScrollRow label={`${ch.name} videos`} class="mt-8">
+                {ch.videos.map((v, i) => (
+                  <div style={place(i, ch.videos.length)} class={placed}>
+                    <VideoCard
+                      id={v.id}
+                      title={v.title}
+                      label={v.label}
+                      views={shownViews(v.views)}
+                      note={v.note}
+                      class="h-full"
+                    />
+                  </div>
+                ))}
+              </ScrollRow>
+              {ch.shorts && (
+                <>
+                  <p class="mt-8 text-sm font-semibold tracking-wide text-gls-ink/60 uppercase">Shorts</p>
+                  <ScrollRow label={`${ch.name} Shorts`} variant="shorts" class="mt-1">
+                    {ch.shorts.map((v) => (
+                      <VideoCard
+                        id={v.id}
+                        title={v.title}
+                        views={shownViews(v.views)}
+                        poster={v.poster}
+                        vertical
+                        class="h-full"
+                      />
+                    ))}
+                  </ScrollRow>
+                </>
               )}
-            </div>
+            </article>
+          ) : (
+            <article class="mt-14 grid gap-8 border-t border-gls-ink/10 pt-12 lg:grid-cols-[1fr_2fr] lg:gap-12">
+              <ChannelHeader ch={ch} />
 
-            {/* An odd number of videos gives the first one the full width. */}
-            <div class="grid gap-6 sm:grid-cols-2">
-              {ch.videos.map((v, i) => (
-                <VideoCard
-                  id={v.id}
-                  title={v.title}
-                  views={shownViews(v.views)}
-                  note={v.note}
-                  class={ch.videos.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}
-                />
-              ))}
-            </div>
-          </article>
-        ))
+              {/* An odd number of videos gives the first one the full width. */}
+              <div class="grid min-w-0 gap-6 sm:grid-cols-2">
+                {ch.videos.map((v, i) => (
+                  <VideoCard
+                    id={v.id}
+                    title={v.title}
+                    label={v.label}
+                    views={shownViews(v.views)}
+                    note={v.note}
+                    class={ch.videos.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}
+                  />
+                ))}
+                {ch.shorts && (
+                  <div class="min-w-0 sm:col-span-2">
+                    <p class="text-sm font-semibold tracking-wide text-gls-ink/60 uppercase">
+                      {ch.shortsLabel ?? 'Shorts'}
+                    </p>
+                    <div class="-mx-4 mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 py-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible sm:px-0">
+                      {ch.shorts.map((v) => (
+                        <VideoCard
+                          id={v.id}
+                          title={v.title}
+                          views={shownViews(v.views)}
+                          poster={v.poster}
+                          vertical
+                          class="w-[46%] shrink-0 snap-start sm:w-auto"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </article>
+          )
+        )
       }
     </div>
+  </section>
+
+  {/* Behind the work: process */}
+  <section class="bg-gls-paper px-4 py-20">
+    <div class="mx-auto max-w-6xl">
+      <SectionHeading eyebrow="behind the work" heading="How an idea reaches the screen" />
+      <p data-reveal class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed">
+        Every step below comes from one project: Wes Huff's <em>{GOSPELS_VIDEO}</em>
+      </p>
+      <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          PROCESS.map((p, i) => (
+            <li data-reveal class="flex flex-col overflow-hidden rounded-xl bg-white shadow">
+              <div class="aspect-[4/3] overflow-hidden bg-gls-ink/5">
+                <Image src={p.image} alt={p.alt} width={600} class="h-full w-full object-cover object-top" />
+              </div>
+              <div class="flex-1 p-5">
+                <p class="flex items-center gap-2 font-heading font-bold">
+                  <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gls-yellow text-sm text-gls-green-dark">
+                    {i + 1}
+                  </span>
+                  {p.step}
+                </p>
+                <p class="mt-2 text-sm leading-relaxed text-gls-ink/80">{p.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* Storyboard to screen */}
+  <section class="bg-white px-4 py-20">
+    <div class="mx-auto max-w-6xl">
+      <SectionHeading heading="From storyboard to screen" />
+      <p data-reveal class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed">
+        Drag across each frame to compare the sketch with the finished visual.
+      </p>
+      <div class="mt-12 grid gap-10 md:grid-cols-2">
+        {
+          COMPARISONS.map((c) => (
+            <CompareSlider
+              before={c.before}
+              after={c.after}
+              label={c.label}
+              beforeAlt={`Storyboard sketch: ${c.label}`}
+              afterAlt={`Finished frame: ${c.label}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Thumbnail concepts */}
+  <section class="bg-gls-paper px-4 py-20">
+    <div class="mx-auto max-w-6xl">
+      <SectionHeading heading="Twelve thumbnail concepts, one video" />
+      <p data-reveal class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed">
+        A thumbnail decides whether a video gets watched, so we explore widely. These are our concepts for
+        <em> {GOSPELS_VIDEO}</em>; the highlighted one went live.
+      </p>
+      <div data-reveal class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        {
+          THUMBNAIL_CONCEPTS.map((t, i) => (
+            <div
+              class:list={[
+                'relative overflow-hidden rounded-lg shadow',
+                t.published ? 'ring-4 ring-gls-yellow' : 'opacity-90',
+              ]}
+            >
+              <Image src={t.image} alt={`Thumbnail concept ${i + 1}`} width={480} class="aspect-video w-full object-cover" />
+              {t.published && (
+                <span class="absolute top-2 left-2 rounded-full bg-gls-yellow px-2.5 py-0.5 text-xs font-bold text-gls-green-dark shadow">
+                  Published
+                </span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Style gallery */}
+  <section class="bg-white py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <SectionHeading heading="Two films, two looks" />
+      <p data-reveal class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed">
+        Parchment, maps and data for the Gospels video. Candlelight, line art and classic paintings for the
+        Prodigal video, built from 80 historical artworks and photographs.
+        <span class="block text-sm text-gls-ink/60">
+          <span class="sm:hidden">Tap</span><span class="hidden sm:inline">Click</span> any frame to see it full size.
+        </span>
+      </p>
+    </div>
+    <PhotoMarquee rows={GALLERY_ROWS} class="mt-10" />
   </section>
 
   {/* Testimonials */}
