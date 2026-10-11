@@ -2,10 +2,8 @@
 import SectionHeading from '../SectionHeading.astro';
 
 // Illustrative US ranges supplied by the site owner (October 2026), to be
-// checked against published salary and agency-pricing sources. Each range is
-// a solid bar to its starting cost and a hatched extension to the upper end;
-// both upper ends are open ("+"), so the hatching fades out. The scale stops
-// at $20k+.
+// checked against published salary and agency-pricing sources. Both upper
+// ends are open ("+"); the scale stops at $20k+.
 const SCALE = 20_000;
 const RANGES = [
   { label: 'US marketing agency', note: 'Ongoing multi-channel support', low: 5_000, high: 20_000 },
@@ -40,76 +38,81 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
         <p class="text-sm text-gls-ink/50">Illustrative ranges</p>
       </div>
 
-      <div class="mt-6">
+      {/* Floating range bars: each competitor's bar runs from its low to its
+          high end, so the whole range reads as one thing. GLS is a marker at
+          its starting price, and a dashed line carries that price down through
+          every row (desktop) or marks it inside each bar (phones). Rows are a
+          label column plus a track column; the overlay and axis line up with
+          the track column via the same 15.5rem offset. */}
+      <div class="relative mt-8">
+        <div class="pointer-events-none absolute inset-y-0 right-0 hidden sm:left-[15.5rem] sm:block" aria-hidden="true">
+          <span
+            class="absolute -top-7 -translate-x-1/2 rounded-full bg-gls-green px-2.5 py-0.5 text-xs font-bold whitespace-nowrap text-white"
+            style={{ left: pct(GLS) }}
+          >
+            {usd(GLS)}
+          </span>
+          <span class="absolute top-0 bottom-6 border-l-2 border-dashed border-gls-green" style={{ left: pct(GLS) }}></span>
+        </div>
+
         <div class="space-y-8">
           {
             RANGES.map((r, i) => (
-              <div>
-                <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <p class="font-heading font-bold">
-                    {r.label}
-                    <span class="block font-body font-normal text-gls-ink/60">{r.note}</span>
-                  </p>
-                  <p class="font-heading text-xl font-bold sm:text-2xl">
-                    {usd(r.low)}–{usd(r.high)}+
-                  </p>
+              <div class="sm:grid sm:grid-cols-[14rem_1fr] sm:items-center sm:gap-6">
+                <div>
+                  <p class="font-heading font-bold">{r.label}</p>
+                  <p class="text-sm text-gls-ink/60">{r.note}</p>
+                  <p class="mt-1 font-heading text-xl font-bold">{usd(r.low)}–{usd(r.high)}+</p>
                 </div>
                 <div
-                  class="relative mt-3 h-5"
+                  class="relative mt-3 h-6 rounded-[4px] bg-gls-ink/[0.06] sm:mt-0"
                   role="img"
                   aria-label={`${r.label}: ${usd(r.low)} to ${usd(r.high)} or more a month`}
                 >
                   <span
                     data-bar
-                    class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-ink/45"
-                    style={{ width: pct(r.low), '--bar-delay': `${400 + i * 200}ms` }}
-                  />
-                  {/* 2px gap between the solid bar and the range extension. */}
+                    class="absolute inset-y-0 flex items-center justify-end rounded-[4px] bg-gls-ink/45 pr-1.5 text-white"
+                    style={{ left: pct(r.low), width: pct(r.high - r.low), '--bar-delay': `${400 + i * 250}ms` }}
+                  >
+                    {/* Open-ended upper bound ("+"). */}
+                    <svg viewBox="0 0 20 20" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <path d="M7 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
                   <span
-                    data-bar
-                    class="absolute inset-y-0 rounded-r-[4px] ring-1 ring-gls-ink/30 ring-inset"
-                    style={{
-                      '--bar-delay': `${800 + i * 200}ms`,
-                      left: `calc(${pct(r.low)} + 2px)`,
-                      width: `calc(${pct(r.high - r.low)} - 2px)`,
-                      backgroundImage:
-                        'repeating-linear-gradient(135deg, rgb(36 41 37 / 0.28) 0 2px, transparent 2px 7px)',
-                      // Open-ended upper bound: the hatching fades out.
-                      maskImage: 'linear-gradient(to right, #000 70%, transparent)',
-                    }}
-                  />
+                    class="absolute -inset-y-1 border-l-2 border-dashed border-gls-green sm:hidden"
+                    style={{ left: pct(GLS) }}
+                    aria-hidden="true"
+                  ></span>
                 </div>
               </div>
             ))
           }
 
-          <div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <p class="font-heading font-bold text-gls-green-dark">
-                Green Light Studio
-                <span class="block font-body font-normal text-gls-ink/60">Experienced team support</span>
-              </p>
-              <p class="font-heading text-xl font-bold text-gls-green-dark sm:text-2xl">
+          <div class="sm:grid sm:grid-cols-[14rem_1fr] sm:items-center sm:gap-6">
+            <div>
+              <p class="font-heading font-bold text-gls-green-dark">Green Light Studio</p>
+              <p class="text-sm text-gls-ink/60">Experienced team support</p>
+              <p class="mt-1 font-heading text-xl font-bold text-gls-green-dark">
                 <span class="font-body text-sm font-normal text-gls-ink/60">Starting around</span>
                 {usd(GLS)}
               </p>
             </div>
             <div
-              class="relative mt-3 h-5"
+              class="relative mt-3 h-6 rounded-[4px] bg-gls-ink/[0.06] sm:mt-0"
               role="img"
               aria-label={`Green Light Studio: starting around ${usd(GLS)} a month`}
             >
               <span
                 data-bar
-                class="absolute inset-y-0 left-0 rounded-r-[4px] bg-gls-green"
-                style={{ width: pct(GLS), '--bar-delay': '1300ms' }}
-              >
-              </span>
+                class="absolute top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gls-green shadow ring-4 ring-gls-paper"
+                style={{ left: pct(GLS), '--bar-delay': '1000ms' }}
+              ></span>
             </div>
           </div>
         </div>
 
-        <div class="relative mt-6 h-6 border-t border-gls-ink/15 pt-2 text-xs text-gls-ink/50" aria-hidden="true">
+        <div class="relative mt-6 h-6 border-t border-gls-ink/15 pt-2 text-xs text-gls-ink/50 sm:ml-[15.5rem]" aria-hidden="true">
           {
             TICKS.map((t, i) => (
               <span

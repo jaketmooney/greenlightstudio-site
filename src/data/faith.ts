@@ -119,7 +119,7 @@ export const CHANNELS: Channel[] = [
       by: 'Josh Summers',
     },
     layout: 'wide',
-    // The ten most-viewed interviews in the channel's "Bible Memory Interviews"
+    // The ten most-viewed interviews (plus Katie Davis Majors, below) in the channel's "Bible Memory Interviews"
     // playlist published since April 2024 (the last 2.5 years), excluding
     // Shorts. Views read 11 October 2026; Amy Hall's is YouTube's rounded 9.4K.
     videos: [
@@ -127,6 +127,8 @@ export const CHANNELS: Channel[] = [
       { id: 'u9p8ze8zBcg', title: 'How Joni Eareckson Tada memorizes Scripture (fast!)', views: 98_061 },
       { id: '_ZLEc0D5RSA', title: 'The ENTIRE New Testament Memorized (7,957 Bible verses!)', views: 79_776 },
       { id: 'whp-QedB178', title: 'Janet Pope on CONSISTENT Bible Memory (even at 70 yrs old)', views: 76_368 },
+      // Published January 2024, just outside the window; kept at Jake's request.
+      { id: 'HepPhHn0818', title: 'This Mom of 15 kids Memorizes the Bible! (w/ Katie Davis Majors)', views: 59_885 },
       { id: '0cId8ZejA1c', title: 'Best Bible Translation to Memorize or Study? (ft Tim Wildsmith)', views: 33_114 },
       { id: 'Za0oGVxScFE', title: 'Memorize an Outline of John in 10 min or less!', views: 30_106 },
       { id: 'X4nV_l3BC5E', title: 'No More Boring Bible Study (w/ Faith Womack)', views: 22_934 },
