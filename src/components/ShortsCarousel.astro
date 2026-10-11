@@ -1,146 +1,26 @@
 ---
+import DriftCarousel from './DriftCarousel.astro';
 import VideoCard from './VideoCard.astro';
 import { MIN_VIEWS_SHOWN, SHORTS } from '../data/videos';
 
-// The Shorts row. Phones and tablets swipe it sideways. On desktop it drifts
-// slowly on its own (like the photo strip), with arrow buttons to jump ahead
-// or back; it pauses on hover or keyboard focus and stops for good once a
-// video is played. It scrolls (rather than sliding with a transform) so the
-// arrows, trackpads and drag all keep working.
-//
-// Desktop renders the list twice and wraps back by exactly one copy's width,
-// so the loop has no end. The copy is hidden below lg.
+// The Shorts row: drifts on desktop, swipes on phones (see DriftCarousel).
 const shownViews = (n: number) => (n >= MIN_VIEWS_SHOWN ? n : undefined);
 ---
 
-<div class="relative" data-shorts-carousel>
-  <div
-    data-track
-    data-reveal-group
-    class="shorts-track -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:snap-none lg:gap-6 lg:px-0"
-  >
-    {
-      [false, true].map((copy) =>
-        SHORTS.map((v, i) => (
-          <div
-            data-copy={copy ? '' : undefined}
-            data-first={i === 0 ? '' : undefined}
-            class:list={['w-[46%] shrink-0 snap-start sm:w-[30%] lg:w-[220px]', { 'hidden lg:block': copy }]}
-          >
-            <VideoCard
-              id={v.id}
-              title={v.title}
-              label={v.client}
-              views={shownViews(v.views)}
-              poster={v.poster}
-              vertical
-              class="h-full"
-            />
-          </div>
-        ))
-      )
-    }
-  </div>
-
+<DriftCarousel label="Shorts">
   {
-    [
-      { dir: 'prev', label: 'Previous Shorts', side: 'left-0 -translate-x-1/2', d: 'M15 5l-7 7 7 7' },
-      { dir: 'next', label: 'More Shorts', side: 'right-0 translate-x-1/2', d: 'M9 5l7 7-7 7' },
-    ].map((b) => (
-      <button
-        type="button"
-        data-dir={b.dir}
-        aria-label={b.label}
-        class:list={[
-          'absolute top-[42%] z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gls-green-dark shadow-lg transition hover:bg-gls-yellow lg:flex',
-          b.side,
-        ]}
-      >
-        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <path d={b.d} stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </button>
+    SHORTS.map((v) => (
+      <div class="w-[46%] sm:w-[30%] lg:w-[220px]">
+        <VideoCard
+          id={v.id}
+          title={v.title}
+          label={v.client}
+          views={shownViews(v.views)}
+          poster={v.poster}
+          vertical
+          class="h-full"
+        />
+      </div>
     ))
   }
-</div>
-
-<style>
-  .shorts-track {
-    scrollbar-width: none;
-  }
-  .shorts-track::-webkit-scrollbar {
-    display: none;
-  }
-  @media (min-width: 1024px) {
-    .shorts-track {
-      mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
-    }
-  }
-</style>
-
-<script>
-  const SPEED = 28; // px per second: a slow drift
-  const desktop = matchMedia('(min-width: 1024px)');
-  const calm = matchMedia('(prefers-reduced-motion: no-preference)');
-
-  document.querySelectorAll<HTMLElement>('[data-shorts-carousel]').forEach((root) => {
-    const track = root.querySelector<HTMLElement>('[data-track]')!;
-    const firsts = track.querySelectorAll<HTMLElement>('[data-first]');
-    // One copy's width: from the first original card to the first duplicate.
-    const period = () => firsts[1].offsetLeft - firsts[0].offsetLeft;
-
-    // Keyboard and screen-reader users get each Short once.
-    customElements.whenDefined('lite-youtube').then(() => {
-      track.querySelectorAll('[data-copy]').forEach((copy) => {
-        copy.setAttribute('aria-hidden', 'true');
-        copy.querySelectorAll('button, a, [tabindex]').forEach((el) => el.setAttribute('tabindex', '-1'));
-      });
-    });
-
-    let hovering = false;
-    let played = false;
-    let visible = false;
-    let holdUntil = 0;
-    let pos = track.scrollLeft;
-    let lastSet = -1;
-    let lastT = 0;
-
-    root.addEventListener('mouseenter', () => (hovering = true));
-    root.addEventListener('mouseleave', () => (hovering = false));
-    root.addEventListener('focusin', () => (hovering = true));
-    root.addEventListener('focusout', () => (hovering = false));
-    track.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('lite-youtube')) played = true;
-    });
-    new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(root);
-
-    root.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((button) =>
-      button.addEventListener('click', () => {
-        const p = period();
-        const step = (firsts[0].offsetWidth + 24) * 2;
-        // Jump by one copy first when near either end, so there's always room.
-        if (button.dataset.dir === 'next' && track.scrollLeft >= p) track.scrollLeft -= p;
-        if (button.dataset.dir === 'prev' && track.scrollLeft < step) track.scrollLeft += p;
-        track.scrollBy({ left: button.dataset.dir === 'next' ? step : -step, behavior: 'smooth' });
-        holdUntil = performance.now() + 2500;
-      })
-    );
-
-    function tick(t: number) {
-      const dt = lastT ? Math.min(t - lastT, 50) / 1000 : 0;
-      lastT = t;
-      const running = desktop.matches && calm.matches && visible && !hovering && !played && t > holdUntil;
-      if (running) {
-        // If someone scrolled it by hand, carry on from where they left it.
-        if (Math.abs(track.scrollLeft - lastSet) > 2) pos = track.scrollLeft;
-        pos += SPEED * dt;
-        const p = period();
-        if (pos >= p) pos -= p;
-        track.scrollLeft = pos;
-        lastSet = track.scrollLeft;
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  });
-</script>
+</DriftCarousel>
