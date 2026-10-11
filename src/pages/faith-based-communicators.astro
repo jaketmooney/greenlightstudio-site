@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import VideoCard from '../components/VideoCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { CHANNELS, HERO_THUMBS, SERVICES } from '../data/faith';
+import { FAITH_TESTIMONIALS } from '../data/testimonials';
+import { MIN_VIEWS_SHOWN } from '../data/videos';
+
+// A page for a second audience: faith-based communicators on YouTube. It is
+// linked from a slim band on the homepage and from the footer, but kept out
+// of the header nav, which stays pointed at the manufacturing buyer.
+const shownViews = (n: number) => (n >= MIN_VIEWS_SHOWN ? n : undefined);
+
+const stats = [
+  { value: 'Millions', label: "of views on videos we've worked on" },
+  { value: '50+', label: 'interviews edited for Bible Memory Goal' },
+  { value: '5', label: 'documentary episodes for The Historical Tell' },
+];
+---
+
+<BaseLayout
+  title="Video for Faith-Based Communicators | Green Light Studio"
+  description="Scripting, editing, visuals and thumbnails for thoughtful, faith-based communicators on YouTube, from the team behind videos with millions of views."
+>
+  {/* Hero */}
+  <section class="relative isolate overflow-hidden bg-gls-green-dark px-4 py-20 text-white sm:py-24">
+    <div
+      class="absolute -top-40 right-0 -z-10 h-[28rem] w-[40rem] rounded-full bg-gls-green/20 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div data-reveal>
+        <p class="font-semibold text-gls-yellow">For faith-based communicators</p>
+        <h1 class="mt-3 font-heading text-4xl leading-tight font-bold text-balance sm:text-5xl">
+          Helping thoughtful, faith-based communicators <span class="text-gls-yellow">reach larger audiences</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+          We use our skills in scripting, visuals and production to help your message come across clearly, at a
+          price that's affordable compared to domestic media agencies.
+        </p>
+        <a
+          href="#contact"
+          class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow-lg transition hover:opacity-90 hover:shadow-xl motion-safe:hover:-translate-y-0.5"
+        >
+          Let's Talk
+        </a>
+      </div>
+
+      {/* A loose mosaic of thumbnails from the work below. */}
+      <div data-reveal class="grid grid-cols-2 gap-3 sm:gap-4">
+        {
+          HERO_THUMBS.map((t, i) => (
+            <Image
+              src={t.src}
+              alt={t.alt}
+              width={640}
+              class:list={[
+                'aspect-video w-full rounded-xl object-cover shadow-2xl ring-1 ring-white/10',
+                { 'translate-y-6': i % 2 === 1 },
+              ]}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Proof */}
+  <section class="bg-white px-4 py-14">
+    <div class="mx-auto grid max-w-5xl gap-8 text-center sm:grid-cols-3">
+      {
+        stats.map((s) => (
+          <div data-reveal>
+            <p class="font-heading text-4xl font-bold text-gls-green-dark sm:text-5xl">{s.value}</p>
+            <p class="mt-2 text-gls-ink/70">{s.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* How we help */}
+  <section class="bg-gls-paper px-4 py-20">
+    <div class="mx-auto max-w-4xl">
+      <SectionHeading heading="How we help" />
+      <div data-reveal class="mx-auto mt-8 max-w-3xl text-center text-lg leading-relaxed">
+        <p>
+          We help script content, create visuals and produce high-value productions, at a price that's affordable
+          compared to domestic media agencies.
+        </p>
+        <p class="mt-4">
+          We've worked with enough communicators to know what's too much, what's not enough, and how to approach
+          it. We're easy to work with, we're motivated, and we want to help these messages get out.
+        </p>
+      </div>
+      <ul data-reveal class="mt-10 flex flex-wrap justify-center gap-3">
+        {
+          SERVICES.map((s) => (
+            <li class="rounded-full bg-white px-4 py-2 font-semibold text-gls-green-dark shadow-sm ring-1 ring-gls-ink/5">
+              {s}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* The work, channel by channel */}
+  <section class="bg-white px-4 py-20">
+    <div class="mx-auto max-w-6xl">
+      <SectionHeading heading="Work we've been part of" />
+
+      {
+        CHANNELS.map((ch) => (
+          <article class="mt-14 grid gap-8 border-t border-gls-ink/10 pt-12 lg:grid-cols-[1fr_2fr] lg:gap-12">
+            <div data-reveal>
+              <div class="flex items-center gap-4">
+                <Image
+                  src={ch.logo}
+                  alt={`${ch.name} logo`}
+                  width={112}
+                  height={112}
+                  class="h-14 w-14 rounded-full object-cover ring-2 ring-gls-yellow ring-offset-2"
+                />
+                <div>
+                  <h3 class="text-2xl">{ch.name}</h3>
+                  <a
+                    href={ch.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-gls-green underline-offset-4 hover:underline"
+                  >
+                    YouTube channel ↗
+                  </a>
+                </div>
+              </div>
+              <p class="mt-5 leading-relaxed">{ch.about}</p>
+              {ch.pullQuote && (
+                <blockquote class="mt-6 border-l-4 border-gls-yellow pl-4">
+                  <p class="leading-relaxed italic">“{ch.pullQuote.text}”</p>
+                  <footer class="mt-2 text-sm font-semibold text-gls-ink/70">{ch.pullQuote.by}</footer>
+                </blockquote>
+              )}
+            </div>
+
+            {/* An odd number of videos gives the first one the full width. */}
+            <div class="grid gap-6 sm:grid-cols-2">
+              {ch.videos.map((v, i) => (
+                <VideoCard
+                  id={v.id}
+                  title={v.title}
+                  views={shownViews(v.views)}
+                  note={v.note}
+                  class={ch.videos.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}
+                />
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Testimonials */}
+  <section class="relative isolate overflow-hidden bg-gls-green-dark px-4 py-20">
+    <div class="mx-auto max-w-4xl">
+      <SectionHeading heading="What they say about working with us" inverted />
+      <div class="mt-12 grid gap-8 sm:grid-cols-2">
+        {
+          FAITH_TESTIMONIALS.map((t) => (
+            <div data-reveal>
+              <TestimonialCard t={t} class="h-full" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Contact */}
+  <section id="contact" class="bg-white px-4 py-20">
+    <div class="mx-auto max-w-3xl text-center">
+      <SectionHeading heading="Have a message worth sharing?" />
+      <p data-reveal class="mt-6 text-lg leading-relaxed">
+        Tell us about your channel or project and who you're hoping to reach.
+      </p>
+      <a
+        href="mailto:hello@greenlightstudio.co?subject=Faith-based%20video"
+        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5"
+      >
+        Let's Talk
+      </a>
+      <p class="mt-4 text-sm text-gls-ink/60">
+        or email <a href="mailto:hello@greenlightstudio.co" class="text-gls-green underline">hello@greenlightstudio.co</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import type { Testimonial } from '../data/testimonials';
+
+// One testimonial: a large photo of the person, then their words, name,
+// company and client-since year. Used on the homepage and the faith page.
+interface Props {
+  t: Testimonial;
+  class?: string;
+}
+const { t, class: className } = Astro.props;
+const quoteMark =
+  'M0 24V14.4C0 6.4 4.8 1.6 12 0l1.6 3.2C9.2 4.8 7.2 8 7.2 12H12v12H0Zm19.2 0V14.4c0-8 4.8-12.8 12-14.4l1.6 3.2c-4.4 1.6-6.4 4.8-6.4 8.8h4.8v12H19.2Z';
+---
+
+<figure class:list={['flex flex-col overflow-hidden rounded-2xl bg-white shadow-xl', className]}>
+  <div class="relative">
+    <Image
+      src={t.photo}
+      alt={t.workImage ? `${t.company} video work` : t.name}
+      width={720}
+      class="aspect-[3/2] w-full object-cover"
+      style={`object-position: ${t.focus ?? '50% 30%'}`}
+    />
+    <span
+      class="absolute -bottom-5 left-6 flex h-10 w-10 items-center justify-center rounded-full bg-gls-yellow text-gls-green-dark shadow-md"
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 33 24" class="h-4 w-5" fill="currentColor">
+        <path d={quoteMark} />
+      </svg>
+    </span>
+  </div>
+  <div class="flex flex-1 flex-col p-6 pt-9">
+    <blockquote class="flex-1 leading-relaxed text-gls-ink">
+      <p>{t.quote}</p>
+    </blockquote>
+    <figcaption class="mt-6 border-t border-gls-ink/10 pt-4">
+      <span class="block font-heading text-lg font-bold text-gls-ink">{t.name}</span>
+      <span class="text-sm text-gls-ink/70">
+        {t.company}
+        {t.since && <> &middot; client since {t.since}</>}
+      </span>
+    </figcaption>
+  </div>
+</figure>

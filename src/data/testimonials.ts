@@ -21,6 +21,7 @@ import shil from '../assets/home/testimonials/shil-shanghavi.jpg';
 // Testimonials" doc; "…" marks where a passage was cut. Each stays under 80
 // words. Skipped at Jake's request: James Wong, Allsteel, Greg Bacon, Janna
 // Hanover, Steve Krupp, Scott Stoodley, and (on the homepage) Beth Tichenor.
+// Josh Summers and Luuk van de Weghe appear on the faith page instead.
 
 export interface Testimonial {
   name: string;
@@ -123,23 +124,6 @@ export const TESTIMONIALS: Testimonial[] = [
       "We weren't taking full advantage of our communication channels. Jake quickly learned our business, worked within our budgets, and started moving us in the direction we wanted to go. Thanks to his creative vision and ability to put it into action, our branding and media finally do justice to the amazing experiences we offer!",
   },
   {
-    name: 'Josh Summers',
-    company: 'Go West Ventures',
-    since: 2023,
-    photo: josh,
-    focus: '50% 25%',
-    quote:
-      "Working with GLS means I don't have to edit projects alone, saving me time and hassle. They surpassed my expectations with a thumbnail that generated over half a million extra views, continuing to perform well even a year later.",
-  },
-  {
-    name: 'Luuk van de Weghe',
-    company: 'Author and historian · video projects',
-    photo: luuk,
-    focus: '50% 25%',
-    quote:
-      'My experience has been marked by great communication and terrific ideas. Compared to other marketers or agencies, they excel at accomplishing more within a similar budget and consistently provide top-notch ideas. I recommend GLS for their focus on collaboration, communication, creativity, and quality.',
-  },
-  {
     name: 'Bryan Alger',
     company: 'Alger Coaching',
     photo: bryan,
@@ -162,5 +146,27 @@ export const TESTIMONIALS: Testimonial[] = [
     focus: '50% 35%',
     quote:
       "I had a vision. Jake and his team took the vision, put creativity and fabulous ideas into it, and they delivered my vision exactly how I wanted it. They're accommodating, they're supportive. They're kind. They're generous, and I'm so happy with the videos that I have.",
+  },
+];
+
+// Shown on the faith-based communicators page rather than the homepage, so
+// each page speaks to one audience.
+export const FAITH_TESTIMONIALS: Testimonial[] = [
+  {
+    name: 'Josh Summers',
+    company: 'Bible Memory Goal',
+    since: 2023,
+    photo: josh,
+    focus: '50% 25%',
+    quote:
+      "Working with GLS means I don't have to edit projects alone, saving me time and hassle. They surpassed my expectations with a thumbnail that generated over half a million extra views, continuing to perform well even a year later.",
+  },
+  {
+    name: 'Luuk van de Weghe',
+    company: 'Author and historian · video projects',
+    photo: luuk,
+    focus: '50% 25%',
+    quote:
+      'My experience has been marked by great communication and terrific ideas. Compared to other marketers or agencies, they excel at accomplishing more within a similar budget and consistently provide top-notch ideas. I recommend GLS for their focus on collaboration, communication, creativity, and quality.',
   },
 ];

@@ -15,11 +15,13 @@ interface Props {
   /** Local thumbnail: Shorts need one (YouTube's are 4:3); others may replace YouTube's. */
   poster?: ImageMetadata;
   vertical?: boolean;
+  /** A line under the title, e.g. what GLS did on the video. */
+  note?: string;
   /** Larger title for the wider cards. */
   large?: boolean;
   class?: string;
 }
-const { id, title, label, views, poster, vertical = false, large = false, class: className } =
+const { id, title, label, views, poster, note, vertical = false, large = false, class: className } =
   Astro.props;
 const posterUrl = poster
   ? (await getImage({ src: poster, width: Math.min(vertical ? 480 : 800, poster.width), format: 'webp' })).src
@@ -47,5 +49,6 @@ const posterUrl = poster
     <h3 class:list={['mt-1', large ? 'text-lg sm:text-xl' : vertical ? 'text-base leading-snug' : 'text-lg']}>
       {title}
     </h3>
+    {note && <p class="mt-2 text-sm leading-relaxed text-gls-ink/75">{note}</p>}
   </div>
 </article>
