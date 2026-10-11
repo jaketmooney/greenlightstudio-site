@@ -1,17 +1,18 @@
 ---
 import SectionHeading from '../SectionHeading.astro';
 
-// Monthly costs as the site owner states them; the agency range is from the
-// GLS portfolio deck. Ranges are drawn as a solid bar to the low end and a
-// hatched extension to the high end. The scale ends at the top of the agency
-// range.
-const SCALE = 15_000;
+// Illustrative US ranges supplied by the site owner (October 2026), to be
+// checked against published salary and agency-pricing sources. Each range is
+// a solid bar to its starting cost and a hatched extension to the upper end;
+// both upper ends are open ("+"), so the hatching fades out. The scale stops
+// at $20k+.
+const SCALE = 20_000;
 const RANGES = [
-  { label: 'Mid-size agency', note: 'often junior-managed', low: 5_000, high: 15_000 },
-  { label: 'Full-time marketing hire', note: 'Washington State', low: 6_800, high: 9_750 },
+  { label: 'US marketing agency', note: 'Ongoing multi-channel support', low: 5_000, high: 20_000 },
+  { label: 'Full-time US marketing hire', note: 'Including employer expenses', low: 6_000, high: 12_000 },
 ];
 const GLS = 3_500;
-const TICKS = [0, 5_000, 10_000, 15_000];
+const TICKS = [0, 5_000, 10_000, 15_000, 20_000];
 
 const pct = (n: number) => `${(n / SCALE) * 100}%`;
 const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
@@ -25,12 +26,19 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
     <SectionHeading heading="Pricing" />
 
     <p data-reveal class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed sm:text-center">
-      A full-time marketing hire in Washington State costs $6,800 to $9,750 a month. Engagements
-      with us start around $3,500, with a whole team behind them.
+      Hiring an experienced US marketing professional can cost $6,000–$12,000+ per month, including
+      employer expenses. Ongoing agency support can cost $5,000–$20,000+.
+    </p>
+    <p data-reveal class="mx-auto mt-4 max-w-3xl text-lg leading-relaxed sm:text-center">
+      Green Light Studio engagements start around <strong class="font-semibold">$3,500/month</strong>,
+      with an experienced team behind you.
     </p>
 
     <div data-reveal class="mt-12 rounded-2xl bg-gls-paper p-6 sm:p-10">
-      <p class="text-sm font-semibold uppercase tracking-wide text-gls-ink/60">Monthly cost</p>
+      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <p class="text-sm font-semibold uppercase tracking-wide text-gls-ink/60">Monthly cost (USD)</p>
+        <p class="text-sm text-gls-ink/50">Illustrative ranges</p>
+      </div>
 
       <div class="mt-6">
         <div class="space-y-8">
@@ -40,17 +48,16 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
                 <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <p class="font-heading font-bold">
                     {r.label}
-                    <span class="block font-body font-normal text-gls-ink/60 sm:inline"><span class="hidden sm:inline">· </span>{r.note}</span>
+                    <span class="block font-body font-normal text-gls-ink/60">{r.note}</span>
                   </p>
                   <p class="font-heading text-xl font-bold sm:text-2xl">
-                    <span class="font-body text-sm font-normal text-gls-ink/60">roughly</span>
-                    {usd(r.low)}–{usd(r.high)}
+                    {usd(r.low)}–{usd(r.high)}+
                   </p>
                 </div>
                 <div
                   class="relative mt-3 h-5"
                   role="img"
-                  aria-label={`${r.label}: ${usd(r.low)} to ${usd(r.high)} a month`}
+                  aria-label={`${r.label}: ${usd(r.low)} to ${usd(r.high)} or more a month`}
                 >
                   <span
                     data-bar
@@ -67,6 +74,8 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
                       width: `calc(${pct(r.high - r.low)} - 2px)`,
                       backgroundImage:
                         'repeating-linear-gradient(135deg, rgb(36 41 37 / 0.28) 0 2px, transparent 2px 7px)',
+                      // Open-ended upper bound: the hatching fades out.
+                      maskImage: 'linear-gradient(to right, #000 70%, transparent)',
                     }}
                   />
                 </div>
@@ -76,9 +85,12 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
 
           <div>
             <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <p class="font-heading font-bold text-gls-green-dark">Green Light Studio</p>
+              <p class="font-heading font-bold text-gls-green-dark">
+                Green Light Studio
+                <span class="block font-body font-normal text-gls-ink/60">Experienced team support</span>
+              </p>
               <p class="font-heading text-xl font-bold text-gls-green-dark sm:text-2xl">
-                <span class="font-body text-sm font-normal text-gls-ink/60">starting around</span>
+                <span class="font-body text-sm font-normal text-gls-ink/60">Starting around</span>
                 {usd(GLS)}
               </p>
             </div>
@@ -107,14 +119,19 @@ const skills = ['Video', 'Design', 'Social', 'Writing', 'Strategy'];
                 ]}
                 style={{ left: pct(t) }}
               >
-                {t === 0 ? '$0' : `$${t / 1000}k`}
+                {t === 0 ? '$0' : `$${t / 1000}k${t === SCALE ? '+' : ''}`}
               </span>
             ))
           }
         </div>
       </div>
 
-      <div class="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-6">
+      <p class="mt-6 text-xs leading-relaxed text-gls-ink/55">
+        Illustrative US market ranges. Actual costs vary by location, experience, services, and scope. GLS
+        pricing varies by engagement.
+      </p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
         <div class="rounded-xl bg-white p-6">
           <div class="flex items-center gap-3">
             <svg
