@@ -1,9 +1,9 @@
 ---
-title: "How We Helping Namjai Village Get Seen"
+title: "How We Helped Namjai Village Get Seen"
 client: "Namjai Village"
 summary: "We helped them build a brand, launch a podcast, and create a professional online presence that matched their vision and allowed them to have the basic marketing elements they needed to move forward."
 heroImage: "./9e724ec3.jpg"
-heroAlt: "How We Helping Namjai Village Get Seen"
+heroAlt: "How We Helped Namjai Village Get Seen"
 services: ["Branding", "Website Design", "Podcast Production", "SEO"]
 results: []
 publishDate: 2025-05-25

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { featuredInOrder } from '../data/featured';
+import { featuredInOrder, restAfterFeatured } from '../data/featured';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import Jake from '../components/home/Jake.astro';
@@ -16,7 +16,8 @@ import Contact from '../components/home/Contact.astro';
 // The INSIGHTS section and the "Get Jake's Take" block from the old Duda site
 // are deliberately omitted: the blog is cut from this migration and /jake-take
 // is deleted.
-const featured = featuredInOrder(await getCollection('caseStudies'));
+const all = await getCollection('caseStudies');
+const featured = [...featuredInOrder(all), ...restAfterFeatured(all)];
 ---
 
 <BaseLayout
