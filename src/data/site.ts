@@ -1,11 +1,13 @@
 // Shared by SiteHeader and SiteFooter so the two never drift apart.
 
 // Section anchors on the homepage. On any other page these resolve back to the
-// homepage first, so they work sitewide.
+// homepage first, so they work sitewide. How Tos points at the one how-to page
+// so far, a static page in public/how-to/ (built outside Astro).
 export const NAV = [
   { href: '/#projects', label: 'Our Work' },
   { href: '/#services', label: 'Services' },
   { href: '/#team', label: 'About' },
+  { href: '/how-to/ai-product-renders/', label: 'How Tos' },
   { href: '/#contact-2026', label: 'Contact' },
 ];
 
