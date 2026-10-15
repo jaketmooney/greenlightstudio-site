@@ -16,6 +16,8 @@ export default defineConfig({
   // renders as "helloworld". This site is being rebuilt for visual parity with
   // the live Duda site, so keep the pre-v7 HTML-aware behaviour.
   compressHTML: true,
-  integrations: [sitemap()],
+  // public/how-to/ pages are static HTML outside Astro, so the sitemap
+  // integration can't see them; list them here.
+  integrations: [sitemap({ customPages: ['https://greenlightstudio.co/how-to/ai-product-renders/'] })],
   vite: { plugins: [tailwindcss()] },
 });
