@@ -9,8 +9,10 @@ interface Props {
   image?: string;
   /** Homepage only: overlay the header on the hero instead of a solid bar. */
   transparentHeader?: boolean;
+  /** With transparentHeader: the hero is light, so the header uses dark text. */
+  headerOnLight?: boolean;
 }
-const { title, description, image, transparentHeader = false } = Astro.props;
+const { title, description, image, transparentHeader = false, headerOnLight = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
 ---
@@ -60,7 +62,7 @@ const ogImage = new URL(image ?? '/og-default.jpg', Astro.site);
     }
   </head>
   <body class="font-body bg-gls-paper text-gls-ink">
-    <SiteHeader transparent={transparentHeader} />
+    <SiteHeader transparent={transparentHeader} onLight={headerOnLight} />
     <main><slot /></main>
     <SiteFooter />
     {/* Scroll reveals (styles in global.css). [data-reveal] elements fade up

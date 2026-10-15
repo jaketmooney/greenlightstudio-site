@@ -1,46 +1,129 @@
 ---
-import { Image } from 'astro:assets';
-import hero from '../../assets/home/hero.jpg';
+import { Image, getImage } from 'astro:assets';
+import YouTube from '../YouTube.astro';
+import brushStroke from '../../assets/home/brush-stroke.png';
+import couch from '../../assets/home/hero.jpg';
+
+// The hero does the persuading: the promise, one action, Jake's walkthrough
+// video, and three results linking to their case studies. It replaced a
+// full-screen photo in October 2026; that photo (Jake with a client) is now
+// the video's cover, a calmer image than YouTube's text-heavy thumbnail.
+//
+// Variants. The site owner chose `dark` (October 2026, "for now"); the other
+// two are kept so they can be tried again. Light ones need the page's
+// <BaseLayout headerOnLight> so the header switches to dark text.
+//   dark  — all dark green
+//   light — warm paper background, dark text, the brush stroke for emphasis
+//   band  — white, with the results on a dark green band along the bottom
+interface Props {
+  variant?: 'dark' | 'light' | 'band';
+}
+const { variant = 'dark' } = Astro.props;
+const dark = variant === 'dark';
+
+// Placeholder results; the site owner will swap these.
+const proof = [
+  { icon: 'play', value: '1.9M', label: 'views in 6 months', client: 'ForestNet Media', href: '/case-studies/forestnet-1-9m-views/' },
+  { icon: 'book', value: '800+', label: 'leads from one ebook', client: 'Digital Wood Carver', href: '/case-studies/machinery-manufacturer-5-years/' },
+  { icon: 'globe', value: '15+', label: 'countries supported', client: 'Ziegler Group', href: '/case-studies/ziegler-global-marketing/' },
+];
+const icons: Record<string, string> = {
+  play: 'M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75ZM10 9.2v5.6l4.8-2.8L10 9.2Z',
+  book: 'M12 6.5C10.3 5.2 7.9 4.5 5 4.5c-.8 0-1.5.1-2 .2v13.6c.5-.1 1.2-.2 2-.2 2.9 0 5.3.7 7 2m0-13.6c1.7-1.3 4.1-2 7-2 .8 0 1.5.1 2 .2v13.6c-.5-.1-1.2-.2-2-.2-2.9 0-5.3.7-7 2m0-13.6v13.6',
+  globe: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2.2-2.4 3.4-5.6 3.4-9S14.2 5.4 12 3m0 18c-2.2-2.4-3.4-5.6-3.4-9S9.8 5.4 12 3M3.5 9h17M3.5 15h17',
+};
+
+const poster = await getImage({ src: couch, width: 1280, height: 720, fit: 'cover', position: 'top', format: 'webp' });
+
+const tone = {
+  section: { dark: 'bg-gls-green-dark text-white', light: 'bg-gls-paper text-gls-ink', band: 'bg-white text-gls-ink' }[variant],
+  eyebrow: dark ? 'text-white/65' : 'text-gls-ink/60',
+  h1: dark ? 'text-white' : 'text-gls-green-dark',
+  sub: dark ? 'text-white/80' : 'text-gls-ink/75',
+  link: dark ? 'text-white/90 hover:text-gls-yellow' : 'text-gls-green-dark hover:text-gls-green',
+  caption: dark ? 'text-white/60' : 'text-gls-ink/55',
+};
+// The results row: on the dark hero and on the band it's light-on-dark.
+const proofOnDark = variant !== 'light';
 ---
 
-{/* min-h-dvh, not min-h-screen: dvh tracks the *visible* viewport on mobile,
-    so the hero is not cut off by the browser's collapsing address bar. */}
-<section class="relative isolate flex min-h-dvh flex-col overflow-hidden bg-gls-green-dark">
-  {/* A phone shows only ~31% of this frame's width, so the crop window has to
-      be placed deliberately: 42% puts the seated subject just right of centre
-      across common phone sizes. Desktop shows enough of the frame that plain
-      centring works. */}
-  <Image
-    src={hero}
-    alt=""
-    width={1920}
-    height={1280}
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-[42%_center] sm:object-center"
-    loading="eager"
-  />
-  {/* Desktop: darken to the right, behind the copy, leaving the people clear.
-      Mobile: darken upward from the bottom, where the copy sits. */}
-  <div
-    class="absolute inset-0 -z-10 bg-gradient-to-t from-black/75 via-black/30 to-black/10 sm:bg-gradient-to-r sm:from-black/25 sm:via-black/35 sm:to-black/70"
-  >
-  </div>
-
-  {/* mt-auto pushes the copy to the bottom of the viewport, so the subject of
-      the photograph stays visible in the space above it. */}
-  <div class="mx-auto mt-auto w-full max-w-6xl px-4 pb-16 sm:pb-24">
-    <div class="text-center text-white sm:ml-auto sm:max-w-3xl sm:text-right">
-      <h1 class="font-heading text-3xl font-bold leading-tight text-balance sm:text-4xl lg:text-5xl">
-        <span class="text-gls-yellow">Video and marketing</span> support for marketing teams
+<section class:list={['relative isolate overflow-hidden px-4 pt-28 sm:pt-32', tone.section, variant === 'band' ? 'pb-0' : 'pb-14 lg:pb-16']}>
+  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
+    <div>
+      <p class:list={['font-semibold', tone.eyebrow]}>For marketing leaders who need more support</p>
+      <h1 class:list={['mt-3 font-heading text-4xl leading-tight font-bold text-balance sm:text-[2.75rem]', tone.h1]}>
+        {dark ? <span class="text-gls-yellow">Video and marketing</span> : 'Video and marketing'} support for marketing teams
       </h1>
-      <p class="mt-4 text-base sm:mt-6 sm:text-lg">
+      {!dark && <Image src={brushStroke} alt="" width={230} height={27} class="mt-2 -ml-1" />}
+      <p class:list={['mt-5 max-w-xl text-lg leading-relaxed', tone.sub]}>
         We work alongside your marketing lead to achieve their goals every month.
       </p>
-      <a
-        href="#contact-2026"
-        class="mt-6 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow-lg transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5 sm:mt-8"
-      >
-        Let's Talk
-      </a>
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <a
+          href="#contact-2026"
+          class="inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow-lg transition hover:opacity-90 hover:shadow-xl motion-safe:hover:-translate-y-0.5"
+        >
+          Let's Talk
+        </a>
+        <a href="#projects" class:list={['group inline-flex items-center gap-1.5 font-heading font-bold transition', tone.link]}>
+          See our work
+          <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 transition motion-safe:group-hover:translate-y-0.5" aria-hidden="true">
+            <path
+              fill-rule="evenodd"
+              d="M10 3a.75.75 0 0 1 .75.75v10.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3.75A.75.75 0 0 1 10 3Z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
     </div>
+
+    <figure>
+      <div class:list={['overflow-hidden rounded-xl shadow-xl [&_lite-youtube]:max-w-none', dark ? 'ring-1 ring-white/10' : 'ring-1 ring-black/5']}>
+        <YouTube id="Txas4ESKQ5I" title="Extending Your Marketing Team with Green Light Studio" poster={poster.src} />
+      </div>
+      <figcaption class:list={['mt-3 text-sm', tone.caption]}>
+        Watch Jake's full walkthrough of how we work (24 min)
+      </figcaption>
+    </figure>
+  </div>
+
+  {/* Results: a plain row with icons, each linking to its case study. */}
+  <div class:list={[variant === 'band' ? '-mx-4 mt-14 bg-gls-green-dark px-4 py-8 text-white lg:mt-16' : 'mt-12 lg:mt-14']}>
+    <ul
+      class:list={[
+        'mx-auto grid max-w-6xl sm:grid-cols-3',
+        variant === 'band' ? '' : 'border-t pt-8',
+        proofOnDark ? 'divide-white/15 border-white/15' : 'divide-gls-ink/10 border-gls-ink/10',
+        'divide-y sm:divide-x sm:divide-y-0',
+      ]}
+    >
+      {
+        proof.map((p, i) => (
+          <li class:list={['py-4 sm:py-0', i > 0 && 'sm:pl-8', i < proof.length - 1 && 'sm:pr-8']}>
+            <a href={p.href} class="group flex items-start gap-4">
+              <svg
+                viewBox="0 0 24 24"
+                class:list={['mt-1 h-7 w-7 shrink-0', proofOnDark ? 'text-gls-yellow' : 'text-gls-green']}
+                fill={p.icon === 'play' ? 'currentColor' : 'none'}
+                stroke={p.icon === 'play' ? 'none' : 'currentColor'}
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d={icons[p.icon]} fill-rule="evenodd" />
+              </svg>
+              <span>
+                <span class="block font-heading text-3xl font-bold">{p.value}</span>
+                <span class="block">{p.label}</span>
+                <span class:list={['text-sm underline-offset-4 group-hover:underline', proofOnDark ? 'text-white/60' : 'text-gls-ink/55']}>
+                  {p.client}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>

@@ -1,14 +1,21 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
+import logoDark from '../assets/logo-dark.png';
 import { NAV, SOCIAL } from '../data/site';
 
 interface Props {
   /** Overlay the header on the page's own hero instead of sitting in a bar.
       Only the homepage has a hero to overlay. */
   transparent?: boolean;
+  /** With `transparent`: the hero behind is light, so use dark text and the
+      dark-lettered logo. */
+  onLight?: boolean;
 }
-const { transparent = false } = Astro.props;
+const { transparent = false, onLight = false } = Astro.props;
+// Over a hero the header steps back a little (smaller logo, lighter weight)
+// so it doesn't compete with the headline.
+const text = onLight ? 'text-gls-ink/80 hover:text-gls-green-dark' : 'text-white hover:text-gls-yellow';
 ---
 
 <header
@@ -19,7 +26,7 @@ const { transparent = false } = Astro.props;
 >
   <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-4 py-4">
     <a href="/" aria-label="Green Light Studio home" class="shrink-0">
-      <Image src={logo} alt="Green Light Studio" width={200} loading="eager" />
+      <Image src={onLight ? logoDark : logo} alt="Green Light Studio" width={transparent ? 170 : 200} loading="eager" />
     </a>
 
     <nav
@@ -33,7 +40,7 @@ const { transparent = false } = Astro.props;
         NAV.map((item) => (
           <a
             href={item.href}
-            class="font-heading text-sm font-semibold text-white transition hover:text-gls-yellow sm:text-base"
+            class:list={['font-heading text-sm transition sm:text-base', transparent ? 'font-medium' : 'font-semibold', text]}
           >
             {item.label}
           </a>
@@ -50,7 +57,7 @@ const { transparent = false } = Astro.props;
     >
       {
         SOCIAL.map((s) => (
-          <a href={s.href} aria-label={s.label} class="text-white transition hover:text-gls-yellow">
+          <a href={s.href} aria-label={s.label} class:list={['transition', text]}>
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"

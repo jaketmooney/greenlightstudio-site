@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import YouTube from '../YouTube.astro';
 import teamPhoto from '../../assets/home/team-photo.jpg';
 import demonstratingMachinery from '../../assets/home/jake/demonstrating-machinery.jpg';
 import sawmillCrew from '../../assets/home/jake/sawmill-crew-2019.jpg';
@@ -19,10 +18,8 @@ const snapshots = [
   },
 ];
 
-// This section absorbs the old "For marketing leaders who need more support"
-// block that used to sit between it and the hero; that line survives as the
-// eyebrow. The heading names the result rather than introducing Jake, and the
-// video (which features him) replaces his portrait.
+// The heading names the result; the eyebrow line and Jake's walkthrough video
+// moved up to the hero in October 2026.
 const points = [
   'A team that gets to know your business',
   "Strategy that's practical for your industry",
@@ -32,80 +29,46 @@ const points = [
 ---
 
 <section class="bg-white px-4 py-20">
-  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
+  {/* Short on purpose: the hero now carries the promise, the video and the
+      call to action, so this section just says who's behind it. */}
+  <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-14">
     <div data-reveal>
-      <p class="text-lg text-gls-ink/60">For marketing leaders who need more support</p>
-      <h2 class="mt-2 font-heading text-3xl font-bold leading-tight text-gls-green-dark sm:text-4xl">
+      <h2 class="font-heading text-3xl font-bold leading-tight text-gls-green-dark sm:text-4xl">
         Get more done without growing your team.
       </h2>
-      <p class="mt-6 leading-relaxed">
-        You have a lot to get done, but a small internal team to do it. I'm Jake, and I've been
-        there: small marketing teams are often expected to support a surprisingly large
-        organization.
-      </p>
-      <p class="mt-4 leading-relaxed">
-        We built Green Light Studio to give those teams the kind of flexible, reliable support
-        that's hard to hire for internally. We plug in as an extension of your team, helping with
+      <p class="mt-5 text-lg leading-relaxed">
+        I'm Jake, and I've been there: small marketing teams are often expected to support a
+        surprisingly large organization. We plug in as an extension of your team, helping with
         strategy and consistently getting the work done.
       </p>
-
-      <ul class="mt-6 space-y-3">
-        {
-          points.map((point) => (
-            <li class="flex items-start gap-3">
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="mt-1 h-4 w-4 shrink-0 text-gls-green"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0l-3.5-3.5a1 1 0 1 1 1.4-1.4l2.8 2.79 6.8-6.79a1 1 0 0 1 1.4 0Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              <span>{point}</span>
-            </li>
-          ))
-        }
-      </ul>
-
-      <a
-        href="#contact-2026"
-        class="mt-8 inline-block rounded-md bg-gradient-to-r from-gls-green to-gls-yellow px-8 py-3 font-heading font-bold text-white shadow transition hover:opacity-90 hover:shadow-lg motion-safe:hover:-translate-y-0.5"
-      >
-        Let's Talk
-      </a>
     </div>
 
-    <figure data-reveal>
-      {/* The offset brand-colour panel behind the frame echoes the brush
-          stroke in the video's own thumbnail. */}
-      <div class="relative">
-        <div
-          class="absolute -right-2 -bottom-2 left-4 top-4 rounded-2xl bg-gradient-to-br from-gls-yellow to-gls-green sm:-right-4 sm:-bottom-4 sm:left-6 sm:top-6"
-          aria-hidden="true"
-        >
-        </div>
-        <div class="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5 [&_lite-youtube]:max-w-none">
-          <YouTube
-            id="Txas4ESKQ5I"
-            title="Extending Your Marketing Team with Green Light Studio"
-            hd
-          />
-        </div>
-      </div>
-      <figcaption class="mt-8 text-center">
-        <span class="block font-heading font-bold">Jake Mooney</span>
-        <span class="text-sm text-gls-ink/70">Founder &middot; Green Light Studio</span>
-      </figcaption>
-    </figure>
+    <ul data-reveal class="grid content-center gap-3 sm:grid-cols-2">
+      {
+        points.map((point) => (
+          <li class="flex items-start gap-3 rounded-xl bg-gls-paper p-4 font-semibold leading-snug">
+            <svg
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="mt-0.5 h-5 w-5 shrink-0 text-gls-green"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0l-3.5-3.5a1 1 0 1 1 1.4-1.4l2.8 2.79 6.8-6.79a1 1 0 0 1 1.4 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span>{point}</span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   {/* Both lines are from the GLS portfolio deck. The team photo is older
       than the current team; the site owner chose to use it anyway. */}
-  <div class="mx-auto mt-16 grid max-w-6xl gap-6 lg:grid-cols-[2fr_3fr]">
+  <div class="mx-auto mt-14 grid max-w-6xl gap-6 lg:grid-cols-[2fr_3fr]">
     <div data-reveal class="flex flex-col justify-center rounded-2xl bg-gls-green-dark p-8 text-white sm:p-10">
       <p class="text-sm font-semibold uppercase tracking-wide text-white/60">Jake Mooney, founder</p>
       <p class="mt-3 font-heading text-6xl font-bold text-gls-yellow"><span data-count="15">15</span> years</p>
