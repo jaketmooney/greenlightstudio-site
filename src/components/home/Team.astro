@@ -5,7 +5,8 @@ import teamMeeting from '../../assets/home/team-meeting.jpg';
 
 // An accordion inside a white card overlaid on the team photo. Built with
 // native <details>/<summary> so it needs no JavaScript and stays keyboard
-// accessible. The four "working with us" points (work done on time, team
+// accessible. The shared `name` makes it exclusive: opening one item closes
+// the others, so the section doesn't keep growing. The four "working with us" points (work done on time, team
 // inclusion, Market Pulse, AI) come from the GLS portfolio deck.
 const items = [
   {
@@ -115,7 +116,7 @@ const items = [
     <div class="mt-6 divide-y divide-gls-ink/10 border-y border-gls-ink/10">
       {
         items.map((item) => (
-          <details class="group">
+          <details name="how-we-work" class="group">
             <summary class="flex cursor-pointer list-none items-center gap-4 py-4 font-heading text-lg font-semibold transition hover:text-gls-green-dark sm:text-xl [&::-webkit-details-marker]:hidden">
               <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gls-yellow/25 text-gls-green-dark transition group-open:rotate-90 group-open:bg-gls-yellow">
                 <svg
