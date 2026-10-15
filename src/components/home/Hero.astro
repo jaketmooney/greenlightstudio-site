@@ -37,7 +37,6 @@ const poster = await getImage({ src: couch, width: 1280, height: 720, fit: 'cove
 
 const tone = {
   section: { dark: 'bg-gls-green-dark text-white', light: 'bg-gls-paper text-gls-ink', band: 'bg-white text-gls-ink' }[variant],
-  eyebrow: dark ? 'text-white/65' : 'text-gls-ink/60',
   h1: dark ? 'text-white' : 'text-gls-green-dark',
   sub: dark ? 'text-white/80' : 'text-gls-ink/75',
   link: dark ? 'text-white/90 hover:text-gls-yellow' : 'text-gls-green-dark hover:text-gls-green',
@@ -50,9 +49,9 @@ const proofOnDark = variant !== 'light';
 <section class:list={['relative isolate overflow-hidden px-4 pt-28 sm:pt-32', tone.section, variant === 'band' ? 'pb-0' : 'pb-14 lg:pb-16']}>
   <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
     <div>
-      <p class:list={['font-semibold', tone.eyebrow]}>For marketing leaders who need more support</p>
-      <h1 class:list={['mt-3 font-heading text-4xl leading-tight font-bold text-balance sm:text-[2.75rem]', tone.h1]}>
-        {dark ? <span class="text-gls-yellow">Video and marketing</span> : 'Video and marketing'} support for marketing teams
+      <h1 class:list={['font-heading text-4xl leading-tight font-bold text-balance sm:text-[2.75rem]', tone.h1]}>
+        {dark ? <span class="text-gls-yellow">Marketing &amp; Media Support</span> : 'Marketing & Media Support'} for Busy
+        Marketing Teams
       </h1>
       {!dark && <Image src={brushStroke} alt="" width={230} height={27} class="mt-2 -ml-1" />}
       <p class:list={['mt-5 max-w-xl text-lg leading-relaxed', tone.sub]}>
