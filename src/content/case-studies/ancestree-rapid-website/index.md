@@ -33,7 +33,7 @@ They had a powerful app ready to go, but they needed a landing page that introdu
 
 And they needed it fast.
 
-> Working with Jake and the team at Green Light Studio was a wonderful experience.They encouraged our involvement every step of the way and we were able to create a landing page that met all of or needs today and will grow with us into tomorrow.
+> Working with Jake and the team at Green Light Studio was a wonderful experience. They encouraged our involvement every step of the way and we were able to create a landing page that met all of our needs today and will grow with us into tomorrow.
 >
 > — Julie Stelman
 

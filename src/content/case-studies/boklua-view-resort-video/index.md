@@ -97,7 +97,7 @@ Peter, the resort’s representative, noted the value of the video not only as c
 
 ![](./3000983d.jpg)
 
-Since launching the video alongside the new bilingual website that Green Light Studio produced, Boklua View has been able to more effectively attract international travelers seeking places that a more connected experience.
+Since launching the video alongside the new bilingual website that Green Light Studio produced, Boklua View has been able to more effectively attract international travelers seeking places that offer a more connected experience.
 
 ![](./8949a5ad.png)
 

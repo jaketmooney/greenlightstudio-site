@@ -71,13 +71,13 @@ One of the most recent projects, the MyZiegler IT Product Video, summed up every
 
 > “Our primary challenge was a lack of dedicated in-house specialists with the bandwidth and specific expertise required to take full ownership of a video project of this scope. Partnering with your agency allowed us to bypass this internal resource gap, leveraging your team's expertise to execute the project efficiently and produce a final video that precisely met our strategic requirements.”
 >
-> — Mareks Lomako, Zigler Group
+> — Mareks Lomako, Ziegler Group
 
 The video became a crucial communication tool for Ziegler’s product team to visually explain complex IT solutions in an engaging and easy-to-understand way, especially in a remote-first environment  
 
 > “Being able to provide a high-quality video to visually show off the product has made a substantial impact on our remote interactions. It allows us to deliver a clearer, more compelling, and consistent message, elevating the customer's understanding and overall experience.”
 >
-> — Mareks Lomako, Zigler Group
+> — Mareks Lomako, Ziegler Group
 
 For us, it was more than one project successfully done. It is a testament to how our years of partnership with Ziegler Group make complex projects effortless.  
 

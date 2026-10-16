@@ -21,11 +21,11 @@ legacyPath: "/case-study/5-years-of-remote-marketing-support-for-a-machinery-man
 
   
 
-When Digital Wood Carver (DWC) partnered with Green Light Studio (GLS) in 2020, they needed more than marketing services—they needed a team to handle daily marketing efforts while modernizing their online presence.
+When Digital Wood Carver (DWC) partnered with Green Light Studio (GLS) in March 2020, they needed more than marketing services—they needed a team to handle daily marketing efforts while modernizing their online presence.
 
   
 
-Over five years, that collaboration has helped DWC create a consistent, effective marketing strategy while freeing their team to focus on growth.  
+Over six years, that collaboration has helped DWC create a consistent, effective marketing strategy while freeing their team to focus on growth.  
   
 
 ![Digital Wood Carver product photoshoot](./afaf5000.jpg)

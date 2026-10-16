@@ -133,7 +133,7 @@ Over five years, Bike Tour Asia weathered the highs and lows of the global touri
 
 > We definitely consider Jake and Green Light a ‘partner’ in our marketing efforts, not just a service provider.
 >
-> — Scott Doodley
+> — Scott Stoodley
 
 * * *
 

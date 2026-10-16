@@ -29,7 +29,7 @@ Having two separate websites (one barely working), their brand was fragmented, t
 
 They needed more than just a new site. They needed a structured process to work through the big picture and a partner to walk them through it.  
 
-![Two tablets displaying LuxoGear Amazon ad video and lifestyle footage of a survival whistle in outdoor use.](./b4ad37b2.png)
+![The new Bliss Clean & Care website on a laptop, surrounded by its services, customer reviews, training network and FAQ pages.](./b4ad37b2.png)
 
 ## The Challenge
 

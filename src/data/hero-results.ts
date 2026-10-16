@@ -4,8 +4,12 @@
 // changes all at once.
 //
 // Every line is backed by the linked case study (or, for quotes, copied word
-// for word from it or from testimonials.ts). Quotes from Steve Krupp, Scott
-// Stoodley and Beth Tichenor are left out: Jake keeps them off the homepage.
+// for word from it or from testimonials.ts), except two outcomes Jake gave
+// directly on 16 Oct 2026: ForestNet's 100+ videos in 10 months and
+// Kongskilde's customer videos. Kongskilde has no case study yet, so its item
+// has no `slug` and isn't a link; add one when the case study exists. Quotes
+// from Steve Krupp, Scott Stoodley and Beth Tichenor are left out: Jake keeps
+// them off the homepage.
 //
 // Order matters: the three lists run in step, so the items at the same
 // position, and at the next one, must all be different clients. Otherwise
@@ -15,11 +19,11 @@
 
 export type ResultIcon =
   | 'play' | 'book' | 'globe' | 'search' | 'users' | 'trend' | 'phone'
-  | 'check' | 'calendar' | 'mic' | 'cap' | 'stage' | 'quote';
+  | 'check' | 'calendar' | 'mic' | 'cap' | 'stage' | 'camera' | 'quote';
 
 interface Base {
-  /** Case study slug; the item links to it. */
-  slug: string;
+  /** Case study slug; the item links to it. Leave out when there's none yet. */
+  slug?: string;
   /** Short client name shown under the item. */
   client: string;
 }
@@ -34,16 +38,18 @@ export const STATS: Stat[] = [
   { icon: 'search', value: '#1', label: 'on Google for local logging searches', client: 'Peterson Timber', slug: 'peterson-timber-seo' },
   { icon: 'users', value: '+11%', label: 'customer base in 6 weeks', client: 'Trifecta Wireless', slug: 'trifecta-wireless-turnaround' },
   { icon: 'play', value: '81K+', label: 'YouTube views', client: 'VPS HiSpeed', slug: 'vps-hispeed-youtube-strategy' },
-  { icon: 'phone', value: '15', label: 'Reels from one 6-hour shoot', client: 'Shil Shanghavi', slug: 'shils-filming-chiang-mai' },
+  { icon: 'phone', value: '15', label: 'Reels filmed in one day', client: 'Shil Shanghavi', slug: 'shils-filming-chiang-mai' },
+  { icon: 'camera', value: '4', label: 'Amazon ad videos shot in one day', client: 'LuxoGear', slug: 'luxogear-amazon-ad-videos' },
 ];
 
 export const OUTCOMES: Outcome[] = [
-  { icon: 'globe', text: 'Global marketing, from fragmented to unified', client: 'Ziegler Group', slug: 'ziegler-global-marketing' },
+  { icon: 'check', text: 'Global marketing, from fragmented to unified', client: 'Ziegler Group', slug: 'ziegler-global-marketing' },
   { icon: 'search', text: 'Page 1 on Google within weeks of launch', client: 'Peterson Timber', slug: 'peterson-timber-seo' },
   { icon: 'trend', text: 'Profitable again after a two-year decline', client: 'Trifecta Wireless', slug: 'trifecta-wireless-turnaround' },
   { icon: 'play', text: 'More views in 6 months than the previous 9 years', client: 'ForestNet Media', slug: 'forestnet-1-9m-views' },
-  { icon: 'calendar', text: '5+ years running their day-to-day marketing', client: 'Digital Wood Carver', slug: 'machinery-manufacturer-5-years' },
-  { icon: 'cap', text: 'First online course, reaching hundreds of students', client: 'Alger Consulting', slug: 'alger-consulting-coaching-brand' },
+  { icon: 'calendar', text: '6+ years running their day-to-day marketing', client: 'Digital Wood Carver', slug: 'machinery-manufacturer-5-years' },
+  { icon: 'globe', text: 'Finally started global customer videos', client: 'Kongskilde' },
+  { icon: 'camera', text: 'Released 100+ videos in 10 months', client: 'ForestNet Media', slug: 'forestnet-1-9m-views' },
   { icon: 'mic', text: 'Brand, website and podcast live in four months', client: 'Namjai Village', slug: 'namjai-village-visibility' },
 ];
 
@@ -55,6 +61,7 @@ export const QUOTES: Quote[] = [
   { text: 'The Pod is lending legitimacy to our organization, and we are reaching new people.', name: 'Trey Cason', client: 'Geneva Institute', slug: 'geneva-ngo-podcast' },
   { text: "Jake took over things I didn't have time for…", name: 'Burl Tichenor', client: 'Digital Wood Carver', slug: 'machinery-manufacturer-5-years' },
   { text: '…our branding and media finally do justice to the amazing experiences we offer!', name: 'Daniel Senicar', client: 'Bike Tour Asia', slug: 'bike-tour-asia-marketing' },
+  { text: '…they delivered my vision exactly how I wanted it.', name: 'Shil Shanghavi', client: 'Shil Shanghavi', slug: 'shils-filming-chiang-mai' },
 ];
 
 /** Positions where the card would show one client twice at once. */
