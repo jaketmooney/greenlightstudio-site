@@ -9,14 +9,18 @@ import couch from '../../assets/home/hero.jpg';
 // full-screen photo in October 2026; that photo (Jake with a client) is now
 // the video's cover, a calmer image than YouTube's text-heavy thumbnail.
 //
-// Variants. The site owner chose `dark` (October 2026, "for now"); the other
-// two are kept so they can be tried again. Light ones need the page's
-// <BaseLayout headerOnLight> so the header switches to dark text.
+// Variants. The site owner chose `card` (16 Oct 2026; his team found the
+// all-green `dark` hero too much colour, and the card ties the hero to the
+// next section's "15 years" card). The others are kept so they can be tried
+// again. All but `dark` need the page's <BaseLayout headerOnLight> so the
+// header switches to dark text.
 //   dark  — all dark green
 //   light — warm paper background, dark text, the brush stroke for emphasis
 //   band  — white, with the results on a dark green band along the bottom
+//   card  — white, with the results in a rounded dark green card, like the
+//           "15 years" card in the next section
 interface Props {
-  variant?: 'dark' | 'light' | 'band';
+  variant?: 'dark' | 'light' | 'band' | 'card';
 }
 const { variant = 'dark' } = Astro.props;
 const dark = variant === 'dark';
@@ -36,7 +40,7 @@ const icons: Record<string, string> = {
 const poster = await getImage({ src: couch, width: 1280, height: 720, fit: 'cover', position: 'top', format: 'webp' });
 
 const tone = {
-  section: { dark: 'bg-gls-green-dark text-white', light: 'bg-gls-paper text-gls-ink', band: 'bg-white text-gls-ink' }[variant],
+  section: { dark: 'bg-gls-green-dark text-white', light: 'bg-gls-paper text-gls-ink', band: 'bg-white text-gls-ink', card: 'bg-white text-gls-ink' }[variant],
   h1: dark ? 'text-white' : 'text-gls-green-dark',
   sub: dark ? 'text-white/80' : 'text-gls-ink/75',
   link: dark ? 'text-white/90 hover:text-gls-yellow' : 'text-gls-green-dark hover:text-gls-green',
@@ -46,7 +50,7 @@ const tone = {
 const proofOnDark = variant !== 'light';
 ---
 
-<section class:list={['relative isolate overflow-hidden px-4 pt-28 sm:pt-32', tone.section, variant === 'band' ? 'pb-0' : 'pb-14 lg:pb-16']}>
+<section class:list={['relative isolate overflow-hidden px-4 pt-28 sm:pt-32', tone.section, variant === 'band' || variant === 'card' ? 'pb-0' : 'pb-14 lg:pb-16']}>
   <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
     <div>
       <h1 class:list={['font-heading text-4xl leading-tight font-bold text-balance sm:text-[2.75rem]', tone.h1]}>
@@ -87,11 +91,17 @@ const proofOnDark = variant !== 'light';
   </div>
 
   {/* Results: a plain row with icons, each linking to its case study. */}
-  <div class:list={[variant === 'band' ? '-mx-4 mt-14 bg-gls-green-dark px-4 py-8 text-white lg:mt-16' : 'mt-12 lg:mt-14']}>
+  <div
+    class:list={[
+      variant === 'band' && '-mx-4 mt-14 bg-gls-green-dark px-4 py-8 text-white lg:mt-16',
+      variant === 'card' && 'mx-auto mt-12 max-w-6xl rounded-2xl bg-gls-green-dark px-6 py-8 text-white sm:px-10 lg:mt-14',
+      (dark || variant === 'light') && 'mt-12 lg:mt-14',
+    ]}
+  >
     <ul
       class:list={[
         'mx-auto grid max-w-6xl sm:grid-cols-3',
-        variant === 'band' ? '' : 'border-t pt-8',
+        variant === 'band' || variant === 'card' ? '' : 'border-t pt-8',
         proofOnDark ? 'divide-white/15 border-white/15' : 'divide-gls-ink/10 border-gls-ink/10',
         'divide-y sm:divide-x sm:divide-y-0',
       ]}
