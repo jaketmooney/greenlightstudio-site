@@ -1,11 +1,12 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import YouTube from '../YouTube.astro';
+import HeroResults from './HeroResults.astro';
 import brushStroke from '../../assets/home/brush-stroke.png';
 import couch from '../../assets/home/hero.jpg';
 
 // The hero does the persuading: the promise, one action, Jake's walkthrough
-// video, and three results linking to their case studies. It replaced a
+// video, and rotating results linking to their case studies. It replaced a
 // full-screen photo in October 2026; that photo (Jake with a client) is now
 // the video's cover, a calmer image than YouTube's text-heavy thumbnail.
 //
@@ -24,18 +25,6 @@ interface Props {
 }
 const { variant = 'dark' } = Astro.props;
 const dark = variant === 'dark';
-
-// Placeholder results; the site owner will swap these.
-const proof = [
-  { icon: 'play', value: '1.9M', label: 'views in 6 months', client: 'ForestNet Media', href: '/case-studies/forestnet-1-9m-views/' },
-  { icon: 'book', value: '800+', label: 'leads from one ebook', client: 'Digital Wood Carver', href: '/case-studies/machinery-manufacturer-5-years/' },
-  { icon: 'globe', value: '15+', label: 'countries supported', client: 'Ziegler Group', href: '/case-studies/ziegler-global-marketing/' },
-];
-const icons: Record<string, string> = {
-  play: 'M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75ZM10 9.2v5.6l4.8-2.8L10 9.2Z',
-  book: 'M12 6.5C10.3 5.2 7.9 4.5 5 4.5c-.8 0-1.5.1-2 .2v13.6c.5-.1 1.2-.2 2-.2 2.9 0 5.3.7 7 2m0-13.6c1.7-1.3 4.1-2 7-2 .8 0 1.5.1 2 .2v13.6c-.5-.1-1.2-.2-2-.2-2.9 0-5.3.7-7 2m0-13.6v13.6',
-  globe: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2.2-2.4 3.4-5.6 3.4-9S14.2 5.4 12 3m0 18c-2.2-2.4-3.4-5.6-3.4-9S9.8 5.4 12 3M3.5 9h17M3.5 15h17',
-};
 
 const poster = await getImage({ src: couch, width: 1280, height: 720, fit: 'cover', position: 'top', format: 'webp' });
 
@@ -90,7 +79,7 @@ const proofOnDark = variant !== 'light';
     </figure>
   </div>
 
-  {/* Results: a plain row with icons, each linking to its case study. */}
+  {/* Results: three slots taking turns to pop to the next result (HeroResults). */}
   <div
     class:list={[
       variant === 'band' && '-mx-4 mt-14 bg-gls-green-dark px-4 py-8 text-white lg:mt-16',
@@ -98,41 +87,15 @@ const proofOnDark = variant !== 'light';
       (dark || variant === 'light') && 'mt-12 lg:mt-14',
     ]}
   >
-    <ul
-      class:list={[
-        'mx-auto grid max-w-6xl sm:grid-cols-3',
-        variant === 'band' || variant === 'card' ? '' : 'border-t pt-8',
-        proofOnDark ? 'divide-white/15 border-white/15' : 'divide-gls-ink/10 border-gls-ink/10',
-        'divide-y sm:divide-x sm:divide-y-0',
-      ]}
-    >
-      {
-        proof.map((p, i) => (
-          <li class:list={['py-4 sm:py-0', i > 0 && 'sm:pl-8', i < proof.length - 1 && 'sm:pr-8']}>
-            <a href={p.href} class="group flex items-start gap-4">
-              <svg
-                viewBox="0 0 24 24"
-                class:list={['mt-1 h-7 w-7 shrink-0', proofOnDark ? 'text-gls-yellow' : 'text-gls-green']}
-                fill={p.icon === 'play' ? 'currentColor' : 'none'}
-                stroke={p.icon === 'play' ? 'none' : 'currentColor'}
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d={icons[p.icon]} fill-rule="evenodd" />
-              </svg>
-              <span>
-                <span class="block font-heading text-3xl font-bold">{p.value}</span>
-                <span class="block">{p.label}</span>
-                <span class:list={['text-sm underline-offset-4 group-hover:underline', proofOnDark ? 'text-white/60' : 'text-gls-ink/55']}>
-                  {p.client}
-                </span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <HeroResults
+      onDark={proofOnDark}
+      class={[
+        'mx-auto max-w-6xl',
+        variant !== 'band' && variant !== 'card' && 'border-t pt-8',
+        proofOnDark ? 'border-white/15' : 'border-gls-ink/10',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    />
   </div>
 </section>

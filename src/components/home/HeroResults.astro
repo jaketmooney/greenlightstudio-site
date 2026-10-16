@@ -1,0 +1,184 @@
+---
+import { getCollection } from 'astro:content';
+import { STATS, OUTCOMES, QUOTES, clashes, type ResultIcon } from '../../data/hero-results';
+
+// Three slots (a number, an outcome, a client quote) that take turns popping
+// to their next result every few seconds; data and ordering rules live in
+// src/data/hero-results.ts. All results are in the HTML; each slot stacks
+// its items in one grid cell, so it is as tall as its tallest item and the
+// card never jumps. Without JavaScript, or for visitors who prefer reduced
+// motion, the first result in each slot simply stays put. Rotation pauses
+// while the card is hovered or focused (so a link can't vanish under the
+// cursor), off screen, or in a background tab.
+interface Props {
+  onDark?: boolean;
+  class?: string;
+}
+const { onDark = true, class: className } = Astro.props;
+
+const slugs = new Set((await getCollection('caseStudies')).map((entry) => entry.id));
+for (const item of [...STATS, ...OUTCOMES, ...QUOTES]) {
+  if (!slugs.has(item.slug)) throw new Error(`hero-results.ts: no case study "${item.slug}" (${item.client})`);
+}
+const clash = clashes();
+if (clash.length) throw new Error(`hero-results.ts would show one client twice at once:\n${clash.join('\n')}`);
+
+// 24 x 24 icons; `fill` ones are solid shapes, the rest are outlines.
+const icons: Record<ResultIcon, { d: string; fill?: boolean }> = {
+  play: { fill: true, d: 'M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75ZM10 9.2v5.6l4.8-2.8L10 9.2Z' },
+  book: { d: 'M12 6.5C10.3 5.2 7.9 4.5 5 4.5c-.8 0-1.5.1-2 .2v13.6c.5-.1 1.2-.2 2-.2 2.9 0 5.3.7 7 2m0-13.6c1.7-1.3 4.1-2 7-2 .8 0 1.5.1 2 .2v13.6c-.5-.1-1.2-.2-2-.2-2.9 0-5.3.7-7 2m0-13.6v13.6' },
+  globe: { d: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2.2-2.4 3.4-5.6 3.4-9S14.2 5.4 12 3m0 18c-2.2-2.4-3.4-5.6-3.4-9S9.8 5.4 12 3M3.5 9h17M3.5 15h17' },
+  search: { d: 'M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Zm5.3-2.2L21 21' },
+  users: { d: 'M15.5 19v-1.5A3.5 3.5 0 0 0 12 14H7a3.5 3.5 0 0 0-3.5 3.5V19M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm11 8v-1.5a3.5 3.5 0 0 0-2.5-3.35M15 4.15a3.5 3.5 0 0 1 0 6.7' },
+  trend: { d: 'M3 17l6-6 4 4 8-8M15 7h6v6' },
+  phone: { d: 'M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 15h2' },
+  check: { d: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-4-8.5 3 3 5-6' },
+  calendar: { d: 'M7.5 3v3m9-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z' },
+  mic: { d: 'M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm-6-3a6 6 0 0 0 12 0m-6 6v3' },
+  cap: { d: 'M2.5 9 12 4.5 21.5 9 12 13.5 2.5 9Zm4 2.2V16c3 2.3 8 2.3 11 0v-4.8M21.5 9v5' },
+  stage: { d: 'M3 4h18M4.5 4v10h15V4M12 14v4m-4 3 4-3 4 3' },
+  quote: { fill: true, d: 'M10 6.2C6.6 7.3 4.5 10 4.5 13.6V18h6v-6H7.6c.2-1.9 1.4-3.3 3.2-4l-.8-1.8Zm9 0c-3.4 1.1-5.5 3.8-5.5 7.4V18h6v-6h-2.9c.2-1.9 1.4-3.3 3.2-4L19 6.2Z' },
+};
+
+const href = (slug: string) => `/case-studies/${slug}/`;
+const muted = onDark ? 'text-white/60' : 'text-gls-ink/55';
+const slots = [
+  STATS.map((s) => ({ ...s, kind: 'stat' as const })),
+  OUTCOMES.map((o) => ({ ...o, kind: 'outcome' as const })),
+  QUOTES.map((q) => ({ ...q, kind: 'quote' as const, icon: 'quote' as const })),
+];
+---
+
+<ul
+  data-hero-results
+  class:list={[
+    'grid divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0',
+    onDark ? 'divide-white/15' : 'divide-gls-ink/10',
+    className,
+  ]}
+>
+  {
+    slots.map((items, s) => (
+      <li data-slot class:list={['grid py-5 sm:py-0', s > 0 && 'sm:pl-8', s < slots.length - 1 && 'sm:pr-8']}>
+        {items.map((item, i) => (
+          <a href={href(item.slug)} class:list={['result group flex items-start gap-4 self-center', i === 0 && 'is-on']}>
+            <svg
+              viewBox="0 0 24 24"
+              class:list={['mt-1 h-7 w-7 shrink-0', onDark ? 'text-gls-yellow' : 'text-gls-green']}
+              fill={icons[item.icon].fill ? 'currentColor' : 'none'}
+              stroke={icons[item.icon].fill ? 'none' : 'currentColor'}
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={icons[item.icon].d} fill-rule="evenodd" />
+            </svg>
+            <span>
+              {item.kind === 'stat' && (
+                <>
+                  <span class="block font-heading text-3xl font-bold">{item.value}</span>
+                  <span class="block">{item.label}</span>
+                </>
+              )}
+              {item.kind === 'outcome' && (
+                <span class="block font-heading text-lg leading-snug font-bold text-balance">{item.text}</span>
+              )}
+              {item.kind === 'quote' && <span class="block leading-snug text-balance">“{item.text}”</span>}
+              <span class:list={['mt-1 block text-sm underline-offset-4 group-hover:underline', muted]}>
+                {item.kind === 'quote' ? `${item.name}, ${item.client}` : item.client}
+              </span>
+            </span>
+          </a>
+        ))}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  /* Every result in a slot shares one grid cell; only `.is-on` shows.
+     Hidden ones are out of the tab order and the accessibility tree too. */
+  .result {
+    grid-area: 1 / 1;
+    visibility: hidden;
+  }
+  .result.is-on {
+    visibility: visible;
+  }
+  /* Keyframes rather than transitions, per the site's motion rules. */
+  .result.is-in {
+    animation: result-in 650ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  }
+  .result.is-out {
+    animation: result-out 300ms ease-in both;
+  }
+  .result.is-in svg {
+    animation: result-icon 650ms 120ms cubic-bezier(0.34, 1.6, 0.64, 1) both;
+  }
+  @keyframes result-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.94);
+    }
+  }
+  @keyframes result-out {
+    to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.97);
+    }
+  }
+  @keyframes result-icon {
+    from {
+      transform: scale(0.4);
+    }
+  }
+</style>
+
+<script>
+  const card = document.querySelector<HTMLElement>('[data-hero-results]');
+  if (card && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const slots = [...card.querySelectorAll<HTMLElement>('[data-slot]')];
+    const EVERY = 3800; // ms between pops; each slot changes every 3 x EVERY
+    const OUT = 280; // let the old result fade before the new one pops in
+    let turn = 0;
+    let timer: number | undefined;
+    let onScreen = false;
+    let held = false;
+
+    const pop = () => {
+      const items = [...slots[turn++ % slots.length].querySelectorAll<HTMLElement>('.result')];
+      const now = items.findIndex((el) => el.classList.contains('is-on'));
+      const leaving = items[now];
+      const arriving = items[(now + 1) % items.length];
+      leaving.classList.remove('is-in');
+      leaving.classList.add('is-out');
+      window.setTimeout(() => {
+        leaving.classList.remove('is-on', 'is-out');
+        arriving.classList.add('is-on', 'is-in');
+      }, OUT);
+    };
+    const update = () => {
+      const run = onScreen && !held && !document.hidden;
+      if (run && timer === undefined) timer = window.setInterval(pop, EVERY);
+      if (!run && timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+    const hold = (value: boolean) => () => {
+      held = value;
+      update();
+    };
+
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      update();
+    }).observe(card);
+    card.addEventListener('pointerenter', hold(true));
+    card.addEventListener('pointerleave', hold(false));
+    card.addEventListener('focusin', hold(true));
+    card.addEventListener('focusout', hold(false));
+    document.addEventListener('visibilitychange', update);
+  }
+</script>
