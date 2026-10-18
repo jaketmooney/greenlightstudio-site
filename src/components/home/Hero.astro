@@ -71,7 +71,13 @@ const proofOnDark = variant !== 'light';
 
     <figure>
       <div class:list={['overflow-hidden rounded-xl shadow-xl [&_lite-youtube]:max-w-none', dark ? 'ring-1 ring-white/10' : 'ring-1 ring-black/5']}>
-        <YouTube id="3S3wfmC_z4k" title="How We Work Alongside Your Marketing Lead at Green Light Studio" poster={poster.src} />
+        <YouTube
+          id="3S3wfmC_z4k"
+          title="How We Work Alongside Your Marketing Lead at Green Light Studio"
+          poster={poster.src}
+          playAt="7% 96%"
+          lightPoster
+        />
       </div>
       <figcaption class:list={['mt-3 text-sm', tone.caption]}>
         Watch Jake's full walkthrough of how we work (20 min)

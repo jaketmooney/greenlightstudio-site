@@ -11,17 +11,32 @@ interface Props {
   poster?: string;
   /** 9:16 frame for Shorts. */
   vertical?: boolean;
+  /** Where the play button sits (a CSS background-position), for posters
+      whose centre carries text, e.g. "7% 96%" for lower left. */
+  playAt?: string;
+  /** The poster is light: drop lite-youtube's dark gradient along the top,
+      which reads as a grey smudge on white. */
+  lightPoster?: boolean;
 }
-const { id, title, hd = false, poster, vertical = false } = Astro.props;
+const { id, title, hd = false, poster, vertical = false, playAt, lightPoster = false } = Astro.props;
 // lite-youtube only picks its own poster when no background-image is set.
 const posterUrl = poster ?? (hd ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : undefined);
-const style = posterUrl ? `background-image: url('${posterUrl}')` : undefined;
+const style = [posterUrl && `background-image: url('${posterUrl}')`, playAt && `--play-at: ${playAt}`]
+  .filter(Boolean)
+  .join('; ') || undefined;
 ---
-<lite-youtube videoid={id} playlabel={title} style={style} class:list={[{ vertical }]}></lite-youtube>
+<lite-youtube videoid={id} playlabel={title} style={style} class:list={[{ vertical, 'light-poster': lightPoster }]}></lite-youtube>
 <script>import 'lite-youtube-embed';</script>
 
 <style>
   lite-youtube.vertical::after {
     padding-bottom: calc(100% / (9 / 16));
+  }
+  lite-youtube.light-poster::before {
+    display: none;
+  }
+  /* The button is added by lite-youtube's script, so it has no scope class. */
+  lite-youtube > :global(.lyt-playbtn) {
+    background-position: var(--play-at, center);
   }
 </style>
