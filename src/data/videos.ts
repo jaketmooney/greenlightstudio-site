@@ -51,6 +51,9 @@ export const PRODUCED_VIDEOS: Video[] = [
     client: 'ForestNet Media',
     views: 74_013,
   },
+  // Added 18 October 2026 (views read the same day); client is the YouTube
+  // channel it's published on.
+  { id: 'iJ66kA3typ4', title: 'sMMMart AI', client: 'SalesTube', views: 20_348 },
   {
     id: 'obZEBApZRbc',
     title: 'Automated PET Recycling: TOMRA Optical Sorting System at Novelplast',
