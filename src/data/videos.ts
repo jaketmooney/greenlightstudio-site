@@ -8,6 +8,8 @@ import NWtB6emBoJw from '../assets/videos/NWtB6emBoJw.jpg';
 import thumbCleanerRegrind from '../assets/videos/thumbs/wMI4EIHFSyA.jpg';
 import thumbEchoAsia from '../assets/videos/thumbs/9cRRwpBZTJA.jpg';
 import thumbLuxoGearChainsaw from '../assets/videos/thumbs/kdsfts3mblg.jpg';
+// YouTube's thumbnail for this one has thin black bars top and bottom; this copy is cropped.
+import thumbSmmmartAi from '../assets/videos/thumbs/iJ66kA3typ4.jpg';
 import pQvQ4EBncJg from '../assets/videos/pQvQ4EBncJg.jpg';
 import VVanL_csyI from '../assets/videos/7VVanL_csyI.jpg';
 import T4rr44uMBpY from '../assets/videos/T4rr44uMBpY.jpg';
@@ -53,7 +55,7 @@ export const PRODUCED_VIDEOS: Video[] = [
   },
   // Added 18 October 2026 (views read the same day); client is the YouTube
   // channel it's published on.
-  { id: 'iJ66kA3typ4', title: 'sMMMart AI', client: 'SalesTube', views: 20_348 },
+  { id: 'iJ66kA3typ4', title: 'sMMMart AI', client: 'SalesTube', views: 20_348, poster: thumbSmmmartAi },
   {
     id: 'obZEBApZRbc',
     title: 'Automated PET Recycling: TOMRA Optical Sorting System at Novelplast',
