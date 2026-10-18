@@ -14,11 +14,13 @@ interface Props {
   /** Where the play button sits (a CSS background-position), for posters
       whose centre carries text, e.g. "7% 96%" for lower left. */
   playAt?: string;
-  /** The poster is light: drop lite-youtube's dark gradient along the top,
-      which reads as a grey smudge on white. */
-  lightPoster?: boolean;
+  /** For a designed thumbnail: drop lite-youtube's dark gradient along the
+      top (a grey smudge on a light poster, a dark band on a coloured one)
+      and show the play button in YouTube red rather than grey, so it stands
+      out on any background. */
+  clean?: boolean;
 }
-const { id, title, hd = false, poster, vertical = false, playAt, lightPoster = false } = Astro.props;
+const { id, title, hd = false, poster, vertical = false, playAt, clean = false } = Astro.props;
 // YouTube no longer lets embeds hide the title bar or the "More videos"
 // panel. rel=0 at least keeps its suggestions to the same channel instead of
 // strangers' videos; iv_load_policy=3 hides annotation cards.
@@ -29,15 +31,18 @@ const style = [posterUrl && `background-image: url('${posterUrl}')`, playAt && `
   .filter(Boolean)
   .join('; ') || undefined;
 ---
-<lite-youtube videoid={id} playlabel={title} params={PLAYER_PARAMS} style={style} class:list={[{ vertical, 'light-poster': lightPoster }]}></lite-youtube>
+<lite-youtube videoid={id} playlabel={title} params={PLAYER_PARAMS} style={style} class:list={[{ vertical, clean }]}></lite-youtube>
 <script>import 'lite-youtube-embed';</script>
 
 <style>
   lite-youtube.vertical::after {
     padding-bottom: calc(100% / (9 / 16));
   }
-  lite-youtube.light-poster::before {
+  lite-youtube.clean::before {
     display: none;
+  }
+  lite-youtube.clean > :global(.lyt-playbtn) {
+    filter: none;
   }
   /* The button is added by lite-youtube's script, so it has no scope class. */
   lite-youtube > :global(.lyt-playbtn) {

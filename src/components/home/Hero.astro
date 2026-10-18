@@ -8,7 +8,9 @@ import walkthroughPoster from '../../assets/home/walkthrough-poster.jpg';
 // The hero does the persuading: the promise, one action, Jake's walkthrough
 // video, and rotating results linking to their case studies. It replaced a
 // full-screen photo in October 2026. The video's cover is the thumbnail Jake
-// supplied for it ("Your Marketing Team, Extended"), saved locally.
+// supplied for it ("Your Marketing Team, Extended", dark green version),
+// saved locally; the play button sits lower left so it doesn't cover the
+// title.
 //
 // Variants. The site owner chose `card` (16 Oct 2026; his team found the
 // all-green `dark` hero too much colour, and the card ties the hero to the
@@ -76,7 +78,7 @@ const proofOnDark = variant !== 'light';
           title="How We Work Alongside Your Marketing Lead at Green Light Studio"
           poster={poster.src}
           playAt="7% 96%"
-          lightPoster
+          clean
         />
       </div>
       <figcaption class:list={['mt-3 text-sm', tone.caption]}>
