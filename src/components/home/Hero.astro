@@ -3,12 +3,12 @@ import { Image, getImage } from 'astro:assets';
 import YouTube from '../YouTube.astro';
 import HeroResults from './HeroResults.astro';
 import brushStroke from '../../assets/home/brush-stroke.png';
-import couch from '../../assets/home/hero.jpg';
+import walkthroughPoster from '../../assets/home/walkthrough-poster.jpg';
 
 // The hero does the persuading: the promise, one action, Jake's walkthrough
 // video, and rotating results linking to their case studies. It replaced a
-// full-screen photo in October 2026; that photo (Jake with a client) is now
-// the video's cover, a calmer image than YouTube's text-heavy thumbnail.
+// full-screen photo in October 2026. The video's cover is the thumbnail Jake
+// supplied for it ("Your Marketing Team, Extended"), saved locally.
 //
 // Variants. The site owner chose `card` (16 Oct 2026; his team found the
 // all-green `dark` hero too much colour, and the card ties the hero to the
@@ -26,7 +26,7 @@ interface Props {
 const { variant = 'dark' } = Astro.props;
 const dark = variant === 'dark';
 
-const poster = await getImage({ src: couch, width: 1280, height: 720, fit: 'cover', position: 'top', format: 'webp' });
+const poster = await getImage({ src: walkthroughPoster, width: 1280, height: 720, fit: 'cover', format: 'webp' });
 
 const tone = {
   section: { dark: 'bg-gls-green-dark text-white', light: 'bg-gls-paper text-gls-ink', band: 'bg-white text-gls-ink', card: 'bg-white text-gls-ink' }[variant],
@@ -71,10 +71,10 @@ const proofOnDark = variant !== 'light';
 
     <figure>
       <div class:list={['overflow-hidden rounded-xl shadow-xl [&_lite-youtube]:max-w-none', dark ? 'ring-1 ring-white/10' : 'ring-1 ring-black/5']}>
-        <YouTube id="Txas4ESKQ5I" title="Extending Your Marketing Team with Green Light Studio" poster={poster.src} />
+        <YouTube id="3S3wfmC_z4k" title="How We Work Alongside Your Marketing Lead at Green Light Studio" poster={poster.src} />
       </div>
       <figcaption class:list={['mt-3 text-sm', tone.caption]}>
-        Watch Jake's full walkthrough of how we work (24 min)
+        Watch Jake's full walkthrough of how we work (20 min)
       </figcaption>
     </figure>
   </div>
