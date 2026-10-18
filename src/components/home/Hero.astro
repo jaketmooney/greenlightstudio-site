@@ -83,7 +83,11 @@ const proofOnDark = variant !== 'light';
   <div
     class:list={[
       variant === 'band' && '-mx-4 mt-14 bg-gls-green-dark px-4 py-8 text-white lg:mt-16',
-      variant === 'card' && 'mx-auto mt-12 max-w-6xl rounded-2xl bg-gls-green-dark px-6 py-8 text-white sm:px-10 lg:mt-14',
+      // overflow-hidden + transform-gpu: the rotating results animate inside
+      // the card's own layer. Added after the site owner saw a white sliver
+      // across the card's top edge on a maximised window (Oct 2026).
+      variant === 'card' &&
+        'mx-auto mt-12 max-w-6xl transform-gpu overflow-hidden rounded-2xl bg-gls-green-dark px-6 py-8 text-white sm:px-10 lg:mt-14',
       (dark || variant === 'light') && 'mt-12 lg:mt-14',
     ]}
   >
