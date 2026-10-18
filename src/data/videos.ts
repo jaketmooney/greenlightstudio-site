@@ -56,17 +56,20 @@ export const PRODUCED_VIDEOS: Video[] = [
   // Added 18 October 2026 (views read the same day); client is the YouTube
   // channel it's published on.
   { id: 'iJ66kA3typ4', title: 'sMMMart AI', client: 'SalesTube', views: 20_348, poster: thumbSmmmartAi },
+  // Three more ForestNet videos added 18 October 2026 (views read the same
+  // day), one per format: event coverage, a documentary, a product video.
+  // Placed so no two ForestNet cards sit side by side or one above another.
+  {
+    id: '1ngbr8xukUg',
+    title: "The Insider's Tour of Oregon Logging Conference 2026",
+    client: 'ForestNet Media',
+    views: 83_281,
+  },
   {
     id: 'obZEBApZRbc',
     title: 'Automated PET Recycling: TOMRA Optical Sorting System at Novelplast',
     client: 'Kongskilde Industries',
     views: 405,
-  },
-  {
-    id: 'Fdqrz5BNnpc',
-    title: 'How To Scan Entire Forests Without Ever Touching Them | John Drew, Forsite',
-    client: 'ForestNet Media',
-    views: 261,
   },
   // Added 11 October 2026 (views read the same day).
   {
@@ -76,12 +79,30 @@ export const PRODUCED_VIDEOS: Video[] = [
     views: 8,
     poster: thumbLuxoGearChainsaw,
   },
+  {
+    id: '_IAu0iKBmXU',
+    title: 'The Team That Revolutionized Steep Slope Logging in America',
+    client: 'ForestNet Media',
+    views: 27_130,
+  },
   { id: '9cRRwpBZTJA', title: 'An Introduction to ECHO Asia', client: 'ECHO Asia', views: 933, poster: thumbEchoAsia },
+  {
+    id: 'Fdqrz5BNnpc',
+    title: 'How To Scan Entire Forests Without Ever Touching Them | John Drew, Forsite',
+    client: 'ForestNet Media',
+    views: 261,
+  },
   {
     id: 'yWfkjQP0JO8',
     title: 'Meet Digital Wood Carver | Making CNC Routers in the Hoosier State',
     client: 'Digital Wood Carver',
     views: 2_159,
+  },
+  {
+    id: 'aWtmP3uyq00',
+    title: 'The Lightest Fuel Injected Chainsaw Ever | Husqvarna 564 XP',
+    client: 'ForestNet Media',
+    views: 2_928,
   },
   { id: 'rHz5USDszOs', title: 'DWC1824 Hobbyist CNC Router | MADE IN USA', client: 'Digital Wood Carver', views: 3_491 },
   {
