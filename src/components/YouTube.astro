@@ -19,13 +19,17 @@ interface Props {
   lightPoster?: boolean;
 }
 const { id, title, hd = false, poster, vertical = false, playAt, lightPoster = false } = Astro.props;
+// YouTube no longer lets embeds hide the title bar or the "More videos"
+// panel. rel=0 at least keeps its suggestions to the same channel instead of
+// strangers' videos; iv_load_policy=3 hides annotation cards.
+const PLAYER_PARAMS = 'rel=0&iv_load_policy=3';
 // lite-youtube only picks its own poster when no background-image is set.
 const posterUrl = poster ?? (hd ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : undefined);
 const style = [posterUrl && `background-image: url('${posterUrl}')`, playAt && `--play-at: ${playAt}`]
   .filter(Boolean)
   .join('; ') || undefined;
 ---
-<lite-youtube videoid={id} playlabel={title} style={style} class:list={[{ vertical, 'light-poster': lightPoster }]}></lite-youtube>
+<lite-youtube videoid={id} playlabel={title} params={PLAYER_PARAMS} style={style} class:list={[{ vertical, 'light-poster': lightPoster }]}></lite-youtube>
 <script>import 'lite-youtube-embed';</script>
 
 <style>
