@@ -5,12 +5,13 @@ import HeroResults from './HeroResults.astro';
 import brushStroke from '../../assets/home/brush-stroke.png';
 import walkthroughPoster from '../../assets/home/walkthrough-poster.jpg';
 
-// The hero does the persuading: the promise, one action, Jake's walkthrough
-// video, and rotating results linking to their case studies. It replaced a
-// full-screen photo in October 2026. The video's cover is the thumbnail Jake
-// supplied for it ("Your Marketing Team, Extended", dark green version),
-// saved locally; the play button sits lower left so it doesn't cover the
-// title.
+// The hero does the persuading: the promise, one action, a 1-minute intro
+// video ("Work with Green Light Studio", 23 Oct 2026), and rotating results
+// linking to their case studies. It replaced a full-screen photo in October
+// 2026. The video's cover is the thumbnail Jake supplied earlier ("Your
+// Marketing Team, Extended", dark green version), saved locally; the play
+// button sits lower left so it doesn't cover the title. The 20-minute
+// walkthrough that used to sit here now lives in Services.astro.
 //
 // Variants. The site owner chose `card` (16 Oct 2026; his team found the
 // all-green `dark` hero too much colour, and the card ties the hero to the
@@ -74,15 +75,15 @@ const proofOnDark = variant !== 'light';
     <figure>
       <div class:list={['overflow-hidden rounded-xl shadow-xl [&_lite-youtube]:max-w-none', dark ? 'ring-1 ring-white/10' : 'ring-1 ring-black/5']}>
         <YouTube
-          id="3S3wfmC_z4k"
-          title="How We Work Alongside Your Marketing Lead at Green Light Studio"
+          id="RDsRqIYIIvM"
+          title="Work with Green Light Studio"
           poster={poster.src}
           playAt="7% 96%"
           clean
         />
       </div>
       <figcaption class:list={['mt-3 text-sm', tone.caption]}>
-        Watch Jake's full walkthrough of how we work (20 min)
+        Watch how we work with marketing teams (1 min)
       </figcaption>
     </figure>
   </div>
