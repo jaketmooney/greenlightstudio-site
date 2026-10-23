@@ -18,6 +18,13 @@ export default defineConfig({
   compressHTML: true,
   // public/how-to/ pages are static HTML outside Astro, so the sitemap
   // integration can't see them; list them here.
-  integrations: [sitemap({ customPages: ['https://greenlightstudio.co/how-to/ai-product-renders/'] })],
+  integrations: [
+    sitemap({
+      customPages: [
+        'https://greenlightstudio.co/how-to/ai-product-renders/',
+        'https://greenlightstudio.co/how-to/ai-animated-videos/',
+      ],
+    }),
+  ],
   vite: { plugins: [tailwindcss()] },
 });

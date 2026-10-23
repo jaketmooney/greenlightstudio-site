@@ -1,0 +1,193 @@
+<!doctype html><html lang='en'><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Animated video with Claude Code | Green Light Studio</title><meta name="description" content="Animation used to be the hardest part of a marketing video. For our 1-minute video it was the easiest: we described each scene to Claude Code, then finished the edit in DaVinci Resolve with our own footage."><link rel="canonical" href="https://greenlightstudio.co/how-to/ai-animated-videos/"><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="The animation is now the easy part | Green Light Studio"><meta property="og:description" content="How we made the animation for our 1-minute video by describing each scene to Claude Code, then finished it in DaVinci Resolve."><meta property="og:image" content="https://greenlightstudio.co/how-to/ai-animated-videos/og.jpg"><meta property="og:url" content="https://greenlightstudio.co/how-to/ai-animated-videos/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><style>@font-face{font-family:Rubik;font-style:normal;font-weight:300 900;font-display:swap;src:url(fonts/rubik-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/source-sans-pro-latin-400-normal.woff2) format("woff2")}@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/source-sans-pro-latin-600-normal.woff2) format("woff2")}@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/source-sans-pro-latin-700-normal.woff2) format("woff2")}
+:root{--jet:#242925;--forest:#2b3c26;--fern:#4f7f4a;--green:#59b062;--yellow:#ffc421;--paper:#f1efee;--body:#616161;
+--card:#fff;--line:rgba(36,41,37,.12);--tint:#e3efe1;--mist:rgba(241,239,238,.84);
+--grad:linear-gradient(90deg,#59b062,#ffc421);
+--head:Rubik,system-ui,-apple-system,"Segoe UI",sans-serif;--text:"Source Sans 3","Source Sans Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+--mono:ui-monospace,"Cascadia Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:17px/1.55 var(--text)}
+h1,h2,h3,h4{font-family:var(--head);font-weight:700;color:var(--jet);margin:0;text-wrap:balance}
+p{margin:0}a{color:var(--fern)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.top{background:var(--forest)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px}
+.top img{display:block;height:38px;width:auto}
+.top a.site{color:var(--paper);text-decoration:none;font:600 15px var(--text)}
+.band{padding:64px 0}
+.band.alt{background:#fff}
+.band.dark{background:var(--forest);color:var(--mist)}
+.band.dark h1,.band.dark h2,.band.dark h3,.band.dark h4{color:#fff}
+.band.first{padding:72px 0 88px}
+.chip{display:inline-block;padding:5px 13px;border-radius:999px;background:var(--yellow);color:var(--jet);font:700 12.5px var(--head);letter-spacing:.06em;text-transform:uppercase}
+.band.first h1{font-size:clamp(34px,4.2vw,54px);line-height:1.08;margin:22px 0 28px;max-width:16ch}
+.mark{background:url(brand/brush_stroke.png) no-repeat left bottom/100% 15px;padding-bottom:13px}
+.intro{max-width:62ch;font-size:18px;line-height:1.65;color:var(--mist)}.intro+.intro{margin-top:18px}
+.intro b{color:#fff}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0;padding:0;list-style:none}
+.facts li{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;font:600 14.5px var(--text)}
+.lead-grid{display:grid;gap:48px}
+@media (min-width:980px){.lead-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:64px;align-items:center}}
+.vid{margin:0}
+.vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:16px;background:#000}
+.vid figcaption{margin:14px 2px 0;color:var(--mist);font-size:15.5px}
+.yt{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:16px;overflow:hidden;background:#000;cursor:pointer;box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.yt img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s ease-out}
+.yt .play{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:var(--forest);box-shadow:0 0 0 4px rgba(255,255,255,.9),0 8px 22px rgba(0,0,0,.35);transition:transform .3s ease-out,background .3s ease-out}
+.yt .play svg{width:34px;height:34px;margin-left:4px;fill:var(--yellow)}
+.yt.low .play{left:13%;top:83%}
+@media (max-width:520px){.yt .play{width:46px;height:46px;margin:-23px 0 0 -23px;box-shadow:0 0 0 3px rgba(255,255,255,.9),0 6px 16px rgba(0,0,0,.35)}.yt .play svg{width:22px;height:22px;margin-left:3px}.yt.low .play{left:11%;top:85%}}
+.yt:hover img{transform:scale(1.03)}
+.yt:hover .play{transform:scale(1.08);background:var(--fern)}
+.yt:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.yt img,.yt .play{transition:none}}
+h2{font-size:clamp(24px,3vw,32px);line-height:1.15}
+h2::after{content:"";display:block;width:128px;height:12px;margin-top:10px;background:url(brand/brush_stroke.png) no-repeat left center/contain}
+.kicker{margin:0 0 6px;color:var(--fern);font:700 12.5px var(--head);letter-spacing:.1em;text-transform:uppercase}
+.band.dark .kicker{color:var(--yellow)}
+.lead{max-width:68ch;margin:10px 0 0;font-size:17px}
+.how ol{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px}
+.how ol.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px 18px;box-shadow:0 1px 2px rgba(36,41,37,.05)}
+.step .ic{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--fern);color:#fff}
+.step .ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.step .no{float:right;color:var(--body);font:700 11.5px var(--head);letter-spacing:.08em;text-transform:uppercase}
+.step h4{margin:14px 0 6px;font-size:19px}
+.step p{font-size:15.5px;line-height:1.45}
+.step:not(:last-child)::after{content:"";position:absolute;top:50%;right:-21px;width:14px;height:14px;border-top:3px solid var(--green);border-right:3px solid var(--green);transform:translateY(-50%) rotate(45deg)}
+.band.dark .step{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.17);box-shadow:none}
+.band.dark .step .ic{background:var(--yellow);color:var(--jet)}
+.band.dark .step p,.band.dark .step .no{color:var(--mist)}
+.band.dark .step:not(:last-child)::after{border-color:var(--yellow)}
+@media (max-width:900px){.how ol,.how ol.three{grid-template-columns:1fr;gap:26px}.step:not(:last-child)::after{top:auto;bottom:-21px;right:auto;left:50%;transform:translateX(-50%) rotate(135deg)}}
+.ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:32px;align-items:center;margin:44px 0 0}
+.ex+.ex{padding-top:44px;border-top:1px solid var(--line)}
+@media (max-width:860px){.ex{grid-template-columns:1fr;gap:20px}}
+.ex h3{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:20px}
+.n{display:inline-grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;background:var(--yellow);color:var(--jet);font:700 14px var(--head)}
+.cc{border-radius:14px;overflow:hidden;background:var(--jet);box-shadow:0 14px 34px rgba(36,41,37,.18)}
+.cc-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#1a1e1b;color:rgba(241,239,238,.6);font:600 12.5px var(--text);letter-spacing:.02em}
+.cc-bar i{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%;background:rgba(255,255,255,.18)}
+.cc-body{padding:18px 18px 20px;font:14.5px/1.6 var(--mono);color:#e9ece9}
+.cc-line{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px}
+.cc-line+.cc-line{margin-top:14px}
+.cc-line .p{color:var(--yellow);font-weight:700}
+.cc-line .d{color:var(--green)}
+.cc-line.claude{color:rgba(233,236,233,.78)}
+.cc-note{display:block;margin-top:4px;color:rgba(233,236,233,.5)}
+.clip{margin:0}
+.clip video,.clip img{display:block;width:100%;height:auto;border-radius:12px;background:var(--paper);box-shadow:0 10px 28px rgba(36,41,37,.12)}
+.clip video{aspect-ratio:16/9}
+.clip.tall video{aspect-ratio:4/5;max-width:330px;margin:0 auto}
+.clip figcaption{margin:10px 2px 0;font-size:14.5px;color:var(--body)}
+.clip.tall figcaption{text-align:center}
+.band.dark .clip figcaption{color:var(--mist)}
+.band.dark .clip video,.band.dark .clip img{box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:40px 0 0}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0 0}
+.shots-h{margin:44px 0 0;color:#fff;font:700 18px var(--head)}
+@media (max-width:760px){.pair{grid-template-columns:1fr}.shots{grid-template-columns:1fr 1fr}}
+.tip{max-width:90ch;margin:18px 0 0;font-size:15.5px}.tip b{color:var(--jet)}
+.band.dark .tip{color:var(--mist)}.band.dark .tip b{color:#fff}
+.btn{display:inline-block;padding:14px 28px;border-radius:999px;background:var(--grad);color:var(--jet);font:700 16px var(--head);text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.btn.line{background:transparent;color:var(--forest);box-shadow:inset 0 0 0 2px var(--forest)}
+.btn:focus-visible,.zoom:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0 0}
+.foot{background:var(--jet);color:var(--mist);padding:36px 0}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:18px 40px;align-items:center;justify-content:space-between}
+.foot img{display:block;height:38px;width:auto}.foot p{max-width:62ch;font-size:14.5px}.foot a{color:var(--yellow)}
+.zoom{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(20,26,18,.93)}
+.lb.on{display:flex}.lb img{max-width:100%;max-height:calc(100vh - 90px);object-fit:contain;border-radius:8px}
+.lb button{position:absolute;top:12px;right:16px;border:0;background:none;color:#fff;font-size:36px;line-height:1;cursor:pointer}
+.lb .cap{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#d8d8dc;font-size:14px}
+</style></head><body><header class="top"><div class="wrap"><a href="https://greenlightstudio.co" target="_blank" rel="noopener"><img src="brand/logo_light.png" alt="Green Light Studio"></a><a class="site" href="https://greenlightstudio.co" target="_blank" rel="noopener">greenlightstudio.co</a></div></header>
+
+<div class="band dark first"><div class="wrap"><div class="lead-grid"><div>
+<span class="chip">Animated video how-to</span>
+<h1>The animation is now the <span class="mark">easy part</span></h1>
+<p class="intro">Animation used to be the hardest part of a marketing video. It meant weeks with an animator, and for most teams it cost too much or took too long to be worth it. For our new 1-minute video, it was the easiest part. We described each scene to Claude Code in plain English, and it built the animation in our brand.</p>
+<p class="intro">That flips where the work is. <b>What matters now is a clear idea of what you want to say.</b> If you can describe it, you can show it on screen. The rest is ordinary video work: record the voice, film yourself and cut in footage you already have, or shoot new.</p>
+<ul class="facts"><li>1-minute video</li><li>Animation built in Claude Code</li><li>Finished in DaVinci Resolve</li></ul>
+</div><figure class="vid"><button class="yt low" type="button" data-id="RDsRqIYIIvM" data-title="Work with Green Light Studio" aria-label="Play video: Work with Green Light Studio"><img src="assets/video-poster.jpg" alt="" width="1280" height="720"><span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></button><figcaption>Watch the finished video (1 min)</figcaption></figure></div></div></div>
+
+<div class="band"><div class="wrap"><div class="how"><p class="kicker">How it works</p><h2>Idea, request, notes, edit</h2><ol>
+<li class="step"><span class="no">Step 1</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div><h4>Have the idea</h4><p>Know what each part of the video needs to say. A script, your pitch deck and photos of real work are enough to start.</p></li>
+<li class="step"><span class="no">Step 2</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"/></svg></div><h4>Ask Claude Code</h4><p>Describe the video in plain English and point it at your material. It plans the scenes and builds the animation in your colours and fonts.</p></li>
+<li class="step"><span class="no">Step 3</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg></div><h4>Give notes</h4><p>Watch it and say what to change, the way you would brief a designer. Each round takes minutes, not days.</p></li>
+<li class="step"><span class="no">Step 4</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div><h4>Finish the edit</h4><p>Export the animation as an MP4, then add your voice, your on-camera footage and clips of your work in DaVinci Resolve.</p></li>
+</ol></div></div></div>
+
+<div class="band alt"><div class="wrap"><p class="kicker">In Claude Code</p><h2>What we asked for, and what came back</h2><p class="lead">Four requests from our own project, as typed (lightly tidied), next to the animation each one produced.</p>
+
+<article class="ex"><div><h3><span class="n">1</span>Describe the video</h3><div class="cc"><div class="cc-bar"><span><i></i><i></i><i></i></span>Claude Code</div><div class="cc-body">
+<div class="cc-line you"><span class="p">&gt;</span><span>Help me plan a short video that animates our own assets. Here&rsquo;s the 60-second script. I recorded a temp voiceover, so time it to that.<span class="cc-note">(Pasted the script and pointed it at our pitch deck folder.)</span></span></div>
+<div class="cc-line claude"><span class="d">&#9679;</span><span>Seven scenes, one per line of the script, built from your pitch deck, client photos and brand colours. Each scene is timed to your voiceover, so every service appears on the word that names it.</span></div>
+</div></div></div><figure class="clip"><video src="assets/c-services.mp4" poster="assets/c-services.jpg" muted loop playsinline preload="none" aria-label="The services scene: six tiles of client work appear one by one"></video><figcaption>The services scene, as it appears in the finished video.</figcaption></figure></article>
+
+<article class="ex"><div><h3><span class="n">2</span>Give notes like you would to a designer</h3><div class="cc"><div class="cc-bar"><span><i></i><i></i><i></i></span>Claude Code</div><div class="cc-body">
+<div class="cc-line you"><span class="p">&gt;</span><span>On scene 2, the three things on the bottom could be red (not started, in progress), then more visibly turn green with a bit more motion.</span></div>
+<div class="cc-line claude"><span class="d">&#9679;</span><span>Done. Each task now starts red, then lifts, flips to a green &ldquo;Done&rdquo; and sends out a pulse, one after another, as the voiceover says &ldquo;helping move the work forward&rdquo;.</span></div>
+</div></div></div><figure class="clip"><video src="assets/c-tasks.mp4" poster="assets/c-tasks.jpg" muted loop playsinline preload="none" aria-label="Our team joins the marketing lead and three red tasks turn green"></video><figcaption>Scene 2 after the note, from the finished video.</figcaption></figure></article>
+
+<article class="ex"><div><h3><span class="n">3</span>Ask for another format</h3><div class="cc"><div class="cc-bar"><span><i></i><i></i><i></i></span>Claude Code</div><div class="cc-body">
+<div class="cc-line you"><span class="p">&gt;</span><span>Great. Now create a separate one that&rsquo;s optimized for LinkedIn size.</span></div>
+<div class="cc-line claude"><span class="d">&#9679;</span><span>Here&rsquo;s a 4:5 version for the LinkedIn feed. It&rsquo;s rebuilt rather than cropped: the tiles stack and the type is bigger for phones. The timing matches, so one voiceover works for both.</span></div>
+</div></div></div><figure class="clip tall"><video src="assets/c-linkedin.mp4" poster="assets/c-linkedin.jpg" muted loop playsinline preload="none" aria-label="The services scene rebuilt in a 4:5 portrait layout"></video><figcaption>The same scene in the LinkedIn version.</figcaption></figure></article>
+
+<article class="ex"><div><h3><span class="n">4</span>Add an idea later</h3><div class="cc"><div class="cc-bar"><span><i></i><i></i><i></i></span>Claude Code</div><div class="cc-body">
+<div class="cc-line you"><span class="p">&gt;</span><span>Create three or four slides with examples of our work from our pitch deck, sliding in from the right. If they&rsquo;re videos, show their view counts.</span></div>
+<div class="cc-line claude"><span class="d">&#9679;</span><span>Five slides in a new film: Kongskilde, Digital Wood Carver, ForestNet on YouTube, ForestNet Shorts, and CAD file to marketing material. The view counts count up as each video slides in.</span></div>
+</div></div></div><figure class="clip"><video src="assets/c-views.mp4" poster="assets/c-views.jpg" muted loop playsinline preload="none" aria-label="Three ForestNet videos slide in as their view counts count up"></video><figcaption>One of the five slides, for our editor to cut in where it fits.</figcaption></figure></article>
+
+<p class="tip"><b>Good to know:</b> Claude Code builds the animation as a Claude Motion film. You can scrub it, leave a comment on any moment and export it as an MP4. It has no sound, so the voice goes on in your editor.</p>
+</div></div>
+
+<div class="band dark"><div class="wrap"><div class="how"><p class="kicker">After Claude Code</p><h2>Finish it in DaVinci Resolve</h2><p class="lead">With the animation done, what&rsquo;s left is the video work you already know.</p><ol class="three">
+<li class="step"><span class="no">Step 1</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M14 4v16"/></svg></div><h4>Leave a space for you</h4><p>Ask Claude Code to fill the spot where you&rsquo;ll appear with magenta. It&rsquo;s a colour our brand never uses, so keying it out leaves the graphics alone.</p></li>
+<li class="step"><span class="no">Step 2</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="5" rx="1"/><rect x="3" y="14" width="18" height="5" rx="1"/></svg></div><h4>Key in your footage</h4><p>Put your camera clip on the track under the exported animation, add a 3D Keyer and pick the magenta. Your footage shows through.</p></li>
+<li class="step"><span class="no">Step 3</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5L20 18"/><path d="M8.5 16.5L20 6"/></svg></div><h4>Cut in your real work</h4><p>Lay the voiceover, then cut between the animation and footage of your work: events, interviews, product shots.</p></li>
+</ol>
+<div class="pair"><figure class="clip"><img class="zoom" src="assets/magenta-pilot.jpg" alt="The 90-day pilot scene with a magenta space on the right" loading="lazy"><figcaption>What Claude Code exports: magenta marks the space.</figcaption></figure><figure class="clip"><video src="assets/c-keyed.mp4" poster="assets/c-keyed.jpg" muted loop playsinline preload="none" aria-label="The same scene in the finished video, with camera footage in the space"></video><figcaption>In the finished video, with our footage keyed in.</figcaption></figure></div>
+<p class="shots-h">Footage we already had, cut in between the animated scenes</p>
+<div class="shots"><figure class="clip"><img class="zoom" src="assets/footage-tradeshow.jpg" alt="Trade show coverage" loading="lazy"><figcaption>Trade show coverage</figcaption></figure><figure class="clip"><img class="zoom" src="assets/footage-interview.jpg" alt="An interview at an event" loading="lazy"><figcaption>Event interviews</figcaption></figure><figure class="clip"><img class="zoom" src="assets/footage-render.jpg" alt="3D product render work in Blender" loading="lazy"><figcaption>Our 3D render work</figcaption></figure></div>
+</div></div></div>
+
+<div class="band"><div class="wrap"><p class="kicker">Work with us</p><h2>Want a video like this?</h2><p class="lead">Send us your script or talking points, your brand files and photos of your work. We&rsquo;ll shape the idea with you, build the animation and finish the edit.</p><p class="cta"><a class="btn" href="https://greenlightstudio.co/#contact-2026" target="_blank" rel="noopener">Talk to Green Light Studio</a><a class="btn line" href="/how-to/ai-product-renders/">See how we make product renders</a></p></div></div>
+
+<footer class="foot"><div class="wrap"><a href="https://greenlightstudio.co" target="_blank" rel="noopener"><img src="brand/logo_light.png" alt="Green Light Studio"></a><p>The clips are from our video &ldquo;Work with Green Light Studio&rdquo; and the Claude Motion films behind it. Client footage is from Green Light Studio projects.</p><p><a href="https://greenlightstudio.co" target="_blank" rel="noopener">greenlightstudio.co</a></p></div></footer><script>
+document.querySelectorAll('.yt').forEach(function(b){b.addEventListener('click',function(){
+  var f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1&rel=0&playsinline=1';
+  f.title=b.dataset.title;f.allowFullscreen=true;
+  f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  b.replaceWith(f);f.focus()})});
+// The clips loop while on screen. With reduced motion they wait for the viewer to press play.
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('.clip video'));
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
+    vids.forEach(function(v){v.controls=true;v.preload='metadata'});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){var p=e.target.play();if(p)p.catch(function(){})}else e.target.pause()})},{threshold:.4});
+  vids.forEach(function(v){io.observe(v)});
+})();
+(function(){
+  var imgs=[].slice.call(document.querySelectorAll('img.zoom'));
+  if(!imgs.length)return;
+  var lb=document.createElement('div');lb.className='lb';lb.setAttribute('role','dialog');lb.setAttribute('aria-label','Image viewer');
+  lb.innerHTML='<img alt=""><button type="button" aria-label="Close">&times;</button><div class="cap"></div>';
+  document.body.appendChild(lb);
+  var cur=0,big=lb.querySelector('img'),cap=lb.querySelector('.cap');
+  function show(i){cur=(i+imgs.length)%imgs.length;big.src=imgs[cur].currentSrc||imgs[cur].src;cap.textContent=imgs[cur].alt||'';lb.classList.add('on')}
+  function hide(){lb.classList.remove('on')}
+  imgs.forEach(function(im,i){im.tabIndex=0;
+    im.addEventListener('click',function(){show(i)});
+    im.addEventListener('keydown',function(e){if(e.key==='Enter')show(i)})});
+  lb.addEventListener('click',hide);
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')hide();
+    if(e.key==='ArrowRight')show(cur+1);
+    if(e.key==='ArrowLeft')show(cur-1)});
+})();
+</script></body></html>

@@ -37,14 +37,46 @@ const text = onLight ? 'text-gls-ink/80 hover:text-gls-green-dark' : 'text-white
       aria-label="Main"
     >
       {
-        NAV.map((item) => (
-          <a
-            href={item.href}
-            class:list={['font-heading text-sm transition sm:text-base', transparent ? 'font-medium' : 'font-semibold', text]}
-          >
-            {item.label}
-          </a>
-        ))
+        NAV.map((item) =>
+          item.children ? (
+            <details class="group relative" data-nav-drop>
+              <summary
+                class:list={[
+                  'flex cursor-pointer list-none items-center gap-1 font-heading text-sm transition sm:text-base [&::-webkit-details-marker]:hidden',
+                  transparent ? 'font-medium' : 'font-semibold',
+                  text,
+                ]}
+              >
+                {item.label}
+                <svg viewBox="0 0 20 20" class="h-4 w-4 transition-transform group-open:rotate-180" aria-hidden="true">
+                  <path d="M5.5 7.5 10 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </summary>
+              {/* Padding rather than margin above the card, so the pointer can cross the gap without leaving the dropdown. */}
+              <div class="absolute top-full right-0 z-30 pt-3 sm:right-auto sm:left-1/2 sm:-translate-x-1/2">
+                <ul class="w-max rounded-xl bg-white p-2 shadow-xl ring-1 ring-black/5">
+                  {item.children.map((c) => (
+                    <li>
+                      <a
+                        href={c.href}
+                        class="block rounded-lg px-4 py-2.5 font-heading text-sm font-medium text-gls-ink transition hover:bg-gls-paper hover:text-gls-green-dark sm:text-base"
+                      >
+                        {c.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          ) : (
+            <a
+              href={item.href}
+              class:list={['font-heading text-sm transition sm:text-base', transparent ? 'font-medium' : 'font-semibold', text]}
+            >
+              {item.label}
+            </a>
+          ),
+        )
       }
     </nav>
 
@@ -73,3 +105,21 @@ const text = onLight ? 'text-gls-ink/80 hover:text-gls-green-dark' : 'text-white
     </nav>
   </div>
 </header>
+
+<script>
+  // Dropdowns open on click or tap (it's a <details>), and also on hover where
+  // there's a mouse. A click elsewhere or Escape closes them.
+  const drops = [...document.querySelectorAll<HTMLDetailsElement>('[data-nav-drop]')];
+  const hover = matchMedia('(hover: hover) and (pointer: fine)');
+  for (const d of drops) {
+    d.addEventListener('mouseenter', () => { if (hover.matches) d.open = true; });
+    d.addEventListener('mouseleave', () => { if (hover.matches) d.open = false; });
+  }
+  document.addEventListener('click', (e) => {
+    for (const d of drops) if (d.open && !d.contains(e.target as Node)) d.open = false;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    for (const d of drops) if (d.open) { d.open = false; d.querySelector('summary')?.focus(); }
+  });
+</script>

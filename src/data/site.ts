@@ -1,13 +1,31 @@
 // Shared by SiteHeader and SiteFooter so the two never drift apart.
 
 // Section anchors on the homepage. On any other page these resolve back to the
-// homepage first, so they work sitewide. How Tos points at the one how-to page
-// so far, a static page in public/how-to/ (built outside Astro).
-export const NAV = [
+// homepage first, so they work sitewide. How Tos is a dropdown of the how-to
+// pages, static pages in public/how-to/ (built outside Astro). The header shows
+// `label` in the dropdown; the footer has no dropdown and lists `long` instead.
+export interface NavLink {
+  href: string;
+  label: string;
+  long?: string;
+}
+export interface NavItem {
+  href?: string;
+  label: string;
+  children?: NavLink[];
+}
+
+export const NAV: NavItem[] = [
   { href: '/#projects', label: 'Our Work' },
   { href: '/#services', label: 'Services' },
   { href: '/#team', label: 'About' },
-  { href: '/how-to/ai-product-renders/', label: 'How Tos' },
+  {
+    label: 'How Tos',
+    children: [
+      { href: '/how-to/ai-animated-videos/', label: 'Animated videos', long: 'How-to: animated videos' },
+      { href: '/how-to/ai-product-renders/', label: '3D product renders', long: 'How-to: 3D product renders' },
+    ],
+  },
   { href: '/#contact-2026', label: 'Contact' },
 ];
 

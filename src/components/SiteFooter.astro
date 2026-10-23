@@ -7,11 +7,15 @@ const year = new Date().getFullYear();
 
 // On phones the homepage header hides its nav and social links, so the footer
 // is the only navigation a mobile visitor gets. It repeats the header's links
-// (from the same data) plus Pricing and the full case-study list.
+// (from the same data) plus Pricing and the full case-study list. The header's
+// dropdowns are flattened here into one link per page.
+const links = NAV.flatMap((item) =>
+  item.children ? item.children.map((c) => ({ href: c.href, label: c.long ?? c.label })) : [{ href: item.href!, label: item.label }],
+);
 const explore = [
-  ...NAV.slice(0, 2),
+  ...links.slice(0, 2),
   { href: '/#pricing', label: 'Pricing' },
-  ...NAV.slice(2),
+  ...links.slice(2),
   { href: '/our-work/', label: 'All case studies' },
   { href: '/faith-based-communicators/', label: 'Faith-based communicators' },
 ];
