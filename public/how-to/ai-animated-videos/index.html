@@ -87,6 +87,23 @@ h2::after{content:"";display:block;width:128px;height:12px;margin-top:10px;backg
 .shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0 0}
 .shots-h{margin:44px 0 0;color:#fff;font:700 18px var(--head)}
 @media (max-width:760px){.pair{grid-template-columns:1fr}.shots{grid-template-columns:1fr 1fr}}
+.shot{position:relative;margin:30px 0 0}
+.shot img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 14px 34px rgba(36,41,37,.16)}
+.band.dark .shot img{box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.shot figcaption{margin:12px 2px 0;font-size:14.5px}
+.band.dark .shot figcaption{color:var(--mist)}
+.pin{position:absolute;display:grid;place-items:center;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;background:var(--yellow);color:var(--jet);font:700 15px var(--head);box-shadow:0 0 0 3px #fff,0 4px 12px rgba(0,0,0,.35);pointer-events:none}
+@media (max-width:640px){.pin{width:22px;height:22px;margin:-11px 0 0 -11px;font-size:12px;box-shadow:0 0 0 2px #fff,0 3px 8px rgba(0,0,0,.35)}}
+.legend{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px 26px}
+.legend li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
+.legend .k{display:grid;place-items:center;min-width:30px;height:30px;padding:0 7px;border-radius:999px;background:var(--yellow);color:var(--jet);font:700 14px var(--head);white-space:nowrap}
+.legend b{display:block;margin-bottom:2px;color:var(--jet);font:700 16.5px var(--head)}
+.legend .t{font-size:15.5px;line-height:1.45}
+.band.dark .legend b{color:#fff}.band.dark .legend .t{color:var(--mist)}
+.split{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:40px;align-items:center}
+.split .shot{margin:30px 0 0}.split .legend{grid-template-columns:1fr;margin:30px 0 0}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:0}}
+.find{max-width:80ch;margin:20px 0 0;padding:16px 20px;border-radius:14px;background:var(--tint);color:var(--jet);font-size:16px}
 .tip{max-width:90ch;margin:18px 0 0;font-size:15.5px}.tip b{color:var(--jet)}
 .band.dark .tip{color:var(--mist)}.band.dark .tip b{color:#fff}
 .btn{display:inline-block;padding:14px 28px;border-radius:999px;background:var(--grad);color:var(--jet);font:700 16px var(--head);text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.18)}
@@ -118,7 +135,19 @@ h2::after{content:"";display:block;width:128px;height:12px;margin-top:10px;backg
 <li class="step"><span class="no">Step 4</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div><h4>Finish the edit</h4><p>Export the animation as an MP4, then add your voice, your on-camera footage and clips of your work in DaVinci Resolve.</p></li>
 </ol></div></div></div>
 
-<div class="band alt"><div class="wrap"><p class="kicker">In Claude Code</p><h2>What we asked for, and what came back</h2><p class="lead">Four requests from our own project, as typed (lightly tidied), next to the animation each one produced.</p>
+<div class="band alt"><div class="wrap"><p class="kicker">Where it happens</p><h2>Meet Claude Motion</h2><p class="lead">Claude Motion is the part of Claude that makes animations. You describe what you want, and Claude builds the film scene by scene in your colours and fonts. Every change after that is a note in plain English.</p>
+<p class="find"><b>Finding it:</b> start a new Motion animation in the Claude app or at claude.ai. To work on it from Claude Code, as we did, paste the film&rsquo;s link into Claude Code.</p>
+<figure class="shot"><img class="zoom" src="assets/ui-motion.jpg" alt="Claude Motion: the chat on the left, the film on the right and its scenes along the bottom" width="1640" height="1066" loading="lazy"><span class="pin" style="left:7.3%;top:36.1%">1</span><span class="pin" style="left:36%;top:23.9%">2</span><span class="pin" style="left:57.3%;top:93.3%">3</span><span class="pin" style="left:85%;top:10.5%">4</span><span class="pin" style="left:92.6%;top:10.5%">5</span></figure>
+<ol class="legend">
+<li><span class="k">1</span><div><b>The chat</b><span class="t">Describe what to animate, then give notes on what comes back.</span></div></li>
+<li><span class="k">2</span><div><b>The film</b><span class="t">Plays as you work. Scrub through it like any video.</span></div></li>
+<li><span class="k">3</span><div><b>The scenes</b><span class="t">Each scene sits on the timeline. Click one to jump to it.</span></div></li>
+<li><span class="k">4</span><div><b>Share</b><span class="t">Send a link for feedback, or export the file.</span></div></li>
+<li><span class="k">5</span><div><b>Comments</b><span class="t">Pin a note to any moment for the next round.</span></div></li>
+</ol>
+</div></div>
+
+<div class="band"><div class="wrap"><p class="kicker">In Claude Code</p><h2>What we asked for, and what came back</h2><p class="lead">Four requests from our own project, as typed (lightly tidied), next to the animation each one produced.</p>
 
 <article class="ex"><div><h3><span class="n">1</span>Describe the video</h3><div class="cc"><div class="cc-bar"><span><i></i><i></i><i></i></span>Claude Code</div><div class="cc-body">
 <div class="cc-line you"><span class="p">&gt;</span><span>Help me plan a short video that animates our own assets. Here&rsquo;s the 60-second script. I recorded a temp voiceover, so time it to that.<span class="cc-note">(Pasted the script and pointed it at our pitch deck folder.)</span></span></div>
@@ -140,7 +169,15 @@ h2::after{content:"";display:block;width:128px;height:12px;margin-top:10px;backg
 <div class="cc-line claude"><span class="d">&#9679;</span><span>Five slides in a new film: Kongskilde, Digital Wood Carver, ForestNet on YouTube, ForestNet Shorts, and CAD file to marketing material. The view counts count up as each video slides in.</span></div>
 </div></div></div><figure class="clip"><video src="assets/c-views.mp4" poster="assets/c-views.jpg" muted loop playsinline preload="none" aria-label="Three ForestNet videos slide in as their view counts count up"></video><figcaption>One of the five slides, for our editor to cut in where it fits.</figcaption></figure></article>
 
-<p class="tip"><b>Good to know:</b> Claude Code builds the animation as a Claude Motion film. You can scrub it, leave a comment on any moment and export it as an MP4. It has no sound, so the voice goes on in your editor.</p>
+</div></div>
+
+<div class="band alt"><div class="wrap"><p class="kicker">When it&rsquo;s ready</p><h2>Export it as an MP4</h2><p class="lead">The finished animation downloads as a video file for your editor. It has no sound, so the voice goes on in the edit.</p>
+<div class="split"><figure class="shot"><img class="zoom" src="assets/ui-export.jpg" alt="The Share panel on a Motion film, open at the Export tab, with Video (MP4), GIF and Canva" width="1600" height="1050" loading="lazy"><span class="pin" style="left:83.8%;top:6.5%">1</span><span class="pin" style="left:98.4%;top:18.7%">2</span><span class="pin" style="left:81%;top:47.6%">3</span></figure>
+<ol class="legend">
+<li><span class="k">1</span><div><b>Share</b><span class="t">At the top right of the film.</span></div></li>
+<li><span class="k">2</span><div><b>Export</b><span class="t">Switch to the Export tab.</span></div></li>
+<li><span class="k">3</span><div><b>Video</b><span class="t">Download it as an MP4. GIF and Canva are there too.</span></div></li>
+</ol></div>
 </div></div>
 
 <div class="band dark"><div class="wrap"><div class="how"><p class="kicker">After Claude Code</p><h2>Finish it in DaVinci Resolve</h2><p class="lead">With the animation done, what&rsquo;s left is the video work you already know.</p><ol class="three">
@@ -148,6 +185,13 @@ h2::after{content:"";display:block;width:128px;height:12px;margin-top:10px;backg
 <li class="step"><span class="no">Step 2</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="5" rx="1"/><rect x="3" y="14" width="18" height="5" rx="1"/></svg></div><h4>Key in your footage</h4><p>Put your camera clip on the track under the exported animation, add a 3D Keyer and pick the magenta. Your footage shows through.</p></li>
 <li class="step"><span class="no">Step 3</span><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5L20 18"/><path d="M8.5 16.5L20 6"/></svg></div><h4>Cut in your real work</h4><p>Lay the voiceover, then cut between the animation and footage of your work: events, interviews, product shots.</p></li>
 </ol>
+<figure class="shot"><img class="zoom" src="assets/ui-davinci.jpg" alt="Our DaVinci Resolve timeline for the 1-minute video" width="1600" height="1150" loading="lazy"><figcaption>Our timeline for the 1-minute video.</figcaption></figure>
+<ul class="legend">
+<li><span class="k">V1</span><div><b>Jake on camera</b><span class="t">His recording, with his voice on A1.</span></div></li>
+<li><span class="k">V2</span><div><b>The Motion exports</b><span class="t">Keyed on top, so Jake shows through the magenta.</span></div></li>
+<li><span class="k">V3&ndash;V6</span><div><b>Footage and effects</b><span class="t">More footage, B-roll and adjustment layers.</span></div></li>
+<li><span class="k">A2&ndash;A7</span><div><b>Sound effects</b><span class="t">Transitions and accents on the cuts.</span></div></li>
+</ul>
 <div class="pair"><figure class="clip"><img class="zoom" src="assets/magenta-pilot.jpg" alt="The 90-day pilot scene with a magenta space on the right" loading="lazy"><figcaption>What Claude Code exports: magenta marks the space.</figcaption></figure><figure class="clip"><video src="assets/c-keyed.mp4" poster="assets/c-keyed.jpg" muted loop playsinline preload="none" aria-label="The same scene in the finished video, with camera footage in the space"></video><figcaption>In the finished video, with our footage keyed in.</figcaption></figure></div>
 <p class="shots-h">Footage we already had, cut in between the animated scenes</p>
 <div class="shots"><figure class="clip"><img class="zoom" src="assets/footage-tradeshow.jpg" alt="Trade show coverage" loading="lazy"><figcaption>Trade show coverage</figcaption></figure><figure class="clip"><img class="zoom" src="assets/footage-interview.jpg" alt="An interview at an event" loading="lazy"><figcaption>Event interviews</figcaption></figure><figure class="clip"><img class="zoom" src="assets/footage-render.jpg" alt="3D product render work in Blender" loading="lazy"><figcaption>Our 3D render work</figcaption></figure></div>
