@@ -63,22 +63,22 @@ export const CHANNELS: Channel[] = [
       {
         id: 'IsfYANKSWPo',
         title: "The Real Prodigal was the FATHER | looking at Jesus's parable",
-        views: 580_283,
+        views: 705_006,
         note: 'We produced the video: the editing and all the visuals.',
       },
       {
         id: 'Z_eCCb3uTB4',
         title: 'Can the Gospels survive historical scrutiny?',
-        views: 335_600,
+        views: 367_893,
         note: 'We did much of the scripting, then all the editing, visuals and sound design.',
       },
     ],
-    // Cut from the Gospels video (views read 11 October 2026).
+    // Cut from the Gospels video (views re-read 29 October 2026).
     shortsLabel: 'Shorts cut from the Gospels video',
     shorts: [
-      short('RX849dOkd6Y', 'Odyssey? No. Acts has the better voyage historically', 120_560),
-      short('TglYCa9OXQ0', 'How does Alexander the Great stack up?', 104_125),
-      short('0hahR7M6pMs', 'Bible evidence changes minds', 72_733),
+      short('RX849dOkd6Y', 'Odyssey? No. Acts has the better voyage historically', 129_452),
+      short('TglYCa9OXQ0', 'How does Alexander the Great stack up?', 107_607),
+      short('0hahR7M6pMs', 'Bible evidence changes minds', 78_681),
     ],
   },
   {

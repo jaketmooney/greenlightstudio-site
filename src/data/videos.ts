@@ -51,7 +51,7 @@ export const PRODUCED_VIDEOS: Video[] = [
     id: 'DCeuQ6CaUts',
     title: 'How John Deere Builds 80,000 lb Forestry Machines [Factory Tour]',
     client: 'ForestNet Media',
-    views: 74_013,
+    views: 95_759,
   },
   // Added 18 October 2026 (views read the same day); client is the YouTube
   // channel it's published on.
