@@ -8,7 +8,7 @@ import { TESTIMONIALS } from '../../data/testimonials';
 // TestimonialCards. Quotes and order live in src/data/testimonials.ts.
 ---
 
-<section id="testimonials" class="relative isolate overflow-hidden bg-gls-green-dark px-4 py-20">
+<section id="testimonials" class="relative isolate overflow-hidden bg-gls-green-dark py-20">
   {/* A soft glow in the brand green keeps the dark band from reading flat. */}
   <div
     class="absolute -top-40 left-1/2 -z-10 h-96 w-[48rem] -translate-x-1/2 rounded-full bg-gls-green/20 blur-3xl"
@@ -16,15 +16,16 @@ import { TESTIMONIALS } from '../../data/testimonials';
   >
   </div>
 
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-6xl px-4">
     <SectionHeading heading="What clients say about working with us" inverted />
-
-    <DriftCarousel label="testimonials" speed={20} class="mt-14">
-      {
-        TESTIMONIALS.map((t) => (
-          <TestimonialCard t={t} class="w-[85%] sm:w-[340px] lg:w-[360px]" />
-        ))
-      }
-    </DriftCarousel>
   </div>
+
+  {/* Outside the max-w container so the row runs the full width of the screen. */}
+  <DriftCarousel label="testimonials" speed={20} bleed class="mt-14">
+    {
+      TESTIMONIALS.map((t) => (
+        <TestimonialCard t={t} class="w-[85%] sm:w-[340px] lg:w-[360px]" />
+      ))
+    }
+  </DriftCarousel>
 </section>

@@ -14,8 +14,10 @@ interface Props {
   /** Pixels per second. */
   speed?: number;
   class?: string;
+  /** Run edge to edge: arrows sit inside the row instead of overhanging it. */
+  bleed?: boolean;
 }
-const { label, speed = 28, class: className } = Astro.props;
+const { label, speed = 28, class: className, bleed = false } = Astro.props;
 const items = await Astro.slots.render('default');
 ---
 
@@ -23,7 +25,10 @@ const items = await Astro.slots.render('default');
   <div
     data-track
     data-reveal-group
-    class="drift-track -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:mx-0 lg:snap-none lg:gap-6 lg:px-0"
+    class:list={[
+      'drift-track flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-2 lg:snap-none lg:gap-6',
+      bleed ? 'lg:px-6' : '-mx-4 lg:mx-0 lg:px-0',
+    ]}
   >
     <Fragment set:html={items} />
     <div data-copy class="hidden lg:contents"><Fragment set:html={items} /></div>
@@ -31,8 +36,8 @@ const items = await Astro.slots.render('default');
 
   {
     [
-      { dir: 'prev', text: `Previous ${label}`, side: 'left-1 xl:left-0 xl:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
-      { dir: 'next', text: `More ${label}`, side: 'right-1 xl:right-0 xl:translate-x-1/2', d: 'M9 5l7 7-7 7' },
+      { dir: 'prev', text: `Previous ${label}`, side: bleed ? 'left-4' : 'left-1 xl:left-0 xl:-translate-x-1/2', d: 'M15 5l-7 7 7 7' },
+      { dir: 'next', text: `More ${label}`, side: bleed ? 'right-4' : 'right-1 xl:right-0 xl:translate-x-1/2', d: 'M9 5l7 7-7 7' },
     ].map((b) => (
       <button
         type="button"
