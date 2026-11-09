@@ -23,6 +23,7 @@ export default defineConfig({
       customPages: [
         'https://greenlightstudio.co/how-to/ai-product-renders/',
         'https://greenlightstudio.co/how-to/ai-animated-videos/',
+        'https://greenlightstudio.co/how-to/meta-ads-strategy/',
       ],
     }),
   ],

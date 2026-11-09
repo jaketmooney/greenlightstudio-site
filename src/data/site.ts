@@ -24,6 +24,7 @@ export const NAV: NavItem[] = [
     children: [
       { href: '/how-to/ai-animated-videos/', label: 'Animated videos', long: 'How-to: animated videos' },
       { href: '/how-to/ai-product-renders/', label: '3D product renders', long: 'How-to: 3D product renders' },
+      { href: '/how-to/meta-ads-strategy/', label: 'Meta ads strategy', long: 'How-to: Meta ads strategy' },
     ],
   },
   { href: '/#contact-2026', label: 'Contact' },
