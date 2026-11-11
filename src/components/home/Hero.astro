@@ -10,7 +10,10 @@ import brushStroke from '../../assets/home/brush-stroke.png';
 // 2026. The video's cover is YouTube's own thumbnail (Jake on camera; `hd`
 // loads the 1280px one). Until 11 Nov 2026 it was our designed "Your
 // Marketing Team, Extended" poster, which Services.astro still uses. The play
-// button sits lower left so it doesn't cover Jake's face. The 20-minute
+// button sits lower left so it doesn't cover Jake's face. `preload` (11 Nov
+// 2026, after the site owner found it played without sound) swaps in
+// YouTube's real player on iPhones, Safari and phones so a tap plays with
+// sound; there it shows YouTube's own title bar and centred button. The 20-minute
 // walkthrough that used to sit here now lives in Services.astro.
 //
 // Variants. The site owner chose `card` (16 Oct 2026; his team found the
@@ -76,6 +79,7 @@ const proofOnDark = variant !== 'light';
           id="RDsRqIYIIvM"
           title="Work with Green Light Studio"
           hd
+          preload
           playAt="7% 96%"
           clean
         />

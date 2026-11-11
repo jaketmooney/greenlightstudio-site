@@ -19,8 +19,16 @@ interface Props {
       and show the play button in YouTube red rather than grey, so it stands
       out on any background. */
   clean?: boolean;
+  /** Make sure a tap plays with sound on iPhones, iPads, Safari and other
+      phones. There, lite-youtube only starts the video after YouTube's script
+      has loaded, by which time the browser no longer counts the tap, so
+      YouTube plays it muted. With `preload`, those devices swap in YouTube's
+      real player (not autoplaying) once the page is idle, so the tap lands on
+      YouTube's own play button. Costs YouTube's player download on those
+      devices, so keep it to the one video that matters most (the hero). */
+  preload?: boolean;
 }
-const { id, title, hd = false, poster, vertical = false, playAt, clean = false } = Astro.props;
+const { id, title, hd = false, poster, vertical = false, playAt, clean = false, preload = false } = Astro.props;
 // YouTube no longer lets embeds hide the title bar or the "More videos"
 // panel. rel=0 at least keeps its suggestions to the same channel instead of
 // strangers' videos; iv_load_policy=3 hides annotation cards.
@@ -31,10 +39,58 @@ const style = [posterUrl && `background-image: url('${posterUrl}')`, playAt && `
   .filter(Boolean)
   .join('; ') || undefined;
 ---
-<lite-youtube videoid={id} playlabel={title} params={PLAYER_PARAMS} style={style} class:list={[{ vertical, clean }]}></lite-youtube>
-<script>import 'lite-youtube-embed';</script>
+<lite-youtube videoid={id} playlabel={title} params={PLAYER_PARAMS} style={style} class:list={[{ vertical, clean }]} data-preload={preload || undefined}></lite-youtube>
+<script>
+  import 'lite-youtube-embed';
+
+  // The same test lite-youtube uses to decide a tap can't start sound directly.
+  const tapLosesSound = navigator.vendor.includes('Apple') || navigator.userAgent.includes('Mobi');
+
+  function swapInRealPlayers() {
+    for (const el of document.querySelectorAll<HTMLElement>('lite-youtube[data-preload]')) {
+      if (el.classList.contains('lyt-activated')) continue;
+      const params = new URLSearchParams(el.getAttribute('params') ?? '');
+      params.set('playsinline', '1');
+      const iframe = document.createElement('iframe');
+      iframe.className = 'lyt-preload';
+      iframe.title = el.getAttribute('playlabel') ?? '';
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(el.getAttribute('videoid') ?? '')}?${params}`;
+      iframe.addEventListener(
+        'load',
+        () => {
+          // Tapped before the real player was ready: lite-youtube has already
+          // started its own, so drop this one.
+          if (el.classList.contains('lyt-activated')) return iframe.remove();
+          el.classList.add('lyt-activated', 'lyt-preloaded');
+        },
+        { once: true },
+      );
+      el.append(iframe);
+    }
+  }
+
+  if (tapLosesSound && document.querySelector('lite-youtube[data-preload]')) {
+    const whenIdle = () =>
+      'requestIdleCallback' in window ? requestIdleCallback(swapInRealPlayers, { timeout: 2000 }) : setTimeout(swapInRealPlayers, 800);
+    if (document.readyState === 'complete') whenIdle();
+    else addEventListener('load', whenIdle, { once: true });
+  }
+</script>
 
 <style>
+  /* The real player stays invisible and untappable until it has loaded, so
+     the poster and play button show meanwhile. */
+  lite-youtube > :global(iframe.lyt-preload) {
+    opacity: 0;
+    pointer-events: none;
+  }
+  lite-youtube.lyt-preloaded > :global(iframe.lyt-preload) {
+    opacity: 1;
+    pointer-events: auto;
+  }
   lite-youtube.vertical::after {
     padding-bottom: calc(100% / (9 / 16));
   }
