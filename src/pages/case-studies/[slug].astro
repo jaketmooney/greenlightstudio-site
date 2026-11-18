@@ -50,9 +50,9 @@ const hasVideos = videos.length > 0 || podcast.length > 0;
       hasVideos && (
         <section
           aria-label="Videos we produced"
-          class="mx-auto mt-8 max-w-5xl rounded-2xl bg-gls-green-dark p-4 sm:p-8 [&_lite-youtube]:max-w-none!"
+          class="mx-auto mt-8 max-w-5xl rounded-2xl border border-gray-300 p-4 sm:p-8 [&_lite-youtube]:max-w-none!"
         >
-          <p class="text-sm font-semibold uppercase tracking-wider text-gls-yellow">
+          <p class="text-sm font-semibold uppercase tracking-wider text-gls-green">
             {podcast.length > 0 ? 'The podcast we produced' : videos.length > 1 ? 'The videos we produced' : 'The video we produced'}
           </p>
           {lead && (
