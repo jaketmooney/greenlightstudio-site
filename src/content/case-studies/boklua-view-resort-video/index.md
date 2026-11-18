@@ -6,6 +6,9 @@ heroImage: "./da759060.png"
 heroAlt: "A Remote Jungle Resort with no Video to Showcase their Story and Guest Experience"
 services: ["Video Production", "Website Design"]
 results: []
+videos:
+  - { id: "yKcu9knvnag", title: "Welcome to Boklua View Resort in Nan Province, Thailand" }
+  - { id: "jIQNzWjojUw", title: "Boklua View Resort (teaser)" }
 publishDate: 2025-04-25
 featured: false
 legacyPath: "/case-study-boklua-view-resort-video"

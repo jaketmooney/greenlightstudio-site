@@ -27,60 +27,60 @@ const videos = entry.data.videos.map((v) => {
     id: v.id,
     title: v.title ?? k?.title ?? title,
     vertical: v.vertical ?? k?.vertical ?? false,
-    poster: k?.poster,
+    poster: v.poster ?? k?.poster,
     views: k && k.views >= MIN_VIEWS_SHOWN ? k.views : undefined,
   };
 });
 const wide = videos.filter((v) => !v.vertical);
 const tall = videos.filter((v) => v.vertical);
+// The first landscape video leads the page; the rest sit beneath it.
+const [lead, ...more] = wide;
+const podcast = entry.data.podcast;
+const hasVideos = videos.length > 0 || podcast.length > 0;
 ---
 
 <BaseLayout title={`${title} | Green Light Studio`} description={summary}>
-  <article class="mx-auto max-w-3xl px-4 py-16">
-    <p class="font-semibold text-gls-green">{client}</p>
-    <h1 class="mt-2 font-heading text-3xl text-gls-green-dark sm:text-4xl">{title}</h1>
-
-    <Image
-      src={heroImage}
-      alt={heroAlt}
-      width={1200}
-      height={630}
-      class="mt-8 w-full rounded-lg object-cover"
-    />
+  <article class="px-4 py-16">
+    <header class="mx-auto max-w-3xl">
+      <p class="font-semibold text-gls-green">{client}</p>
+      <h1 class="mt-2 font-heading text-3xl text-gls-green-dark sm:text-4xl">{title}</h1>
+    </header>
 
     {
-      results.length > 0 && (
-        <div class="mt-10 grid gap-4 sm:grid-cols-3">
-          {results.map((r) => (
-            <ResultStat value={r.value} label={r.label} delta={r.delta} />
-          ))}
-        </div>
-      )
-    }
-
-    <div class="prose prose-lg mt-10 max-w-none prose-headings:font-heading prose-headings:text-gls-green-dark prose-a:text-gls-green">
-      <Content />
-    </div>
-
-    {
-      videos.length > 0 && (
-        <section class="mt-14">
-          <h2 class="font-heading text-2xl text-gls-green-dark sm:text-3xl">Watch the work</h2>
-          {wide.length > 0 && (
-            <div class="mt-6 grid gap-6 sm:grid-cols-2">
-              {wide.map((v, i) => (
-                <VideoCard
-                  id={v.id}
-                  title={v.title}
-                  views={v.views}
-                  poster={v.poster}
-                  class={wide.length % 2 === 1 && i === wide.length - 1 ? 'sm:col-span-2' : ''}
+      hasVideos && (
+        <section
+          aria-label="Videos we produced"
+          class="mx-auto mt-8 max-w-5xl rounded-2xl bg-gls-green-dark p-4 sm:p-8 [&_lite-youtube]:max-w-none!"
+        >
+          <p class="text-sm font-semibold uppercase tracking-wider text-gls-yellow">
+            {podcast.length > 0 ? 'The podcast we produced' : videos.length > 1 ? 'The videos we produced' : 'The video we produced'}
+          </p>
+          {lead && (
+            <div class="mt-4">
+              <VideoCard id={lead.id} title={lead.title} views={lead.views} poster={lead.poster} hd large />
+            </div>
+          )}
+          {more.length > 0 && (
+            <div class:list={['mt-4 grid gap-4 sm:mt-6 sm:gap-6', more.length === 1 ? '' : more.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3']}>
+              {more.map((v) => (
+                <VideoCard id={v.id} title={v.title} views={v.views} poster={v.poster} />
+              ))}
+            </div>
+          )}
+          {podcast.length > 0 && (
+            <div class="mt-4 grid gap-3 sm:mt-6">
+              {podcast.map((ep) => (
+                <iframe
+                  src={`https://player.rss.com/the-good-governance-podcast/${ep.id}`}
+                  title={ep.title}
+                  loading="lazy"
+                  class="h-[152px] w-full rounded-lg bg-white"
                 />
               ))}
             </div>
           )}
           {tall.length > 0 && (
-            <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div class:list={['mt-4 grid gap-4 sm:mt-6', tall.length === 1 ? 'mx-auto max-w-[14rem] grid-cols-1' : tall.length === 2 ? 'mx-auto max-w-md grid-cols-2' : 'grid-cols-2 sm:grid-cols-3']}>
               {tall.map((v) => (
                 <VideoCard id={v.id} title={v.title} views={v.views} poster={v.poster} vertical />
               ))}
@@ -90,24 +90,52 @@ const tall = videos.filter((v) => v.vertical);
       )
     }
 
-    {
-      services.length > 0 && (
-        <ul class="mt-12 flex flex-wrap gap-2">
-          {services.map((s) => (
-            <li class="rounded-full bg-gls-green/15 px-3 py-1 text-sm">{s}</li>
-          ))}
-        </ul>
-      )
-    }
+    <div class="mx-auto max-w-3xl">
+      {
+        !hasVideos && (
+          <Image
+            src={heroImage}
+            alt={heroAlt}
+            width={1200}
+            height={630}
+            class="mt-8 w-full rounded-lg object-cover"
+          />
+        )
+      }
 
-    <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
-      <a href="/our-work/" class="text-gls-green underline">← All case studies</a>
-      <a
-        href="/#contact-2026"
-        class="inline-block rounded bg-gls-green px-6 py-2 font-semibold text-white transition hover:bg-gls-green-dark"
-      >
-        Let's Chat
-      </a>
+      {
+        results.length > 0 && (
+          <div class="mt-10 grid gap-4 sm:grid-cols-3">
+            {results.map((r) => (
+              <ResultStat value={r.value} label={r.label} delta={r.delta} />
+            ))}
+          </div>
+        )
+      }
+
+      <div class="prose prose-lg mt-10 max-w-none prose-headings:font-heading prose-headings:text-gls-green-dark prose-a:text-gls-green">
+        <Content />
+      </div>
+
+      {
+        services.length > 0 && (
+          <ul class="mt-12 flex flex-wrap gap-2">
+            {services.map((s) => (
+              <li class="rounded-full bg-gls-green/15 px-3 py-1 text-sm">{s}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
+        <a href="/our-work/" class="text-gls-green underline">← All case studies</a>
+        <a
+          href="/#contact-2026"
+          class="inline-block rounded bg-gls-green px-6 py-2 font-semibold text-white transition hover:bg-gls-green-dark"
+        >
+          Let's Chat
+        </a>
+      </div>
     </div>
   </article>
 </BaseLayout>

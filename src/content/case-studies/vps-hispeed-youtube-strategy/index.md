@@ -9,6 +9,9 @@ results:
   - { value: "81,000+", label: "YouTube views" }
 videos:
   - { id: "CXdH5fqfV2M" }
+  - { id: "a7naaceFueY", title: "How to Lower Your Ping for Faster Internet and Smoother Gaming (in Thai)" }
+  - { id: "URvUaZ9XezQ", title: "Can't Open a Website? Blocked? How to Fix It (in Thai)" }
+  - { id: "VGUesj9HYPk", title: "5 Ways to Protect Your VPS From Hackers (in Thai)" }
 publishDate: 2025-06-16
 featured: true
 legacyPath: "/building-a-scalable-youtube-strategy-for-vps-hispeed"

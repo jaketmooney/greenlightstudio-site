@@ -8,6 +8,7 @@ services: ["Marketing Management", "Content Strategy", "Branding", "Video Produc
 results:
   - { value: "81,000+", label: "YouTube views" }
 videos:
+  - { id: "AK9EYreW0Fc", title: "VPS HiSpeed: Premium Hosting in Thailand (product promo, in Thai)" }
   - { id: "443sdalkpfo" }
 publishDate: 2025-05-16
 featured: false

@@ -9,6 +9,10 @@ results:
   - { value: "18K", label: "views on \"Amazing Land of Lanna\" video" }
   - { value: "3.6K", label: "views on \"Dual Tour\" video" }
   - { value: "2.7K", label: "views on \"Charity Ride 2021\" video" }
+videos:
+  - { id: "BE51jepEO_0", title: "Amazing Land of Lanna | 10-Day BMW Motorcycle Tour of Thailand" }
+  - { id: "XWTDq4g9pZE", title: "Dual Tour | Off-Road Motorcycle Tour in Thailand" }
+  - { id: "Wsx06whLwcU", title: "Charity Ride 2021 | Mae Hong Son Loop" }
 publishDate: 2026-02-24
 featured: true
 legacyPath: "/tackling-outdated-marketing-and-budget-constraints-bike-tour-asia-case-study"

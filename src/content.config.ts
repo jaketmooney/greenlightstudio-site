@@ -39,8 +39,14 @@ const caseStudies = defineCollection({
             id: z.string(),
             title: z.string().optional(),
             vertical: z.boolean().optional(),
+            // Local vertical thumbnail for a Short that isn't in src/data/videos.ts.
+            poster: image().optional(),
           })
         )
+        .default([]),
+      // Episodes of the-good-governance-podcast on rss.com, shown as players.
+      podcast: z
+        .array(z.object({ id: z.string(), title: z.string() }))
         .default([]),
       publishDate: z.coerce.date(),
       featured: z.boolean().default(false),

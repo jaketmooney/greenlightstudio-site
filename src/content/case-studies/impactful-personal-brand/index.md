@@ -6,6 +6,17 @@ heroImage: "./d3465fc6.jpg"
 heroAlt: "Building an Impactful Personal Brand"
 services: ["Video Production", "Personal Branding", "Content Strategy"]
 results: []
+videos:
+  - { id: "kMVjAel3xy0", title: "Unlock Your Digital Power with Truly Office: Revolutionizing Data Privacy" }
+  - { id: "x72VaIEssSg", title: "Truly Office: Your Privacy, Our Priority!" }
+  - { id: "_yTZdUe1RPA", title: "Unlock Productivity with Truly Office!" }
+  - { id: "StCoX2uLjwc", title: "Elevate Your Productivity with the Efficiency Revolution" }
+  - { id: "rxItv0kKLTA", title: "Empowering Immigrant Minds in Office Solutions", vertical: true, poster: "./short-rxItv0kKLTA.jpg" }
+  - { id: "Fd3w7yqunbU", title: "Transform Your Workspace: Affordable, Instant, and Upgradable", vertical: true, poster: "./short-Fd3w7yqunbU.jpg" }
+  - { id: "5-YUBop6E3I", title: "Why Choose Truly Office? Document Security Unleashed", vertical: true, poster: "./short-5-YUBop6E3I.jpg" }
+  - { id: "FBRVQhrQriE", title: "Empower Yourself: Data Ownership", vertical: true, poster: "./short-FBRVQhrQriE.jpg" }
+  - { id: "E3JCtW8pDpQ", title: "Lifetime Software Ownership | Break Free from Subscriptions", vertical: true, poster: "./short-E3JCtW8pDpQ.jpg" }
+  - { id: "O5D4RRWQMSw", title: "Business Lessons from the Weightlifting Arena", vertical: true, poster: "./short-O5D4RRWQMSw.jpg" }
 publishDate: 2025-03-29
 featured: false
 legacyPath: "/building-an-impactful-personal-brand"

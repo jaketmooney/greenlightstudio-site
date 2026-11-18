@@ -7,6 +7,8 @@ heroAlt: "Helping VPS HiSpeed Make an Impact at DigiTech 2023"
 services: ["Event Marketing", "Video Production", "Graphic Design"]
 results:
   - { value: "81,000+", label: "YouTube channel views" }
+videos:
+  - { id: "Ntr_BXj6E74", title: "VPS HiSpeed at Digitech Asean 2023" }
 publishDate: 2025-06-04
 featured: false
 legacyPath: "/case-study-helping-vps-hispeed-make-an-impact-at-digitech-2023"

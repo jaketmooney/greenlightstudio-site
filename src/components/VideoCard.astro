@@ -19,9 +19,11 @@ interface Props {
   note?: string;
   /** Larger title for the wider cards. */
   large?: boolean;
+  /** 1280px YouTube thumbnail, for a card shown big. Not needed when `poster` is set. */
+  hd?: boolean;
   class?: string;
 }
-const { id, title, label, views, poster, note, vertical = false, large = false, class: className } =
+const { id, title, label, views, poster, note, vertical = false, large = false, hd = false, class: className } =
   Astro.props;
 const posterUrl = poster
   ? (await getImage({ src: poster, width: Math.min(vertical ? 480 : 800, poster.width), format: 'webp' })).src
@@ -29,7 +31,7 @@ const posterUrl = poster
 ---
 
 <article data-reveal class:list={['flex flex-col overflow-hidden rounded-lg bg-white shadow transition hover:shadow-xl motion-safe:hover:-translate-y-1', className]}>
-  <YouTube id={id} title={title} poster={posterUrl} vertical={vertical} />
+  <YouTube id={id} title={title} poster={posterUrl} vertical={vertical} hd={hd} />
   <div class:list={['flex flex-1 flex-col', vertical ? 'p-4' : 'p-5']}>
     {
       (label || views !== undefined) && (

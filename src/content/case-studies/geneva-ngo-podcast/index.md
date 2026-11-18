@@ -6,6 +6,12 @@ heroImage: "./5b3cbd70.jpg"
 heroAlt: "Interviewing World Leaders for a Credible Podcast"
 services: ["Podcast Production", "Content Strategy", "Branding"]
 results: []
+podcast:
+  - { id: "2159928", title: "Prince Nikolaus von Liechtenstein: Negotiation, Humility, and Longevity" }
+  - { id: "2159932", title: "Dr. Henry Deneen: Why Emotional Intelligence is a Core Competency for Today's Government Leaders" }
+  - { id: "2159933", title: "Mark Finlay: Rebuilding Belfast after the Conflict" }
+  - { id: "2159938", title: "Anne Hornung-Soukup, Part 1: The Economic Case for Public Transportation Investment" }
+  - { id: "2159939", title: "Anne Hornung-Soukup, Part 2: How Public Transportation Elevates Social Wellbeing" }
 publishDate: 2025-11-30
 featured: false
 legacyPath: "/case-studies/why-a-geneva-ngo-interviewing-world-leaders-didnt-need-a-studio-for-a-credible-podcast"
